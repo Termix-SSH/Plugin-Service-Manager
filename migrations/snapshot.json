@@ -1,7 +1,7 @@
 {
   "version": 1,
   "tables": {
-    "notes": {
+    "watches": {
       "columns": {
         "id": {
           "type": "id",
@@ -13,8 +13,13 @@
           "length": 255,
           "notNull": true
         },
-        "text": {
-          "type": "text",
+        "hostId": {
+          "type": "refHost",
+          "notNull": true
+        },
+        "unit": {
+          "type": "varchar",
+          "length": 255,
           "notNull": true
         },
         "createdAt": {
@@ -25,8 +30,19 @@
       },
       "indexes": [
         {
-          "name": "idx_p_hello_world_notes_user_id",
-          "columns": ["userId"]
+          "name": "idx_p_service_manager_watches_user_host_unit",
+          "columns": [
+            "userId",
+            "hostId",
+            "unit"
+          ],
+          "unique": true
+        },
+        {
+          "name": "idx_p_service_manager_watches_host",
+          "columns": [
+            "hostId"
+          ]
         }
       ]
     }

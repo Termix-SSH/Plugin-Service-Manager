@@ -1,4 +1,4 @@
-# Contributing to Hello World
+# Contributing to Services
 
 ## Development
 
@@ -7,7 +7,6 @@ npm run build      # build into dist/
 npm run test       # run this plugin's tests
 npm run typecheck  # type-check this plugin
 npm run validate   # check manifest.json
-npm run migrations # write migrations after changing src/backend/tables.ts
 npm run pack       # pack dist/ into a .tmxplug
 npm run format     # format the code with Prettier
 ```

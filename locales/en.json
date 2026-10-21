@@ -1,27 +1,321 @@
 {
   "plugin": {
-    "name": "Hello World",
-    "description": "A minimal Termix plugin: one tab, one route, one setting and one table."
-  },
-  "tab": {
-    "title": "Hello World",
-    "empty": "No notes yet.",
-    "placeholder": "Write a note",
-    "add": "Add",
-    "error": "Could not load or save notes."
+    "name": "Services",
+    "description": "Manage services, timers and logs on your hosts over SSH."
   },
   "permissions": {
     "use": {
-      "title": "Use Hello World",
-      "description": "Open the Hello World tab and keep notes in it."
+      "title": "Use Services",
+      "description": "Open the Services tab on hosts you can reach. Changes also need edit access to the host."
     }
   },
   "settings": {
-    "admin": {
-      "greeting": {
-        "label": "Greeting",
-        "description": "Shown at the top of the Hello World tab."
+    "host": {
+      "enable": {
+        "label": "Services",
+        "description": "Show the Services tab for this host to manage systemd services, timers and logs."
+      },
+      "useSudo": {
+        "label": "Use sudo",
+        "description": "Run changes and protected reads with passwordless sudo when the login is not root."
+      },
+      "readOnly": {
+        "label": "Read only",
+        "description": "Allow reading services and logs, but block every change from Termix."
+      },
+      "logPaths": {
+        "label": "Log folders",
+        "description": "Folders the Log files view may read, separated by commas.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel beside the terminal",
+        "description": "Offer a services panel next to this host's SSH terminal."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Open the services panel with a terminal",
+        "description": "Show the services panel when a terminal opens on a host that has it."
+      },
+      "companionSide": {
+        "label": "Services panel side",
+        "description": "Where the panel sits next to the terminal.",
+        "right": "Right",
+        "left": "Left",
+        "bottom": "Bottom"
+      },
+      "companionSize": {
+        "label": "Services panel size",
+        "description": "Width, or height at the bottom, in pixels."
+      },
+      "companionEdgeButton": {
+        "label": "Services panel edge button",
+        "description": "Show a small button on the terminal edge to open the panel."
       }
     }
+  },
+  "common": {
+    "back": "Back"
+  },
+  "tab": {
+    "title": "Services",
+    "noHost": "Pick a host to manage its services.",
+    "loading": "Loading...",
+    "refresh": "Refresh",
+    "error": "Could not read services on this host.",
+    "disabled": "Services is not turned on for this host. Turn it on in the host settings.",
+    "sudo": "Changes need a root login or passwordless sudo. Run sudo -n true on the host to check.",
+    "noInit": "No init system found",
+    "noInitHint": "This host has no systemd or OpenRC that Termix can use. Log files still work.",
+    "readOnly": "Read only",
+    "failedCount_one": "{{count}} failed",
+    "failedCount_other": "{{count}} failed",
+    "viewServices": "Services",
+    "viewTimers": "Timers",
+    "viewJournal": "Journal",
+    "viewFiles": "Log files"
+  },
+  "units": {
+    "search": "Search services",
+    "type": "Unit type",
+    "empty": "No units match.",
+    "loadFailed": "Could not list the units.",
+    "confirmStop": "Stop {{unit}}?",
+    "confirmStopDesc": "Anything that needs it may stop working until it starts again.",
+    "filters": {
+      "all": "All",
+      "running": "Running",
+      "failed": "Failed",
+      "stopped": "Stopped",
+      "enabled": "Start at boot"
+    },
+    "types": {
+      "service": "Services",
+      "socket": "Sockets",
+      "timer": "Timers",
+      "target": "Targets",
+      "path": "Paths",
+      "mount": "Mounts"
+    }
+  },
+  "actions": {
+    "start": "Start",
+    "stop": "Stop",
+    "restart": "Restart",
+    "reload": "Reload",
+    "enable": "Start at boot",
+    "disable": "Don't start at boot",
+    "enable-now": "Turn on",
+    "disable-now": "Turn off",
+    "mask": "Mask",
+    "unmask": "Unmask",
+    "reset-failed": "Clear failed",
+    "revert": "Revert",
+    "failed": "That did not work.",
+    "confirm": {
+      "stop": "Stop {{unit}}?",
+      "disable": "Stop starting {{unit}} at boot?",
+      "disable-now": "Turn off {{unit}}?",
+      "mask": "Mask {{unit}}?",
+      "revert": "Revert {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Anything that needs it may stop working until it starts again.",
+      "disable": "It keeps running now, but won't start after a reboot.",
+      "disable-now": "It stops now and won't start after a reboot.",
+      "mask": "A masked unit can't be started at all, by hand or by other units, until you unmask it.",
+      "revert": "This removes drop-ins and local copies of the unit, and puts back the version from the package."
+    },
+    "done": {
+      "start": "Started {{unit}}",
+      "stop": "Stopped {{unit}}",
+      "restart": "Restarted {{unit}}",
+      "reload": "Reloaded {{unit}}",
+      "enable": "{{unit}} starts at boot",
+      "disable": "{{unit}} won't start at boot",
+      "enable-now": "Turned on {{unit}}",
+      "disable-now": "Turned off {{unit}}",
+      "mask": "Masked {{unit}}",
+      "unmask": "Unmasked {{unit}}",
+      "reset-failed": "Cleared the failed state of {{unit}}",
+      "revert": "Reverted {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Alert me when it fails",
+    "stop": "Stop alerts",
+    "badge": "Watched",
+    "on": "You will get an alert when {{unit}} fails",
+    "off": "No more alerts for {{unit}}",
+    "failed": "Could not change the alert."
+  },
+  "detail": {
+    "loadFailed": "Could not read this unit.",
+    "editFile": "Edit unit",
+    "description": "Description",
+    "since": "Running since",
+    "result": "Result",
+    "pid": "Main PID",
+    "memory": "Memory",
+    "peak": "peak",
+    "cpu": "CPU time",
+    "tasks": "Tasks",
+    "restarts": "Restarts",
+    "type": "Type",
+    "user": "User",
+    "file": "Unit file",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Started by",
+    "triggers": "Starts",
+    "wantedBy": "Wanted by",
+    "requires": "Requires",
+    "after": "After",
+    "statusText": "systemctl status",
+    "log": "Recent log"
+  },
+  "editor": {
+    "loadFailed": "Could not read the unit file.",
+    "override": "Override",
+    "fullFile": "Full file",
+    "overrideHint": "An override is a drop-in file that changes only the lines you put here. Updates to the package keep working. Leave it empty and save to remove it.",
+    "overrideTemplate": "Lines here add to or replace the unit's own settings",
+    "localHint": "This unit file lives in /etc/systemd/system, so it is yours to edit.",
+    "vendorHint": "This unit comes from a package ({{path}}). Saving the full file puts a copy in /etc/systemd/system that wins over it. Revert removes the copy again.",
+    "notWritable": "Files can't be written for this kind of unit.",
+    "check": "Check",
+    "checking": "Checking...",
+    "checkOk": "The check passed.",
+    "checkBad": "The check found problems.",
+    "checkFailed": "Could not run the check.",
+    "save": "Check and save",
+    "saved": "Saved {{unit}} and reloaded systemd",
+    "saveFailed": "Not saved. The check failed or the file could not be written.",
+    "combined": "Everything systemd reads for this unit",
+    "delete": "Delete unit",
+    "deleteTitle": "Delete {{unit}}?",
+    "deleteDesc": "It stops, won't start at boot, and its file and drop-ins are removed.",
+    "deleted": "Deleted {{unit}}",
+    "deleteFailed": "Could not delete the unit."
+  },
+  "create": {
+    "add": "New service",
+    "title": "New service",
+    "name": "Name",
+    "nameHint": "Saved as name.service in /etc/systemd/system.",
+    "description": "Description",
+    "descriptionPlaceholder": "What it does",
+    "command": "Command",
+    "commandHint": "The full path to the program, then its arguments.",
+    "user": "Run as user",
+    "group": "Group",
+    "folder": "Working folder",
+    "environment": "Environment",
+    "environmentHint": "One NAME=value per line.",
+    "timer": "Run on a schedule",
+    "timerHint": "Make a timer that runs the command at set times instead of keeping it running.",
+    "schedule": "Schedule",
+    "scheduleHint": "An OnCalendar value, like daily, hourly or Mon *-*-* 03:00:00.",
+    "type": "Type",
+    "types": {
+      "simple": "Simple, keeps running",
+      "exec": "Exec, keeps running",
+      "forking": "Forking, starts in the background",
+      "oneshot": "One shot, runs and exits",
+      "notify": "Notify, tells systemd when ready"
+    },
+    "restart": "Restart",
+    "restarts": {
+      "on-failure": "When it fails",
+      "always": "Always",
+      "on-abnormal": "When it crashes",
+      "no": "Never"
+    },
+    "restartSec": "Wait before restart (seconds)",
+    "after": "Start after",
+    "afterHint": "Units to wait for, separated by spaces.",
+    "enable": "Start at boot",
+    "enableHint": "For a schedule this turns on the timer.",
+    "start": "Start now",
+    "save": "Create",
+    "done": "Created {{unit}}",
+    "failed": "Could not create the service."
+  },
+  "timers": {
+    "search": "Search timers",
+    "empty": "No timers.",
+    "loadFailed": "Could not list the timers.",
+    "next": "Next {{when}} (in {{left}})",
+    "noNext": "Nothing planned",
+    "last": "last {{when}} ({{ago}} ago)",
+    "neverRan": "never ran",
+    "runNow": "Run now",
+    "ran": "Started {{unit}}",
+    "turnOn": "Turn on",
+    "turnOff": "Turn off"
+  },
+  "journal": {
+    "unit": "Units",
+    "unitPlaceholder": "All units, or nginx.service",
+    "search": "Search",
+    "searchPlaceholder": "Search text",
+    "priority": "Priority",
+    "anyPriority": "Any priority",
+    "priorityUpTo": "{{name}} and worse",
+    "since": "Since",
+    "sinceOptions": {
+      "-15min": "Last 15 minutes",
+      "-1h": "Last hour",
+      "-6h": "Last 6 hours",
+      "today": "Today",
+      "-24h": "Last 24 hours",
+      "-7d": "Last 7 days",
+      "any": "Any time"
+    },
+    "boot": "Boot",
+    "anyBoot": "Any boot",
+    "thisBoot": "This boot",
+    "lines": "Lines",
+    "lineCount_one": "{{count}} line",
+    "lineCount_other": "{{count}} lines",
+    "kernel": "Kernel only",
+    "follow": "Follow",
+    "following": "Following",
+    "pause": "Pause",
+    "resume": "Resume",
+    "clear": "Clear",
+    "download": "Download",
+    "connecting": "Connecting...",
+    "ended": "Stream ended",
+    "shown_one": "{{count}} entry",
+    "shown_other": "{{count}} entries",
+    "usage": "Journal uses {{size}}",
+    "vacuum": "Free space",
+    "vacuumTitle": "Remove old journal files?",
+    "vacuumDesc": "Journal entries older than 4 weeks are deleted from the host.",
+    "vacuumDone": "Journal now uses {{size}}",
+    "vacuumFailed": "Could not free space.",
+    "empty": "No entries.",
+    "loadFailed": "Could not read the journal."
+  },
+  "files": {
+    "filter": "Filter files",
+    "roots": "From {{roots}}. Change the folders in the host settings.",
+    "showRotated": "Show old copies",
+    "empty": "No log files found.",
+    "loadFailed": "Could not list the log files.",
+    "search": "Search",
+    "searchPlaceholder": "Search text",
+    "download": "Download",
+    "downloadFailed": "Could not download the file.",
+    "readFailed": "Could not read the file.",
+    "noLines": "No lines."
+  },
+  "logs": {
+    "empty": "Nothing here yet."
+  },
+  "companion": {
+    "openTab": "Open the Services tab",
+    "toggle": "Services panel"
   }
 }

@@ -1,24 +1,33 @@
 import {
   defineTable,
   id,
+  refHost,
   refUser,
-  text,
   timestamp,
+  varchar,
 } from "@termix-ssh/plugin-sdk/db";
 
-// Stored as p_hello_world_notes. The prefix comes from the plugin id.
-export const notes = defineTable(
-  "notes",
+/** Units a user wants an alert for when they fail. */
+export const watches = defineTable(
+  "watches",
   {
     id: id(),
     userId: refUser(),
-    text: text().notNull(),
+    hostId: refHost(),
+    unit: varchar(255).notNull(),
     createdAt: timestamp().notNull().defaultNow(),
   },
   {
-    indexes: [{ name: "idx_p_hello_world_notes_user_id", columns: ["userId"] }],
+    uniques: [
+      {
+        name: "idx_p_service_manager_watches_user_host_unit",
+        columns: ["userId", "hostId", "unit"],
+      },
+    ],
+    indexes: [
+      { name: "idx_p_service_manager_watches_host", columns: ["hostId"] },
+    ],
   },
 );
 
-// termix-plugin migrations reads this list.
-export const tables = [notes];
+export const tables = [watches];

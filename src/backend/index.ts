@@ -1,13 +1,32 @@
 import type { Router } from "express";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
-import { notes } from "./tables.js";
+import { registerFollow } from "./follow.js";
+import { createManager } from "./manager.js";
+import { createRemote } from "./remote.js";
 import { registerRoutes } from "./routes.js";
+import { watches } from "./tables.js";
+import {
+  WatchChecker,
+  createWatchAlerts,
+  createWatchStore,
+} from "./watches.js";
 
 export async function activate(ctx: PluginContext) {
-  const notesTable = await ctx.db.define(notes);
-  registerRoutes(ctx.http.router<Router>(), ctx, notesTable);
+  const remote = createRemote(ctx);
+  const store = createWatchStore(ctx, await ctx.db.define(watches));
+  const checker = new WatchChecker(ctx, store, remote, createWatchAlerts(ctx));
+  checker.start();
+  ctx.disposables.add(() => checker.dispose());
+
+  registerRoutes(ctx.http.router<Router>(), ctx, {
+    manager: createManager(remote),
+    watches: store,
+    checker,
+  });
+  registerFollow(ctx);
+  ctx.log.info("Services routes mounted at /plugin-api/service-manager");
 }
 
 export async function deactivate() {
-  // Everything registered through ctx is disposed by core.
+  // Everything above was registered through ctx and is disposed by core.
 }

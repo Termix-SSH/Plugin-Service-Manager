@@ -1,116 +1,84 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { ServerCog } from "lucide-react";
+import type { TermixApp } from "@termix-ssh/plugin-sdk/frontend";
+import { initApi } from "./api";
 import {
-  useTranslation,
-  type TabProps,
-  type TermixApp,
-} from "@termix-ssh/plugin-sdk/frontend";
+  ServicesCompanion,
+  useServicesCompanionDefaults,
+} from "./ServicesCompanion";
+import { ServicesTab } from "./ServicesTab";
 
-const TAB_ID = "hello-world";
+const TAB_ID = "service-manager";
 
-interface Note {
-  id: number;
-  text: string;
-  createdAt: string;
+function settingsOf(host: object | null | undefined) {
+  const all = (host as { pluginSettings?: unknown } | null | undefined)
+    ?.pluginSettings as
+    Record<string, Record<string, unknown> | undefined> | undefined;
+  return all?.[TAB_ID];
 }
 
-function HandIcon(props: { className?: string }) {
-  return (
-    <svg
-      {...props}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8" />
-      <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15" />
-    </svg>
-  );
+export function servicesEnabled(host: object | null | undefined): boolean {
+  return settingsOf(host)?.enableServices === true;
 }
 
-function createTab(app: TermixApp) {
-  return function HelloWorldTab({ isVisible }: TabProps) {
-    const { t } = useTranslation();
-    const [greeting, setGreeting] = useState("");
-    const [notes, setNotes] = useState<Note[]>([]);
-    const [draft, setDraft] = useState("");
-    const [failed, setFailed] = useState(false);
-
-    const load = async () => {
-      try {
-        const { data } = await app.api.get<{ greeting: string; notes: Note[] }>(
-          "/notes",
-        );
-        setGreeting(data.greeting);
-        setNotes(data.notes);
-        setFailed(false);
-      } catch {
-        setFailed(true);
-      }
-    };
-
-    useEffect(() => {
-      if (isVisible) void load();
-    }, [isVisible]);
-
-    const add = async (event: FormEvent) => {
-      event.preventDefault();
-      if (!draft.trim()) return;
-      try {
-        await app.api.post("/notes", { text: draft });
-        setDraft("");
-      } catch {
-        setFailed(true);
-        return;
-      }
-      await load();
-    };
-
-    return (
-      <div className="flex flex-col gap-4 p-4">
-        <h2 className="text-lg font-semibold">{greeting}</h2>
-        <form onSubmit={add} className="flex gap-2">
-          <input
-            className="flex-1 border border-border bg-transparent px-2 py-1"
-            value={draft}
-            placeholder={t("tab.placeholder")}
-            onChange={(event) => setDraft(event.target.value)}
-          />
-          <button type="submit" className="border border-border px-3 py-1">
-            {t("tab.add")}
-          </button>
-        </form>
-        {failed && <p className="text-sm text-destructive">{t("tab.error")}</p>}
-        {notes.length === 0 ? (
-          <p className="text-sm text-muted-foreground">{t("tab.empty")}</p>
-        ) : (
-          <ul className="flex flex-col gap-1">
-            {notes.map((note) => (
-              <li key={note.id} className="border-b border-border py-1">
-                {note.text}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    );
-  };
+export function servicesPanelEnabled(host: object | null | undefined): boolean {
+  return servicesEnabled(host) && settingsOf(host)?.showPanel !== false;
 }
 
 export function activate(app: TermixApp): void {
-  app.registerRailItem({
-    id: TAB_ID,
-    icon: HandIcon,
-    titleKey: "tab.title",
-    kind: "tab",
-    permission: "use",
+  initApi(app.api);
+  // Host actions filter synchronously, so the permission is read once here.
+  let canUse = true;
+  void app.hasPermission("use").then((allowed) => {
+    canUse = allowed;
   });
-  app.registerTab(TAB_ID, createTab(app), {
-    icon: HandIcon,
+
+  app.registerTab(TAB_ID, ServicesTab, {
+    icon: ServerCog,
     titleKey: "tab.title",
-    singleton: true,
-    hostless: true,
+    requiresHost: true,
+    noHostMessageKey: "tab.noHost",
+    persistent: true,
+  });
+  app.registerHostAction({
+    id: TAB_ID,
+    titleKey: "tab.title",
+    icon: ServerCog,
+    kind: "open",
+    order: 47,
+    tabType: TAB_ID,
+    when: (host) => canUse && !!host.enableSsh && servicesEnabled(host),
+  });
+
+  app.registerCompanion("service-manager", ServicesCompanion, {
+    icon: ServerCog,
+    titleKey: "tab.title",
+    order: 40,
+    tabTypes: ["terminal"],
+    when: (_tab, host) =>
+      canUse && !!host?.enableSsh && servicesPanelEnabled(host),
+    useDefaults: useServicesCompanionDefaults,
+  });
+
+  app.registerAction("service-manager.togglePanel", ((
+    _handle: unknown,
+    tab: unknown,
+  ) => app.toggleCompanion(tab as never, "service-manager")) as never);
+  app.registerSlotContribution("tab.menu", {
+    actionId: "service-manager.togglePanel",
+    titleKey: "companion.toggle",
+    icon: ServerCog,
+    kind: "button",
+    order: 8,
+    when: (context) => {
+      const tab = context.tab as {
+        type?: string;
+        host?: unknown;
+        hostConfig?: unknown;
+      } | null;
+      return (
+        tab?.type === "terminal" &&
+        servicesPanelEnabled((tab.host ?? tab.hostConfig) as object)
+      );
+    },
   });
 }

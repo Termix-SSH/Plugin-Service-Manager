@@ -1,34 +1,51 @@
 {
-  "id": "hello-world",
-  "name": "Hello World",
+  "id": "service-manager",
+  "name": "Services",
   "version": "1.0.0",
-  "description": "A minimal Termix plugin: one tab, one route, one setting and one table.",
+  "description": "Manage services, timers and logs on your hosts over SSH.",
   "author": {
-    "name": "Your Name"
+    "name": "Termix"
   },
   "license": "Apache-2.0",
-  "repository": "https://github.com/your-org/termix-plugin-hello-world",
-  "docs": "https://github.com/your-org/termix-plugin-hello-world/tree/main/docs",
-  "category": "Productivity",
-  "icon": "Hand",
+  "repository": "https://github.com/Termix-SSH/Plugin-Service-Manager",
+  "docs": "https://docs.termix.site/plugins/service-manager",
+  "category": "Infrastructure",
+  "icon": "ServerCog",
   "features": [
-    "A tab opened from the sidebar",
-    "An admin setting",
-    "A table of greetings"
+    "List systemd services, sockets, targets and timers with their state",
+    "Start, stop, restart, reload, enable, disable and mask units",
+    "Unit details with memory, CPU, tasks, uptime and restarts",
+    "Edit unit files and overrides, checked with systemd-analyze before saving",
+    "Create a new service from a simple form",
+    "Timers with the last and next run, and run now",
+    "Read the journal by unit, priority, time, boot and text, and follow it live",
+    "Browse, search, follow and download log files in /var/log",
+    "Get an alert when a watched service fails, and when it is back",
+    "A services panel beside any SSH terminal",
+    "Basic OpenRC support for list, start, stop and boot"
   ],
   "env": [],
   "engine": {
-    "termix": ">=26.10.0",
-    "api": "^1.2"
+    "termix": ">=26.10.3",
+    "api": "^1.9"
   },
-  "capabilities": ["db:own", "network:serve", "ui:surface"],
+  "capabilities": [
+    "hosts:read",
+    "credentials:use",
+    "ssh:connect",
+    "network:serve",
+    "db:own",
+    "notify:send",
+    "users:impersonate",
+    "ui:surface"
+  ],
   "contributes": {
     "tabs": [
       {
-        "id": "hello-world",
+        "id": "service-manager",
         "titleKey": "tab.title",
-        "icon": "Hand",
-        "openFrom": ["rail"]
+        "icon": "ServerCog",
+        "openFrom": ["host-context-menu", "palette"]
       }
     ],
     "permissions": [
@@ -40,13 +57,92 @@
       }
     ],
     "settings": {
-      "admin": [
+      "host": {
+        "enableKey": "enableServices",
+        "enableLabelKey": "settings.host.enable.label",
+        "enableDescriptionKey": "settings.host.enable.description",
+        "enableDefault": false,
+        "editorGroup": "ssh",
+        "fields": [
+          {
+            "key": "useSudo",
+            "type": "boolean",
+            "labelKey": "settings.host.useSudo.label",
+            "descriptionKey": "settings.host.useSudo.description",
+            "default": true,
+            "requires": "enableServices"
+          },
+          {
+            "key": "readOnly",
+            "type": "boolean",
+            "labelKey": "settings.host.readOnly.label",
+            "descriptionKey": "settings.host.readOnly.description",
+            "default": false,
+            "requires": "enableServices"
+          },
+          {
+            "key": "logPaths",
+            "type": "string",
+            "labelKey": "settings.host.logPaths.label",
+            "descriptionKey": "settings.host.logPaths.description",
+            "placeholderKey": "settings.host.logPaths.placeholder",
+            "default": "/var/log",
+            "requires": "enableServices"
+          },
+          {
+            "key": "showPanel",
+            "type": "boolean",
+            "labelKey": "settings.host.showPanel.label",
+            "descriptionKey": "settings.host.showPanel.description",
+            "default": true,
+            "requires": "enableServices"
+          }
+        ]
+      },
+      "user": [
         {
-          "key": "greeting",
-          "type": "string",
-          "labelKey": "settings.admin.greeting.label",
-          "descriptionKey": "settings.admin.greeting.description",
-          "default": "Hello"
+          "key": "companionAutoOpen",
+          "type": "boolean",
+          "labelKey": "settings.user.companionAutoOpen.label",
+          "descriptionKey": "settings.user.companionAutoOpen.description",
+          "default": false
+        },
+        {
+          "key": "companionSide",
+          "type": "select",
+          "labelKey": "settings.user.companionSide.label",
+          "descriptionKey": "settings.user.companionSide.description",
+          "default": "right",
+          "options": [
+            {
+              "value": "right",
+              "labelKey": "settings.user.companionSide.right"
+            },
+            {
+              "value": "left",
+              "labelKey": "settings.user.companionSide.left"
+            },
+            {
+              "value": "bottom",
+              "labelKey": "settings.user.companionSide.bottom"
+            }
+          ]
+        },
+        {
+          "key": "companionSize",
+          "type": "number",
+          "labelKey": "settings.user.companionSize.label",
+          "descriptionKey": "settings.user.companionSize.description",
+          "min": 240,
+          "max": 900,
+          "default": 360
+        },
+        {
+          "key": "companionEdgeButton",
+          "type": "boolean",
+          "labelKey": "settings.user.companionEdgeButton.label",
+          "descriptionKey": "settings.user.companionEdgeButton.description",
+          "default": true
         }
       ]
     }
