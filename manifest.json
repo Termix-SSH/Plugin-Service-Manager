@@ -9,6 +9,7 @@
   "license": "Apache-2.0",
   "repository": "https://github.com/Termix-SSH/Plugin-Service-Manager",
   "docs": "https://docs.termix.site/plugins/service-manager",
+  "video": "https://www.youtube.com/watch?v=uVoLykPpvWk",
   "category": "Infrastructure",
   "icon": "ServerCog",
   "features": [

@@ -6,6 +6,12 @@
 
 <p>Manage services, timers and logs on your hosts over SSH</p>
 
+<!-- VIDEO:START -->
+
+<a href="https://www.youtube.com/watch?v=uVoLykPpvWk"><img src="https://img.shields.io/badge/Watch_the_demo-f59145?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch the demo on YouTube" /></a>
+
+<!-- VIDEO:END -->
+
 </div>
 
 <br />
