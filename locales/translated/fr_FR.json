@@ -1,0 +1,324 @@
+{
+  "plugin": {
+    "name": "Services",
+    "description": "Gérez les services, minuteries et journaux sur vos hôtes via SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Utiliser les services",
+      "description": "Ouvrez l’onglet Services sur les hôtes auxquels vous pouvez accéder. Les modifications nécessitent également un accès en écriture à l’hôte."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Services",
+        "description": "Affiche l’onglet Services pour cet hôte afin de gérer les services systemd, les minuteries et les journaux."
+      },
+      "useSudo": {
+        "label": "Utiliser sudo",
+        "description": "Exécute les modifications et les lectures protégées avec sudo sans mot de passe lorsque la connexion n’est pas root."
+      },
+      "readOnly": {
+        "label": "Lecture seule",
+        "description": "Autorise la lecture des services et des journaux, mais bloque toute modification depuis Termix."
+      },
+      "logPaths": {
+        "label": "Dossiers de journaux",
+        "description": "Dossiers que la vue des fichiers journaux peut lire, séparés par des virgules.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panneau à côté du terminal",
+        "description": "Afficher un panneau de services à côté du terminal SSH de cet hôte."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Ouvrir le panneau de services avec un terminal",
+        "description": "Afficher le panneau de services lorsqu'un terminal s'ouvre sur un hôte qui en dispose."
+      },
+      "companionSide": {
+        "label": "Position du panneau de services",
+        "description": "Emplacement du panneau par rapport au terminal.",
+        "right": "Droite",
+        "left": "Gauche",
+        "bottom": "Bas"
+      },
+      "companionSize": {
+        "label": "Taille du panneau Services",
+        "description": "Largeur, ou hauteur en bas, en pixels."
+      },
+      "companionEdgeButton": {
+        "label": "Bouton latéral du panneau Services",
+        "description": "Afficher un petit bouton sur le bord du terminal pour ouvrir le panneau."
+      }
+    }
+  },
+  "common": {
+    "back": "Retour"
+  },
+  "tab": {
+    "title": "Services",
+    "noHost": "Sélectionnez un hôte pour gérer ses services.",
+    "loading": "Chargement...",
+    "refresh": "Actualiser",
+    "error": "Impossible de lire les services sur cet hôte.",
+    "disabled": "Les services ne sont pas activés pour cet hôte. Activez-les dans les paramètres de l'hôte.",
+    "sudo": "Les modifications nécessitent une connexion root ou un sudo sans mot de passe. Exécutez sudo -n true sur l'hôte pour vérifier.",
+    "noInit": "Aucun système d'initialisation trouvé",
+    "noInitHint": "Cet hôte ne dispose ni de systemd ni d'OpenRC que Termix puisse utiliser. Les journaux fonctionnent toujours.",
+    "readOnly": "Lecture seule",
+    "failedCount_one": "{{count}} échec",
+    "failedCount_many": "{{count}} échecs",
+    "failedCount_other": "{{count}} échecs",
+    "viewServices": "Services",
+    "viewTimers": "Minuteries",
+    "viewJournal": "Journal",
+    "viewFiles": "Fichiers journaux"
+  },
+  "units": {
+    "search": "Rechercher des services",
+    "type": "Type d'unité",
+    "empty": "Aucune unité ne correspond.",
+    "loadFailed": "Impossible de lister les unités.",
+    "confirmStop": "Arrêter {{unit}} ?",
+    "confirmStopDesc": "Tout ce qui en dépend pourrait cesser de fonctionner jusqu'à ce qu'il redémarre.",
+    "filters": {
+      "all": "Tous",
+      "running": "En cours",
+      "failed": "Échoué",
+      "stopped": "Arrêté",
+      "enabled": "Démarrer au démarrage"
+    },
+    "types": {
+      "service": "Services",
+      "socket": "Sockets",
+      "timer": "Minuteries",
+      "target": "Cibles",
+      "path": "Chemins",
+      "mount": "Points de montage"
+    }
+  },
+  "actions": {
+    "start": "Démarrer",
+    "stop": "Arrêter",
+    "restart": "Redémarrer",
+    "reload": "Recharger",
+    "enable": "Démarrer au démarrage",
+    "disable": "Ne pas démarrer au démarrage",
+    "enable-now": "Activer",
+    "disable-now": "Désactiver",
+    "mask": "Masquer",
+    "unmask": "Démasquer",
+    "reset-failed": "Effacer l'état d'échec",
+    "revert": "Rétablir",
+    "failed": "Cela n'a pas fonctionné.",
+    "confirm": {
+      "stop": "Arrêter {{unit}} ?",
+      "disable": "Ne plus démarrer {{unit}} au démarrage ?",
+      "disable-now": "Désactiver {{unit}} ?",
+      "mask": "Masquer {{unit}} ?",
+      "revert": "Rétablir {{unit}} ?"
+    },
+    "confirmDesc": {
+      "stop": "Tout ce qui en dépend peut cesser de fonctionner jusqu'à ce qu'il redémarre.",
+      "disable": "Il continue de fonctionner pour l'instant, mais ne démarrera pas après un redémarrage.",
+      "disable-now": "Il s'arrête maintenant et ne démarrera pas après un redémarrage.",
+      "mask": "Une unité masquée ne peut pas être démarrée, manuellement ou par d'autres unités, jusqu'à ce que vous la démasquiez.",
+      "revert": "Cela supprime les fichiers de configuration locaux et les copies locales de l'unité, et restaure la version du package."
+    },
+    "done": {
+      "start": "{{unit}} démarré",
+      "stop": "{{unit}} arrêté",
+      "restart": "{{unit}} redémarré",
+      "reload": "{{unit}} rechargé",
+      "enable": "{{unit}} démarre au démarrage",
+      "disable": "{{unit}} ne démarrera pas au démarrage",
+      "enable-now": "{{unit}} activé",
+      "disable-now": "{{unit}} désactivé",
+      "mask": "{{unit}} masqué",
+      "unmask": "{{unit}} démasqué",
+      "reset-failed": "État d'échec de {{unit}} effacé",
+      "revert": "{{unit}} rétabli"
+    }
+  },
+  "watch": {
+    "start": "M'avertir en cas d'échec",
+    "stop": "Arrêter les alertes",
+    "badge": "Surveillé",
+    "on": "Vous recevrez une alerte si {{unit}} échoue",
+    "off": "Plus d'alertes pour {{unit}}",
+    "failed": "Impossible de modifier l'alerte."
+  },
+  "detail": {
+    "loadFailed": "Impossible de lire cette unité.",
+    "editFile": "Modifier l'unité",
+    "description": "Description",
+    "since": "En cours d'exécution depuis",
+    "result": "Résultat",
+    "pid": "PID principal",
+    "memory": "Mémoire",
+    "peak": "pic",
+    "cpu": "Temps CPU",
+    "tasks": "Tâches",
+    "restarts": "Redémarrages",
+    "type": "Type",
+    "user": "Utilisateur",
+    "file": "Fichier d'unité",
+    "dropIns": "Fichiers de configuration locaux",
+    "triggeredBy": "Démarré par",
+    "triggers": "Démarre",
+    "wantedBy": "Requis par",
+    "requires": "Requiert",
+    "after": "Après",
+    "statusText": "systemctl status",
+    "log": "Journal récent"
+  },
+  "editor": {
+    "loadFailed": "Impossible de lire le fichier d'unité.",
+    "override": "Remplacer",
+    "fullFile": "Fichier complet",
+    "overrideHint": "Un remplacement est un fichier « drop-in » qui modifie uniquement les lignes que vous y ajoutez. Les mises à jour du paquet continuent de fonctionner. Laissez-le vide et enregistrez pour le supprimer.",
+    "overrideTemplate": "Les lignes ici ajoutent ou remplacent les paramètres de l'unité",
+    "localHint": "Ce fichier d'unité se trouve dans /etc/systemd/system, vous pouvez donc le modifier.",
+    "vendorHint": "Cette unité provient d'un paquet ({{path}}). Enregistrer le fichier complet crée une copie dans /etc/systemd/system qui prend le pas sur l'original. Annuler supprime cette copie.",
+    "notWritable": "Les fichiers ne peuvent pas être écrits pour ce type d'unité.",
+    "check": "Vérifier",
+    "checking": "Vérification en cours...",
+    "checkOk": "La vérification est passée avec succès.",
+    "checkBad": "La vérification a détecté des problèmes.",
+    "checkFailed": "Impossible d'exécuter la vérification.",
+    "save": "Vérifier et enregistrer",
+    "saved": "{{unit}} enregistré et systemd rechargé",
+    "saveFailed": "Non enregistré. La vérification a échoué ou le fichier n'a pas pu être écrit.",
+    "combined": "Tout ce que systemd lit pour cette unité",
+    "delete": "Supprimer l'unité",
+    "deleteTitle": "Supprimer {{unit}} ?",
+    "deleteDesc": "Elle s'arrête, ne démarrera plus au démarrage, et son fichier ainsi que ses fichiers « drop-in » sont supprimés.",
+    "deleted": "{{unit}} supprimé",
+    "deleteFailed": "Impossible de supprimer l'unité."
+  },
+  "create": {
+    "add": "Nouveau service",
+    "title": "Nouveau service",
+    "name": "Nom",
+    "nameHint": "Enregistré sous name.service dans /etc/systemd/system.",
+    "description": "Description",
+    "descriptionPlaceholder": "Ce qu'il fait",
+    "command": "Commande",
+    "commandHint": "Le chemin complet vers le programme, puis ses arguments.",
+    "user": "Exécuter en tant qu'utilisateur",
+    "group": "Groupe",
+    "folder": "Répertoire de travail",
+    "environment": "Environnement",
+    "environmentHint": "Une ligne par NOM=valeur.",
+    "timer": "Exécuter selon un planning",
+    "timerHint": "Créer un minuteur qui exécute la commande à des moments précis au lieu de la laisser tourner en continu.",
+    "schedule": "Planning",
+    "scheduleHint": "Une valeur OnCalendar, comme daily, hourly ou Mon *-*-* 03:00:00.",
+    "type": "Type",
+    "types": {
+      "simple": "Simple, reste en cours d'exécution",
+      "exec": "Exec, reste en cours d'exécution",
+      "forking": "Forking, démarre en arrière-plan",
+      "oneshot": "One shot, s'exécute et se termine",
+      "notify": "Notify, informe systemd quand il est prêt"
+    },
+    "restart": "Redémarrage",
+    "restarts": {
+      "on-failure": "En cas d'échec",
+      "always": "Toujours",
+      "on-abnormal": "En cas de plantage",
+      "no": "Jamais"
+    },
+    "restartSec": "Attente avant redémarrage (secondes)",
+    "after": "Démarrer après",
+    "afterHint": "Unités à attendre, séparées par des espaces.",
+    "enable": "Démarrer au démarrage",
+    "enableHint": "Pour un planning, cela active le minuteur.",
+    "start": "Démarrer maintenant",
+    "save": "Créer",
+    "done": "{{unit}} créé",
+    "failed": "Impossible de créer le service."
+  },
+  "timers": {
+    "search": "Rechercher des minuteries",
+    "empty": "Aucune minuterie.",
+    "loadFailed": "Impossible de lister les minuteries.",
+    "next": "Prochain {{when}} (dans {{left}})",
+    "noNext": "Rien de prévu",
+    "last": "dernier {{when}} (il y a {{ago}})",
+    "neverRan": "jamais exécuté",
+    "runNow": "Exécuter maintenant",
+    "ran": "Démarré {{unit}}",
+    "turnOn": "Activer",
+    "turnOff": "Désactiver"
+  },
+  "journal": {
+    "unit": "Unités",
+    "unitPlaceholder": "Toutes les unités, ou nginx.service",
+    "search": "Rechercher",
+    "searchPlaceholder": "Texte à rechercher",
+    "priority": "Priorité",
+    "anyPriority": "Toutes priorités",
+    "priorityUpTo": "{{name}} et moins",
+    "since": "Depuis",
+    "sinceOptions": {
+      "-15min": "15 dernières minutes",
+      "-1h": "Dernière heure",
+      "-6h": "6 dernières heures",
+      "today": "Aujourd'hui",
+      "-24h": "24 dernières heures",
+      "-7d": "7 derniers jours",
+      "any": "Toutes les périodes"
+    },
+    "boot": "Démarrage",
+    "anyBoot": "Tout démarrage",
+    "thisBoot": "Démarrage actuel",
+    "lines": "Lignes",
+    "lineCount_one": "{{count}} ligne",
+    "lineCount_many": "{{count}} lignes",
+    "lineCount_other": "{{count}} lignes",
+    "kernel": "Noyau uniquement",
+    "follow": "Suivre",
+    "following": "En cours de suivi",
+    "pause": "Pause",
+    "resume": "Reprendre",
+    "clear": "Effacer",
+    "download": "Télécharger",
+    "connecting": "Connexion en cours...",
+    "ended": "Flux terminé",
+    "shown_one": "{{count}} entrée",
+    "shown_many": "{{count}} entrées",
+    "shown_other": "{{count}} entrées",
+    "usage": "Le journal utilise {{size}}",
+    "vacuum": "Libérer de l'espace",
+    "vacuumTitle": "Supprimer les anciens fichiers du journal ?",
+    "vacuumDesc": "Les entrées du journal datant de plus de 4 semaines sont supprimées de l'hôte.",
+    "vacuumDone": "Le journal utilise désormais {{size}}",
+    "vacuumFailed": "Impossible de libérer de l'espace.",
+    "empty": "Aucune entrée.",
+    "loadFailed": "Impossible de lire le journal."
+  },
+  "files": {
+    "filter": "Filtrer les fichiers",
+    "roots": "Depuis {{roots}}. Modifiez les dossiers dans les paramètres de l'hôte.",
+    "showRotated": "Afficher les anciennes copies",
+    "empty": "Aucun fichier journal trouvé.",
+    "loadFailed": "Impossible de lister les fichiers journaux.",
+    "search": "Rechercher",
+    "searchPlaceholder": "Rechercher du texte",
+    "download": "Télécharger",
+    "downloadFailed": "Impossible de télécharger le fichier.",
+    "readFailed": "Impossible de lire le fichier.",
+    "noLines": "Aucune ligne."
+  },
+  "logs": {
+    "empty": "Rien ici pour le moment."
+  },
+  "companion": {
+    "openTab": "Ouvrir l'onglet Services",
+    "toggle": "Panneau Services"
+  }
+}

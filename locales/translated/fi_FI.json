@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Palvelut",
+    "description": "Hallitse palveluita, ajastimia ja lokia isäntäsi SSH-yhteyden kautta."
+  },
+  "permissions": {
+    "use": {
+      "title": "Palveluiden käyttö",
+      "description": "Avaa Palvelut-välilehti isännille, joihin pääset käsiksi. Muutokset vaativat myös isännän muokkausoikeudet."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Palvelut",
+        "description": "Näytä Palvelut-välilehti tälle isännälle systemd-palveluiden, ajastimien ja lokien hallintaa varten."
+      },
+      "useSudo": {
+        "label": "Käytä sudoa",
+        "description": "Suorita muutokset ja suojatut lukutoiminnot salasanattomalla sudolla, kun kirjautuminen ei ole root-käyttäjänä."
+      },
+      "readOnly": {
+        "label": "Vain luku",
+        "description": "Salli palveluiden ja lokien lukeminen, mutta estä kaikki Termixin tekemät muutokset."
+      },
+      "logPaths": {
+        "label": "Lokikansiot",
+        "description": "Kansiot, joita lokitiedostojen näkymä voi lukea, pilkuilla erotettuna.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Paneeli terminaalin vieressä",
+        "description": "Tarjoa palvelupaneeli tämän isäntäterminaalin SSH-terminaalin vieressä."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Avaa palvelupaneeli terminaalin kanssa",
+        "description": "Näytä palvelupaneeli, kun terminaali avautuu isännällä, jossa se on käytössä."
+      },
+      "companionSide": {
+        "label": "Palvelupaneelin sijainti",
+        "description": "Missä paneeli sijaitsee terminaalin vieressä.",
+        "right": "Oikealla",
+        "left": "Vasen",
+        "bottom": "Alareuna"
+      },
+      "companionSize": {
+        "label": "Palvelupaneelin koko",
+        "description": "Leveys tai alareunan korkeus pikseleinä."
+      },
+      "companionEdgeButton": {
+        "label": "Palvelupaneelin reunapainike",
+        "description": "Näytä pieni painike terminaalin reunassa paneelin avaamiseen."
+      }
+    }
+  },
+  "common": {
+    "back": "Takaisin"
+  },
+  "tab": {
+    "title": "Palvelut",
+    "noHost": "Valitse isäntä hallitaksesi sen palveluita.",
+    "loading": "Ladataan...",
+    "refresh": "Päivitä",
+    "error": "Palveluja ei voitu lukea tästä isäntästä.",
+    "disabled": "Palvelut eivät ole käytössä tässä isännässä. Ota ne käyttöön isännän asetuksista.",
+    "sudo": "Muutokset vaativat root-käyttäjän tai salasanasuoran sudo-oikeuden. Tarkista suorittamalla sudo -n true isännässä.",
+    "noInit": "Alustusjärjestelmää ei löydy",
+    "noInitHint": "Termix ei löydä tästä isännästä systemd- tai OpenRC-järjestelmää. Lokitiedostot toimivat silti.",
+    "readOnly": "Vain luku",
+    "failedCount_one": "{{count}} epäonnistui",
+    "failedCount_other": "{{count}} epäonnistui",
+    "viewServices": "Palvelut",
+    "viewTimers": "Ajastimet",
+    "viewJournal": "Loki",
+    "viewFiles": "Lokitiedostot"
+  },
+  "units": {
+    "search": "Hae palveluita",
+    "type": "Yksikön tyyppi",
+    "empty": "Yksiköitä ei löytynyt.",
+    "loadFailed": "Yksiköiden listaa ei voitu ladata.",
+    "confirmStop": "Pysäytetäänkö {{unit}}?",
+    "confirmStopDesc": "Kaikki, mikä tarvitsee sitä, voi lakata toimimasta, kunnes se käynnistetään uudelleen.",
+    "filters": {
+      "all": "Kaikki",
+      "running": "Käynnissä",
+      "failed": "Epäonnistuneet",
+      "stopped": "Pysäytetyt",
+      "enabled": "Käynnistä käynnistyksen yhteydessä"
+    },
+    "types": {
+      "service": "Palvelut",
+      "socket": "Pistokkeet",
+      "timer": "Ajastimet",
+      "target": "Tavoitteet",
+      "path": "Polut",
+      "mount": "Liitospisteet"
+    }
+  },
+  "actions": {
+    "start": "Käynnistä",
+    "stop": "Pysäytä",
+    "restart": "Käynnistä uudelleen",
+    "reload": "Lataa uudelleen",
+    "enable": "Käynnistä käynnistyksen yhteydessä",
+    "disable": "Älä käynnistä käynnistyksen yhteydessä",
+    "enable-now": "Kytke päälle",
+    "disable-now": "Kytke pois päältä",
+    "mask": "Peitä",
+    "unmask": "Näytä",
+    "reset-failed": "Tyhjennä epäonnistuneet",
+    "revert": "Palauta",
+    "failed": "Toiminto epäonnistui.",
+    "confirm": {
+      "stop": "Pysäytetäänkö {{unit}}?",
+      "disable": "Estetäänkö {{unit}} käynnistymästä käynnistyksen yhteydessä?",
+      "disable-now": "Sammutetaanko {{unit}}?",
+      "mask": "Peitetäänkö {{unit}}?",
+      "revert": "Palautetaanko {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Kaikki, mikä tarvitsee sitä, voi lakata toimimasta, kunnes se käynnistetään uudelleen.",
+      "disable": "Se jatkaa toimintaa nyt, mutta ei käynnisty uudelleenkäynnistyksen jälkeen.",
+      "disable-now": "Se pysähtyy nyt eikä käynnisty uudelleenkäynnistyksen jälkeen.",
+      "mask": "Peitettyä yksikköä ei voi käynnistää millään tavalla, ei manuaalisesti eikä muiden yksiköiden kautta, ennen kuin peitto poistetaan.",
+      "revert": "Tämä poistaa yksikön pudotustiedostot ja paikalliset kopiot sekä palauttaa paketin mukaisen version."
+    },
+    "done": {
+      "start": "Yksikkö {{unit}} käynnistetty",
+      "stop": "Yksikkö {{unit}} pysäytetty",
+      "restart": "Yksikkö {{unit}} uudelleenkäynnistetty",
+      "reload": "Yksikkö {{unit}} ladattu uudelleen",
+      "enable": "Yksikkö {{unit}} käynnistyy käynnistyksen yhteydessä",
+      "disable": "Yksikkö {{unit}} ei käynnisty käynnistyksen yhteydessä",
+      "enable-now": "Yksikkö {{unit}} otettu käyttöön",
+      "disable-now": "Yksikkö {{unit}} otettu pois käytöstä",
+      "mask": "Peitettiin {{unit}}",
+      "unmask": "Paljastettiin {{unit}}",
+      "reset-failed": "Nollattiin {{unit}}:n epäonnistunut tila",
+      "revert": "Palautettiin {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Ilmoita minulle epäonnistumisesta",
+    "stop": "Lopeta ilmoitukset",
+    "badge": "Valvottu",
+    "on": "Saat ilmoituksen, kun {{unit}} epäonnistuu",
+    "off": "Enää ilmoituksia kohteesta {{unit}}",
+    "failed": "Ilmoitusta ei voitu muuttaa."
+  },
+  "detail": {
+    "loadFailed": "Yksikköä ei voitu lukea.",
+    "editFile": "Muokkaa yksikköä",
+    "description": "Kuvaus",
+    "since": "Käynnissä alkaen",
+    "result": "Tulos",
+    "pid": "Pää-PID",
+    "memory": "Muisti",
+    "peak": "huippu",
+    "cpu": "CPU-aika",
+    "tasks": "Tehtävät",
+    "restarts": "Uudelleenkäynnistykset",
+    "type": "Tyyppi",
+    "user": "Käyttäjä",
+    "file": "Yksikkötiedosto",
+    "dropIns": "Drop-init",
+    "triggeredBy": "Käynnistäjä",
+    "triggers": "Käynnistää",
+    "wantedBy": "Vaativa",
+    "requires": "Vaatii",
+    "after": "Jälkeen",
+    "statusText": "systemctl status",
+    "log": "Viimeisin loki"
+  },
+  "editor": {
+    "loadFailed": "Yksikkötiedostoa ei voitu lukea.",
+    "override": "Ylitys",
+    "fullFile": "Koko tiedosto",
+    "overrideHint": "Ylitys on pudotustiedosto, joka muuttaa vain tähän kirjoittamiasi rivejä. Pakoittujen päivitykset toimivat edelleen. Jätä tyhjäksi ja tallenna poistaaksesi ylityksen.",
+    "overrideTemplate": "Tässä olevat rivit lisäävät tai korvaavat yksikön omat asetukset",
+    "localHint": "Tämä yksikkötiedosto sijaitsee polussa /etc/systemd/system, joten voit muokata sitä vapaasti.",
+    "vendorHint": "Tämä yksikkö tulee paketista ({{path}}). Koko tiedoston tallentaminen luo kopion polkuun /etc/systemd/system, joka ohittaa alkuperäisen. Palauttaminen poistaa kopion.",
+    "notWritable": "Tämän tyyppiseen yksikköön ei voi kirjoittaa tiedostoja.",
+    "check": "Tarkista",
+    "checking": "Tarkistetaan...",
+    "checkOk": "Tarkistus onnistui.",
+    "checkBad": "Tarkistus löysi ongelmia.",
+    "checkFailed": "Tarkistusta ei voitu suorittaa.",
+    "save": "Tarkista ja tallenna",
+    "saved": "Tallennettu {{unit}} ja systemd uudelleenkäynnistetty",
+    "saveFailed": "Ei tallennettu. Tarkistus epäonnistui tai tiedostoa ei voitu kirjoittaa.",
+    "combined": "Kaikki systemd:n luetut asetukset tälle yksikölle",
+    "delete": "Poista yksikkö",
+    "deleteTitle": "Haluatko poistaa kohteen {{unit}}?",
+    "deleteDesc": "Se pysäytetään, sitä ei käynnistetä enää käynnistyksen yhteydessä, ja sen tiedosto sekä lisäasetukset poistetaan.",
+    "deleted": "Kohde {{unit}} poistettu",
+    "deleteFailed": "Yksikköä ei voitu poistaa."
+  },
+  "create": {
+    "add": "Uusi palvelu",
+    "title": "Uusi palvelu",
+    "name": "Nimi",
+    "nameHint": "Tallennetaan nimellä name.service hakemistoon /etc/systemd/system.",
+    "description": "Kuvaus",
+    "descriptionPlaceholder": "Mitä se tekee",
+    "command": "Komento",
+    "commandHint": "Ohjelman täydellinen polku ja sen jälkeen sen argumentit.",
+    "user": "Suorita käyttäjänä",
+    "group": "Ryhmä",
+    "folder": "Työskentelykansio",
+    "environment": "Ympäristö",
+    "environmentHint": "Yksi NIMI=arvo per rivi.",
+    "timer": "Suorita aikataulun mukaan",
+    "timerHint": "Luo ajastin, joka suorittaa komennon määritetyinä aikoina sen sijaan, että se pysyisi käynnissä.",
+    "schedule": "Aikataulu",
+    "scheduleHint": "OnCalendar-arvo, kuten daily, hourly tai Mon *-*-* 03:00:00.",
+    "type": "Tyyppi",
+    "types": {
+      "simple": "Simple, pysyy käynnissä",
+      "exec": "Exec, pysyy käynnissä",
+      "forking": "Forking, käynnistyy taustalle",
+      "oneshot": "One shot, suoritetaan ja lopetetaan",
+      "notify": "Notify, ilmoittaa systemdille valmiudesta"
+    },
+    "restart": "Uudelleenkäynnistys",
+    "restarts": {
+      "on-failure": "Kun epäonnistuu",
+      "always": "Aina",
+      "on-abnormal": "Kun se kaatuu",
+      "no": "Ei koskaan"
+    },
+    "restartSec": "Odota ennen uudelleenkäynnistystä (sekuntia)",
+    "after": "Käynnistä jälkeen",
+    "afterHint": "Odottamisajan yksiköt, eroteltuna välilyönneillä.",
+    "enable": "Käynnistä käynnistyksen yhteydessä",
+    "enableHint": "Aikataulun kohdalla tämä ottaa ajastimen käyttöön.",
+    "start": "Käynnistä nyt",
+    "save": "Luo",
+    "done": "Luotu {{unit}}",
+    "failed": "Palvelua ei voitu luoda."
+  },
+  "timers": {
+    "search": "Hae ajastimia",
+    "empty": "Ei ajastimia.",
+    "loadFailed": "Ajastimia ei voitu luetella.",
+    "next": "Seuraava {{when}} ({{left}} kuluttua)",
+    "noNext": "Ei suunniteltuja",
+    "last": "viimeksi {{when}} ({{ago}} sitten)",
+    "neverRan": "ei koskaan suoritettu",
+    "runNow": "Suorita nyt",
+    "ran": "Käynnistetty {{unit}}",
+    "turnOn": "Käynnistä",
+    "turnOff": "Sammuta"
+  },
+  "journal": {
+    "unit": "Yksiköt",
+    "unitPlaceholder": "Kaikki yksiköt tai nginx.service",
+    "search": "Hae",
+    "searchPlaceholder": "Hakuteksti",
+    "priority": "Tärkeys",
+    "anyPriority": "Mikä tahansa tärkeys",
+    "priorityUpTo": "{{name}} ja huonommat",
+    "since": "Alkaen",
+    "sinceOptions": {
+      "-15min": "Viimeiset 15 minuuttia",
+      "-1h": "Viimeinen tunti",
+      "-6h": "Viimeiset 6 tuntia",
+      "today": "Tänään",
+      "-24h": "Viimeiset 24 tuntia",
+      "-7d": "Viimeiset 7 päivää",
+      "any": "Milloin tahansa"
+    },
+    "boot": "Käynnistys",
+    "anyBoot": "Mikä tahansa käynnistys",
+    "thisBoot": "Tämä käynnistys",
+    "lines": "Rivit",
+    "lineCount_one": "{{count}} rivi",
+    "lineCount_other": "{{count}} riviä",
+    "kernel": "Vain ydin",
+    "follow": "Seuraa",
+    "following": "Seurataan",
+    "pause": "Keskeytä",
+    "resume": "Jatka",
+    "clear": "Tyhjennä",
+    "download": "Lataa",
+    "connecting": "Yhdistetään...",
+    "ended": "Virta päättyi",
+    "shown_one": "{{count}} merkintä",
+    "shown_other": "{{count}} merkintää",
+    "usage": "Loki käyttää {{size}} tilaa",
+    "vacuum": "Vapauta tilaa",
+    "vacuumTitle": "Poistetaanko vanhat lokitiedostot?",
+    "vacuumDesc": "Lokimerkinnät, jotka ovat vanhemmat kuin 4 viikkoa, poistetaan isäntälaitteelta.",
+    "vacuumDone": "Loki käyttää nyt {{size}} tilaa",
+    "vacuumFailed": "Tilan vapauttaminen epäonnistui.",
+    "empty": "Ei merkintöjä.",
+    "loadFailed": "Lokin lukeminen epäonnistui."
+  },
+  "files": {
+    "filter": "Suodata tiedostoja",
+    "roots": "Lähde: {{roots}}. Muuta kansioita isäntäasetuksissa.",
+    "showRotated": "Näytä vanhat kopiot",
+    "empty": "Lokitiedostoja ei löytynyt.",
+    "loadFailed": "Lokitiedostojen listaus epäonnistui.",
+    "search": "Hae",
+    "searchPlaceholder": "Hakuteksti",
+    "download": "Lataa",
+    "downloadFailed": "Tiedoston lataaminen epäonnistui.",
+    "readFailed": "Tiedoston lukeminen epäonnistui.",
+    "noLines": "Ei rivejä."
+  },
+  "logs": {
+    "empty": "Täällä ei vielä ole mitään."
+  },
+  "companion": {
+    "openTab": "Avaa Palvelut-välilehti",
+    "toggle": "Palvelupaneeli"
+  }
+}

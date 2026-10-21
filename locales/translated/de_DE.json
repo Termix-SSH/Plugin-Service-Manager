@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Dienste",
+    "description": "Verwalten Sie Dienste, Timer und Protokolle auf Ihren Hosts über SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Dienste verwenden",
+      "description": "Öffnen Sie den Tab „Dienste“ auf Hosts, auf die Sie zugreifen können. Für Änderungen ist zudem Schreibzugriff auf den Host erforderlich."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Dienste",
+        "description": "Zeigen Sie den Tab „Dienste“ für diesen Host an, um systemd-Dienste, Timer und Protokolle zu verwalten."
+      },
+      "useSudo": {
+        "label": "sudo verwenden",
+        "description": "Führen Sie Änderungen und geschützte Lesevorgänge mit passwortlosem sudo aus, wenn die Anmeldung nicht als root erfolgt."
+      },
+      "readOnly": {
+        "label": "Schreibgeschützt",
+        "description": "Erlaubt das Lesen von Diensten und Protokollen, blockiert jedoch alle Änderungen aus Termix."
+      },
+      "logPaths": {
+        "label": "Log-Ordner",
+        "description": "Ordner, die die Logdatei-Ansicht lesen darf, durch Kommas getrennt.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel neben dem Terminal",
+        "description": "Ein Service-Panel neben dem SSH-Terminal dieses Hosts anzeigen."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Service-Panel mit Terminal öffnen",
+        "description": "Das Service-Panel anzeigen, wenn ein Terminal auf einem Host geöffnet wird, der eines hat."
+      },
+      "companionSide": {
+        "label": "Position des Service-Panels",
+        "description": "Wo das Panel neben dem Terminal platziert wird.",
+        "right": "Rechts",
+        "left": "Links",
+        "bottom": "Unten"
+      },
+      "companionSize": {
+        "label": "Größe des Dienstpanels",
+        "description": "Breite oder Höhe (unten) in Pixeln."
+      },
+      "companionEdgeButton": {
+        "label": "Randtaste für das Dienstpanel",
+        "description": "Zeigt eine kleine Taste am Terminalrand zum Öffnen des Panels an."
+      }
+    }
+  },
+  "common": {
+    "back": "Zurück"
+  },
+  "tab": {
+    "title": "Dienste",
+    "noHost": "Wählen Sie einen Host aus, um dessen Dienste zu verwalten.",
+    "loading": "Wird geladen...",
+    "refresh": "Aktualisieren",
+    "error": "Dienste auf diesem Host konnten nicht gelesen werden.",
+    "disabled": "Dienste sind für diesen Host nicht aktiviert. Aktivieren Sie sie in den Host-Einstellungen.",
+    "sudo": "Änderungen erfordern einen Root-Login oder ein passwortloses sudo. Führen Sie auf dem Host `sudo -n true` aus, um dies zu überprüfen.",
+    "noInit": "Kein Init-System gefunden",
+    "noInitHint": "Dieser Host verfügt über kein systemd oder OpenRC, das Termix nutzen kann. Protokolldateien funktionieren weiterhin.",
+    "readOnly": "Schreibgeschützt",
+    "failedCount_one": "{{count}} fehlgeschlagen",
+    "failedCount_other": "{{count}} fehlgeschlagen",
+    "viewServices": "Dienste",
+    "viewTimers": "Timer",
+    "viewJournal": "Journal",
+    "viewFiles": "Logdateien"
+  },
+  "units": {
+    "search": "Dienste durchsuchen",
+    "type": "Einheitentyp",
+    "empty": "Keine Einheiten gefunden.",
+    "loadFailed": "Einheiten konnten nicht aufgelistet werden.",
+    "confirmStop": "{{unit}} stoppen?",
+    "confirmStopDesc": "Alles, was davon abhängt, funktioniert möglicherweise nicht mehr, bis der Dienst wieder gestartet wird.",
+    "filters": {
+      "all": "Alle",
+      "running": "Aktiv",
+      "failed": "Fehlgeschlagen",
+      "stopped": "Gestoppt",
+      "enabled": "Beim Start ausführen"
+    },
+    "types": {
+      "service": "Dienste",
+      "socket": "Sockets",
+      "timer": "Timer",
+      "target": "Ziele",
+      "path": "Pfade",
+      "mount": "Mounts"
+    }
+  },
+  "actions": {
+    "start": "Starten",
+    "stop": "Stoppen",
+    "restart": "Neustarten",
+    "reload": "Neu laden",
+    "enable": "Beim Start aktivieren",
+    "disable": "Beim Start deaktivieren",
+    "enable-now": "Einschalten",
+    "disable-now": "Ausschalten",
+    "mask": "Maskieren",
+    "unmask": "Entmaskieren",
+    "reset-failed": "Fehler zurücksetzen",
+    "revert": "Rückgängig machen",
+    "failed": "Das hat nicht funktioniert.",
+    "confirm": {
+      "stop": "{{unit}} stoppen?",
+      "disable": "{{unit}} beim Start deaktivieren?",
+      "disable-now": "{{unit}} ausschalten?",
+      "mask": "{{unit}} maskieren?",
+      "revert": "{{unit}} rückgängig machen?"
+    },
+    "confirmDesc": {
+      "stop": "Alles, was davon abhängt, könnte bis zum Neustart nicht mehr funktionieren.",
+      "disable": "Es läuft weiterhin, wird aber nach einem Neustart nicht mehr automatisch gestartet.",
+      "disable-now": "Es wird jetzt gestoppt und nach einem Neustart nicht mehr automatisch gestartet.",
+      "mask": "Eine maskierte Einheit kann weder manuell noch durch andere Einheiten gestartet werden, bis Sie die Maske entfernen.",
+      "revert": "Dadurch werden Drop-ins und lokale Kopien der Einheit entfernt und die Version aus dem Paket wiederhergestellt."
+    },
+    "done": {
+      "start": "{{unit}} gestartet",
+      "stop": "{{unit}} gestoppt",
+      "restart": "{{unit}} neu gestartet",
+      "reload": "{{unit}} neu geladen",
+      "enable": "{{unit}} wird beim Booten gestartet",
+      "disable": "{{unit}} wird nicht beim Booten gestartet",
+      "enable-now": "{{unit}} aktiviert",
+      "disable-now": "{{unit}} deaktiviert",
+      "mask": "Maskiert {{unit}}",
+      "unmask": "Entmaskiert {{unit}}",
+      "reset-failed": "Fehlerstatus von {{unit}} zurückgesetzt",
+      "revert": "{{unit}} rückgängig gemacht"
+    }
+  },
+  "watch": {
+    "start": "Benachrichtige mich bei einem Fehler",
+    "stop": "Benachrichtigungen stoppen",
+    "badge": "Überwacht",
+    "on": "Du erhältst eine Benachrichtigung, wenn {{unit}} fehlschlägt",
+    "off": "Keine weiteren Benachrichtigungen für {{unit}}",
+    "failed": "Benachrichtigung konnte nicht geändert werden."
+  },
+  "detail": {
+    "loadFailed": "Diese Einheit konnte nicht gelesen werden.",
+    "editFile": "Einheit bearbeiten",
+    "description": "Beschreibung",
+    "since": "Läuft seit",
+    "result": "Ergebnis",
+    "pid": "Haupt-PID",
+    "memory": "Arbeitsspeicher",
+    "peak": "Spitzenwert",
+    "cpu": "CPU-Zeit",
+    "tasks": "Aufgaben",
+    "restarts": "Neustarts",
+    "type": "Typ",
+    "user": "Benutzer",
+    "file": "Einheitendatei",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Gestartet von",
+    "triggers": "Startet",
+    "wantedBy": "Gewünscht von",
+    "requires": "Erfordert",
+    "after": "Nach",
+    "statusText": "systemctl status",
+    "log": "Letzte Logs"
+  },
+  "editor": {
+    "loadFailed": "Die Unit-Datei konnte nicht gelesen werden.",
+    "override": "Überschreiben",
+    "fullFile": "Gesamte Datei",
+    "overrideHint": "Ein Override ist eine Drop-in-Datei, die nur die Zeilen ändert, die Sie hier eingeben. Paket-Updates funktionieren weiterhin. Lassen Sie das Feld leer und speichern Sie es, um den Override zu entfernen.",
+    "overrideTemplate": "Zeilen hier werden zu den Einstellungen der Unit hinzugefügt oder ersetzen diese.",
+    "localHint": "Diese Unit-Datei befindet sich in /etc/systemd/system und kann von Ihnen bearbeitet werden.",
+    "vendorHint": "Diese Unit stammt aus einem Paket ({{path}}). Das Speichern der gesamten Datei erstellt eine Kopie in /etc/systemd/system, die Vorrang hat. Durch Rückgängigmachen wird die Kopie wieder entfernt.",
+    "notWritable": "Für diese Art von Unit können keine Dateien geschrieben werden.",
+    "check": "Prüfen",
+    "checking": "Wird geprüft...",
+    "checkOk": "Die Prüfung war erfolgreich.",
+    "checkBad": "Die Prüfung hat Probleme festgestellt.",
+    "checkFailed": "Die Prüfung konnte nicht ausgeführt werden.",
+    "save": "Prüfen und speichern",
+    "saved": "{{unit}} gespeichert und systemd neu geladen",
+    "saveFailed": "Nicht gespeichert. Die Prüfung ist fehlgeschlagen oder die Datei konnte nicht geschrieben werden.",
+    "combined": "Alle Konfigurationen, die systemd für diese Einheit liest",
+    "delete": "Einheit löschen",
+    "deleteTitle": "Möchten Sie {{unit}} löschen?",
+    "deleteDesc": "Der Dienst wird gestoppt, startet nicht mehr beim Booten, und seine Datei sowie Drop-ins werden entfernt.",
+    "deleted": "{{unit}} gelöscht",
+    "deleteFailed": "Der Dienst konnte nicht gelöscht werden."
+  },
+  "create": {
+    "add": "Neuer Dienst",
+    "title": "Neuer Dienst",
+    "name": "Name",
+    "nameHint": "Wird als name.service in /etc/systemd/system gespeichert.",
+    "description": "Beschreibung",
+    "descriptionPlaceholder": "Was er tut",
+    "command": "Befehl",
+    "commandHint": "Der vollständige Pfad zum Programm, gefolgt von seinen Argumenten.",
+    "user": "Ausführen als Benutzer",
+    "group": "Gruppe",
+    "folder": "Arbeitsverzeichnis",
+    "environment": "Umgebung",
+    "environmentHint": "Ein NAME=Wert pro Zeile.",
+    "timer": "Geplant ausführen",
+    "timerHint": "Erstellen Sie einen Timer, der den Befehl zu festgelegten Zeiten ausführt, anstatt ihn kontinuierlich laufen zu lassen.",
+    "schedule": "Zeitplan",
+    "scheduleHint": "Ein OnCalendar-Wert, wie daily, hourly oder Mon *-*-* 03:00:00.",
+    "type": "Typ",
+    "types": {
+      "simple": "Simple, läuft kontinuierlich",
+      "exec": "Exec, läuft kontinuierlich",
+      "forking": "Forking, startet im Hintergrund",
+      "oneshot": "Oneshot, führt aus und beendet sich",
+      "notify": "Notify, teilt systemd mit, wenn es bereit ist"
+    },
+    "restart": "Neustart",
+    "restarts": {
+      "on-failure": "Bei Fehler",
+      "always": "Immer",
+      "on-abnormal": "Bei Absturz",
+      "no": "Nie"
+    },
+    "restartSec": "Wartezeit vor Neustart (Sekunden)",
+    "after": "Starten nach",
+    "afterHint": "Einheiten, auf die gewartet werden soll, durch Leerzeichen getrennt.",
+    "enable": "Beim Start ausführen",
+    "enableHint": "Aktiviert den Timer für einen Zeitplan.",
+    "start": "Jetzt starten",
+    "save": "Erstellen",
+    "done": "{{unit}} erstellt",
+    "failed": "Der Dienst konnte nicht erstellt werden."
+  },
+  "timers": {
+    "search": "Timer durchsuchen",
+    "empty": "Keine Timer.",
+    "loadFailed": "Die Timer konnten nicht aufgelistet werden.",
+    "next": "Nächster {{when}} (in {{left}})",
+    "noNext": "Nichts geplant",
+    "last": "Letzter {{when}} (vor {{ago}})",
+    "neverRan": "niemals ausgeführt",
+    "runNow": "Jetzt ausführen",
+    "ran": "{{unit}} gestartet",
+    "turnOn": "Einschalten",
+    "turnOff": "Ausschalten"
+  },
+  "journal": {
+    "unit": "Einheiten",
+    "unitPlaceholder": "Alle Einheiten oder nginx.service",
+    "search": "Suchen",
+    "searchPlaceholder": "Text suchen",
+    "priority": "Priorität",
+    "anyPriority": "Alle Prioritäten",
+    "priorityUpTo": "{{name}} und schlechter",
+    "since": "Seit",
+    "sinceOptions": {
+      "-15min": "Letzte 15 Minuten",
+      "-1h": "Letzte Stunde",
+      "-6h": "Letzte 6 Stunden",
+      "today": "Heute",
+      "-24h": "Letzte 24 Stunden",
+      "-7d": "Letzte 7 Tage",
+      "any": "Jederzeit"
+    },
+    "boot": "Start",
+    "anyBoot": "Jeder Start",
+    "thisBoot": "Dieser Start",
+    "lines": "Zeilen",
+    "lineCount_one": "{{count}} Zeile",
+    "lineCount_other": "{{count}} Zeilen",
+    "kernel": "Nur Kernel",
+    "follow": "Folgen",
+    "following": "Wird gefolgt",
+    "pause": "Pause",
+    "resume": "Fortsetzen",
+    "clear": "Leeren",
+    "download": "Herunterladen",
+    "connecting": "Verbinden...",
+    "ended": "Stream beendet",
+    "shown_one": "{{count}} Eintrag",
+    "shown_other": "{{count}} Einträge",
+    "usage": "Journal verwendet {{size}}",
+    "vacuum": "Platz freigeben",
+    "vacuumTitle": "Alte Journaleinträge entfernen?",
+    "vacuumDesc": "Journaleinträge, die älter als 4 Wochen sind, werden vom Host gelöscht.",
+    "vacuumDone": "Journal verwendet jetzt {{size}}",
+    "vacuumFailed": "Platz konnte nicht freigegeben werden.",
+    "empty": "Keine Einträge.",
+    "loadFailed": "Journal konnte nicht gelesen werden."
+  },
+  "files": {
+    "filter": "Dateien filtern",
+    "roots": "Aus {{roots}}. Ändere die Ordner in den Host-Einstellungen.",
+    "showRotated": "Alte Kopien anzeigen",
+    "empty": "Keine Protokolldateien gefunden.",
+    "loadFailed": "Die Protokolldateien konnten nicht aufgelistet werden.",
+    "search": "Suchen",
+    "searchPlaceholder": "Text suchen",
+    "download": "Herunterladen",
+    "downloadFailed": "Die Datei konnte nicht heruntergeladen werden.",
+    "readFailed": "Die Datei konnte nicht gelesen werden.",
+    "noLines": "Keine Zeilen."
+  },
+  "logs": {
+    "empty": "Hier ist noch nichts."
+  },
+  "companion": {
+    "openTab": "Den Tab „Dienste“ öffnen",
+    "toggle": "Dienste-Panel"
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "plugin": {
+    "name": "サービス",
+    "description": "SSH を介してホスト上のサービス、タイマー、ログを管理します。"
+  },
+  "permissions": {
+    "use": {
+      "title": "サービスの使用",
+      "description": "アクセス可能なホストで [サービス] タブを開きます。変更を行うには、ホストへの編集権限も必要です。"
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "サービス",
+        "description": "systemd のサービス、タイマー、ログを管理するために、このホストで [サービス] タブを表示します。"
+      },
+      "useSudo": {
+        "label": "sudo を使用する",
+        "description": "ログインユーザーが root でない場合、パスワードなしの sudo で変更と保護された読み取りを実行します。"
+      },
+      "readOnly": {
+        "label": "読み取り専用",
+        "description": "サービスとログの読み取りは許可しますが、Termix からのすべての変更をブロックします。"
+      },
+      "logPaths": {
+        "label": "ログフォルダ",
+        "description": "ログファイルビューが読み取り可能なフォルダをカンマ区切りで指定します。",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "ターミナル横のパネル",
+        "description": "このホストの SSH ターミナルの横にサービスパネルを表示します。"
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "ターミナルと共にサービスパネルを開く",
+        "description": "サービスパネルが有効なホストでターミナルを開いた際、サービスパネルを表示します。"
+      },
+      "companionSide": {
+        "label": "サービスパネルの位置",
+        "description": "ターミナルの横にパネルを表示する位置です。",
+        "right": "右",
+        "left": "左",
+        "bottom": "下"
+      },
+      "companionSize": {
+        "label": "サービスパネルのサイズ",
+        "description": "幅、または下部の高さ（ピクセル単位）。"
+      },
+      "companionEdgeButton": {
+        "label": "サービスパネルのエッジボタン",
+        "description": "パネルを開くための小さなボタンをターミナルのエッジに表示します。"
+      }
+    }
+  },
+  "common": {
+    "back": "戻る"
+  },
+  "tab": {
+    "title": "サービス",
+    "noHost": "サービスを一括管理するホストを選択してください。",
+    "loading": "読み込み中...",
+    "refresh": "更新",
+    "error": "このホストのサービスを読み取れませんでした。",
+    "disabled": "このホストではサービスが無効化されています。ホスト設定で有効にしてください。",
+    "sudo": "変更には root ログインまたはパスワードなしの sudo が必要です。ホストで sudo -n true を実行して確認してください。",
+    "noInit": "init システムが見つかりません",
+    "noInitHint": "このホストには Termix が使用できる systemd または OpenRC がありません。ログファイルは引き続き使用可能です。",
+    "readOnly": "読み取り専用",
+    "failedCount_other": "{{count}} 件失敗",
+    "viewServices": "サービス",
+    "viewTimers": "タイマー",
+    "viewJournal": "ジャーナル",
+    "viewFiles": "ログファイル"
+  },
+  "units": {
+    "search": "サービスを検索",
+    "type": "ユニットの種類",
+    "empty": "一致するユニットがありません。",
+    "loadFailed": "ユニットのリストを取得できませんでした。",
+    "confirmStop": "{{unit}} を停止しますか？",
+    "confirmStopDesc": "依存している機能は、再度起動するまで動作しなくなる可能性があります。",
+    "filters": {
+      "all": "すべて",
+      "running": "実行中",
+      "failed": "失敗",
+      "stopped": "停止中",
+      "enabled": "起動時に開始"
+    },
+    "types": {
+      "service": "サービス",
+      "socket": "ソケット",
+      "timer": "タイマー",
+      "target": "ターゲット",
+      "path": "パス",
+      "mount": "マウント"
+    }
+  },
+  "actions": {
+    "start": "開始",
+    "stop": "停止",
+    "restart": "再起動",
+    "reload": "再読み込み",
+    "enable": "起動時に開始",
+    "disable": "起動時に開始しない",
+    "enable-now": "オン",
+    "disable-now": "オフ",
+    "mask": "マスク",
+    "unmask": "マスク解除",
+    "reset-failed": "失敗状態をクリア",
+    "revert": "元に戻す",
+    "failed": "操作に失敗しました。",
+    "confirm": {
+      "stop": "{{unit}} を停止しますか？",
+      "disable": "起動時に {{unit}} を自動起動しないようにしますか？",
+      "disable-now": "{{unit}} を無効化しますか？",
+      "mask": "{{unit}} をマスクしますか？",
+      "revert": "{{unit}} を元に戻しますか？"
+    },
+    "confirmDesc": {
+      "stop": "依存しているサービスは、再度起動するまで動作しなくなる可能性があります。",
+      "disable": "現在実行中ですが、再起動後は自動起動されなくなります。",
+      "disable-now": "現在停止し、再起動後も自動起動されなくなります。",
+      "mask": "ユニットをアンマスクするまで、手動でも他のユニットからでも起動できません。",
+      "revert": "ドロップインとローカルのユニットコピーを削除し、パッケージから提供されるバージョンに戻します。"
+    },
+    "done": {
+      "start": "{{unit}} を起動しました",
+      "stop": "{{unit}} を停止しました",
+      "restart": "{{unit}} を再起動しました",
+      "reload": "{{unit}} をリロードしました",
+      "enable": "{{unit}} は起動時に開始されます",
+      "disable": "{{unit}} は起動時に開始されません",
+      "enable-now": "{{unit}} を有効化しました",
+      "disable-now": "{{unit}} を無効化しました",
+      "mask": "「{{unit}}」をマスクしました",
+      "unmask": "「{{unit}}」のマスクを解除しました",
+      "reset-failed": "「{{unit}}」の失敗状態をクリアしました",
+      "revert": "「{{unit}}」を元に戻しました"
+    }
+  },
+  "watch": {
+    "start": "失敗時に通知する",
+    "stop": "通知を停止する",
+    "badge": "監視中",
+    "on": "「{{unit}}」が失敗した際に通知が届きます",
+    "off": "「{{unit}}」への通知は停止されました",
+    "failed": "通知設定を変更できませんでした"
+  },
+  "detail": {
+    "loadFailed": "このユニットを読み取れませんでした。",
+    "editFile": "ユニットを編集",
+    "description": "説明",
+    "since": "稼働開始時刻",
+    "result": "結果",
+    "pid": "メイン PID",
+    "memory": "メモリ",
+    "peak": "ピーク",
+    "cpu": "CPU 時間",
+    "tasks": "タスク",
+    "restarts": "再起動回数",
+    "type": "タイプ",
+    "user": "ユーザー",
+    "file": "ユニットファイル",
+    "dropIns": "ドロップイン",
+    "triggeredBy": "起動元",
+    "triggers": "起動トリガー",
+    "wantedBy": "依存元",
+    "requires": "必須依存",
+    "after": "実行順序（後）",
+    "statusText": "systemctl status",
+    "log": "最近のログ"
+  },
+  "editor": {
+    "loadFailed": "ユニットファイルを読み込めませんでした。",
+    "override": "上書き",
+    "fullFile": "完全なファイル",
+    "overrideHint": "上書きは、ここに記述した行のみを変更するドロップインファイルです。パッケージの更新後も正常に動作します。空にして保存すると、上書き設定が削除されます。",
+    "overrideTemplate": "ここに入力した行は、ユニット自身の設定に追加または置き換えられます",
+    "localHint": "このユニットファイルは /etc/systemd/system に存在するため、自由に編集できます。",
+    "vendorHint": "このユニットはパッケージ（{{path}}）から提供されています。完全なファイルを保存すると、/etc/systemd/system にコピーが作成され、それが優先されます。元に戻すと、そのコピーが削除されます。",
+    "notWritable": "この種類のユニットにはファイルを保存できません。",
+    "check": "確認",
+    "checking": "確認中...",
+    "checkOk": "確認が完了しました。",
+    "checkBad": "確認で問題が見つかりました。",
+    "checkFailed": "確認を実行できませんでした。",
+    "save": "確認して保存",
+    "saved": "{{unit}} を保存し、systemd をリロードしました",
+    "saveFailed": "保存されませんでした。確認に失敗したか、ファイルの書き込みに失敗しました。",
+    "combined": "systemd がこのユニットに対して読み取るすべての設定",
+    "delete": "ユニットを削除",
+    "deleteTitle": "{{unit}} を削除しますか？",
+    "deleteDesc": "停止し、起動時に自動起動されなくなり、ファイルとドロップインが削除されます。",
+    "deleted": "{{unit}} を削除しました",
+    "deleteFailed": "ユニットを削除できませんでした。"
+  },
+  "create": {
+    "add": "新しいサービス",
+    "title": "新しいサービス",
+    "name": "名前",
+    "nameHint": "/etc/systemd/system に name.service として保存されます。",
+    "description": "説明",
+    "descriptionPlaceholder": "何をするものか",
+    "command": "コマンド",
+    "commandHint": "プログラムのフルパスと、その引数。",
+    "user": "実行ユーザー",
+    "group": "グループ",
+    "folder": "作業ディレクトリ",
+    "environment": "環境変数",
+    "environmentHint": "1行に NAME=value の形式で1つ。",
+    "timer": "スケジュール実行",
+    "timerHint": "常時実行する代わりに、指定された時刻にコマンドを実行するタイマーを作成します。",
+    "schedule": "スケジュール",
+    "scheduleHint": "OnCalendar の値（例: daily, hourly, Mon *-*-* 03:00:00）。",
+    "type": "タイプ",
+    "types": {
+      "simple": "Simple、常時実行",
+      "exec": "Exec、常時実行",
+      "forking": "Forking、バックグラウンドで開始",
+      "oneshot": "Oneshot、実行して終了",
+      "notify": "Notify、準備完了を systemd に通知"
+    },
+    "restart": "再起動",
+    "restarts": {
+      "on-failure": "失敗時",
+      "always": "常に",
+      "on-abnormal": "クラッシュ時",
+      "no": "しない"
+    },
+    "restartSec": "再起動前の待機時間（秒）",
+    "after": "これらより後に開始",
+    "afterHint": "待機するユニット（スペース区切り）。",
+    "enable": "起動時に開始",
+    "enableHint": "スケジュールの場合、タイマーを有効にします。",
+    "start": "今すぐ開始",
+    "save": "作成",
+    "done": "{{unit}} を作成しました",
+    "failed": "サービスを作成できませんでした。"
+  },
+  "timers": {
+    "search": "タイマーを検索",
+    "empty": "タイマーがありません。",
+    "loadFailed": "タイマーの一覧を取得できませんでした。",
+    "next": "次回 {{when}}（残り {{left}}）",
+    "noNext": "予定なし",
+    "last": "前回の {{when}}（{{ago}} 前）",
+    "neverRan": "実行されたことがありません",
+    "runNow": "今すぐ実行",
+    "ran": "{{unit}} を開始しました",
+    "turnOn": "オンにする",
+    "turnOff": "オフにする"
+  },
+  "journal": {
+    "unit": "ユニット",
+    "unitPlaceholder": "すべてのユニット、または nginx.service",
+    "search": "検索",
+    "searchPlaceholder": "テキストを検索",
+    "priority": "優先度",
+    "anyPriority": "すべての優先度",
+    "priorityUpTo": "{{name}} 以下",
+    "since": "期間",
+    "sinceOptions": {
+      "-15min": "過去15分",
+      "-1h": "過去1時間",
+      "-6h": "過去6時間",
+      "today": "今日",
+      "-24h": "過去24時間",
+      "-7d": "過去7日間",
+      "any": "すべての期間"
+    },
+    "boot": "ブート",
+    "anyBoot": "すべてのブート",
+    "thisBoot": "今回のブート",
+    "lines": "行数",
+    "lineCount_other": "{{count}} 行",
+    "kernel": "カーネルのみ",
+    "follow": "追従",
+    "following": "追従中",
+    "pause": "一時停止",
+    "resume": "再開",
+    "clear": "クリア",
+    "download": "ダウンロード",
+    "connecting": "接続中...",
+    "ended": "ストリーム終了",
+    "shown_other": "{{count}} 件のエントリ",
+    "usage": "ジャーナルは {{size}} を使用しています",
+    "vacuum": "空き領域を確保",
+    "vacuumTitle": "古いジャーナルファイルを削除しますか？",
+    "vacuumDesc": "4週間以上の古いジャーナルエントリがホストから削除されます。",
+    "vacuumDone": "ジャーナルは現在 {{size}} を使用しています",
+    "vacuumFailed": "空き領域を確保できませんでした。",
+    "empty": "エントリがありません。",
+    "loadFailed": "ジャーナルを読み取れませんでした。"
+  },
+  "files": {
+    "filter": "ファイルをフィルタリング",
+    "roots": "{{roots}} から。ホスト設定でフォルダを変更できます。",
+    "showRotated": "古いコピーを表示",
+    "empty": "ログファイルが見つかりません。",
+    "loadFailed": "ログファイルの一覧を取得できませんでした。",
+    "search": "検索",
+    "searchPlaceholder": "テキストを検索",
+    "download": "ダウンロード",
+    "downloadFailed": "ファイルをダウンロードできませんでした。",
+    "readFailed": "ファイルを読み取れませんでした。",
+    "noLines": "行がありません。"
+  },
+  "logs": {
+    "empty": "まだ何もありません。"
+  },
+  "companion": {
+    "openTab": "サービスタブを開く",
+    "toggle": "サービスパネル"
+  }
+}

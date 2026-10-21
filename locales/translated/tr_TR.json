@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Hizmetler",
+    "description": "SSH üzerinden ana bilgisayarlarınızdaki hizmetleri, zamanlayıcıları ve günlükleri yönetin."
+  },
+  "permissions": {
+    "use": {
+      "title": "Hizmetleri Kullan",
+      "description": "Erişebildiğiniz ana bilgisayarlarda Hizmetler sekmesini açın. Değişiklikler için ayrıca ana bilgisayara düzenleme erişimi gerekir."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Hizmetler",
+        "description": "systemd hizmetlerini, zamanlayıcılarını ve günlüklerini yönetmek için bu ana bilgisayar için Hizmetler sekmesini göster."
+      },
+      "useSudo": {
+        "label": "sudo kullan",
+        "description": "Giriş root değilse, değişiklikleri ve korumalı okumaları şifresiz sudo ile çalıştır."
+      },
+      "readOnly": {
+        "label": "Salt okunur",
+        "description": "Hizmetleri ve günlükleri okumaya izin ver, ancak Termix'ten gelen her değişikliği engelle."
+      },
+      "logPaths": {
+        "label": "Günlük klasörleri",
+        "description": "Günlük dosyaları görünümünün okuyabileceği, virgülle ayrılmış klasörler.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Terminalin yanında panel",
+        "description": "Bu ana bilgisayarın SSH terminalinin yanında bir hizmetler paneli sun."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Hizmetler panelini bir terminal ile aç",
+        "description": "Bir terminal, paneli destekleyen bir ana bilgisayarda açıldığında hizmetler panelini göster."
+      },
+      "companionSide": {
+        "label": "Hizmetler paneli konumu",
+        "description": "Panelin terminalin yanında nerede duracağı.",
+        "right": "Sağ",
+        "left": "Sol",
+        "bottom": "Alt"
+      },
+      "companionSize": {
+        "label": "Hizmetler paneli boyutu",
+        "description": "Genişlik veya altta yükseklik, piksel cinsinden."
+      },
+      "companionEdgeButton": {
+        "label": "Hizmetler paneli kenar düğmesi",
+        "description": "Paneli açmak için terminal kenarında küçük bir düğme göster."
+      }
+    }
+  },
+  "common": {
+    "back": "Geri"
+  },
+  "tab": {
+    "title": "Hizmetler",
+    "noHost": "Hizmetlerini yönetmek için bir ana bilgisayar seçin.",
+    "loading": "Yükleniyor...",
+    "refresh": "Yenile",
+    "error": "Bu ana bilgisayardaki hizmetler okunamadı.",
+    "disabled": "Hizmetler bu ana bilgisayar için etkin değil. Ana bilgisayar ayarlarından etkinleştirin.",
+    "sudo": "Değişiklikler için root girişi veya şifresiz sudo gerekir. Kontrol etmek için ana bilgisayarda sudo -n true çalıştırın.",
+    "noInit": "Başlatma sistemi bulunamadı",
+    "noInitHint": "Termix'in kullanabileceği systemd veya OpenRC bu ana bilgisayarda yok. Günlük dosyaları yine de çalışır.",
+    "readOnly": "Salt okunur",
+    "failedCount_one": "{{count}} başarısız",
+    "failedCount_other": "{{count}} başarısız",
+    "viewServices": "Hizmetler",
+    "viewTimers": "Zamanlayıcılar",
+    "viewJournal": "Günlük",
+    "viewFiles": "Günlük dosyaları"
+  },
+  "units": {
+    "search": "Hizmetleri ara",
+    "type": "Birim türü",
+    "empty": "Eşleşen birim yok.",
+    "loadFailed": "Birimler listelenemedi.",
+    "confirmStop": "{{unit}} durdurulsun mu?",
+    "confirmStopDesc": "Buna ihtiyaç duyan her şey, tekrar başlayana kadar çalışmayı durdurabilir.",
+    "filters": {
+      "all": "Tümü",
+      "running": "Çalışıyor",
+      "failed": "Başarısız",
+      "stopped": "Durduruldu",
+      "enabled": "Başlangıçta başlat"
+    },
+    "types": {
+      "service": "Hizmetler",
+      "socket": "Soketler",
+      "timer": "Zamanlayıcılar",
+      "target": "Hedefler",
+      "path": "Yollar",
+      "mount": "Bağlantılar"
+    }
+  },
+  "actions": {
+    "start": "Başlat",
+    "stop": "Durdur",
+    "restart": "Yeniden Başlat",
+    "reload": "Yenile",
+    "enable": "Önyüklemede Başlat",
+    "disable": "Önyüklemede Başlatma",
+    "enable-now": "Aç",
+    "disable-now": "Kapat",
+    "mask": "Maskele",
+    "unmask": "Maskesini Kaldır",
+    "reset-failed": "Başarısız Durumunu Temizle",
+    "revert": "Geri Al",
+    "failed": "Bu işlem başarısız oldu.",
+    "confirm": {
+      "stop": "{{unit}} durdurulsun mu?",
+      "disable": "{{unit}} önyüklemede başlatılmayacak mı?",
+      "disable-now": "{{unit}} kapatılsın mı?",
+      "mask": "{{unit}} maskelensin mi?",
+      "revert": "{{unit}} geri alınacak mı?"
+    },
+    "confirmDesc": {
+      "stop": "Buna ihtiyaç duyan diğer bileşenler, yeniden başlatılana kadar çalışmayı durdurabilir.",
+      "disable": "Şu anda çalışmaya devam eder, ancak yeniden başlatma sonrası otomatik olarak başlamaz.",
+      "disable-now": "Şu anda durur ve yeniden başlatma sonrası otomatik olarak başlamaz.",
+      "mask": "Maskelenmiş bir birim, maskesi kaldırılana kadar manuel olarak veya diğer birimler tarafından başlatılamaz.",
+      "revert": "Bu işlem, drop-in dosyalarını ve birimin yerel kopyalarını kaldırır ve paket sürümünü geri yükler."
+    },
+    "done": {
+      "start": "{{unit}} başlatıldı",
+      "stop": "{{unit}} durduruldu",
+      "restart": "{{unit}} yeniden başlatıldı",
+      "reload": "{{unit}} yenilendi",
+      "enable": "{{unit}} önyüklemede başlatılıyor",
+      "disable": "{{unit}} önyüklemede başlatılmıyor",
+      "enable-now": "{{unit}} açıldı",
+      "disable-now": "{{unit}} kapatıldı",
+      "mask": "{{unit}} maskelendi",
+      "unmask": "{{unit}} maskesi kaldırıldı",
+      "reset-failed": "{{unit}}'ın başarısız durumu temizlendi",
+      "revert": "{{unit}} geri alındı"
+    }
+  },
+  "watch": {
+    "start": "Başarısız olduğunda beni uyar",
+    "stop": "Uyarıları durdur",
+    "badge": "İzleniyor",
+    "on": "{{unit}} başarısız olduğunda uyarı alırsınız",
+    "off": "{{unit}} için artık uyarı alınmayacak",
+    "failed": "Uyarı değiştirilemedi."
+  },
+  "detail": {
+    "loadFailed": "Bu birim okunamadı.",
+    "editFile": "Birim düzenle",
+    "description": "Açıklama",
+    "since": "Çalışma süresi",
+    "result": "Sonuç",
+    "pid": "Ana PID",
+    "memory": "Bellek",
+    "peak": "tepe",
+    "cpu": "CPU süresi",
+    "tasks": "Görevler",
+    "restarts": "Yeniden Başlatmalar",
+    "type": "Tür",
+    "user": "Kullanıcı",
+    "file": "Birim dosyası",
+    "dropIns": "Drop-in'ler",
+    "triggeredBy": "Tarafından başlatıldı",
+    "triggers": "Başlatır",
+    "wantedBy": "Tarafından isteniyor",
+    "requires": "Gerektirir",
+    "after": "Sonra",
+    "statusText": "systemctl durumu",
+    "log": "Son günlük"
+  },
+  "editor": {
+    "loadFailed": "Birim dosyası okunamadı.",
+    "override": "Geçersiz Kıl",
+    "fullFile": "Tüm dosya",
+    "overrideHint": "Geçersiz kılma, yalnızca buraya yazdığınız satırları değiştiren bir ek dosyadır. Paket güncellemeleri çalışmaya devam eder. Kaldırmak için boş bırakıp kaydedin.",
+    "overrideTemplate": "Buradaki satırlar birimin kendi ayarlarına eklenir veya onları değiştirir",
+    "localHint": "Bu birim dosyası /etc/systemd/system içinde bulunduğundan düzenleme hakkı size aittir.",
+    "vendorHint": "Bu birim bir paketten geliyor ({{path}}). Tüm dosyayı kaydetmek, /etc/systemd/system içine onu geçersiz kılan bir kopya koyar. Geri al, kopyayı tekrar kaldırır.",
+    "notWritable": "Bu tür birim için dosya yazılamaz.",
+    "check": "Denetle",
+    "checking": "Denetleniyor...",
+    "checkOk": "Denetim başarılı oldu.",
+    "checkBad": "Denetim sorunlar buldu.",
+    "checkFailed": "Denetim çalıştırılamadı.",
+    "save": "Denetle ve kaydet",
+    "saved": "{{unit}} kaydedildi ve systemd yeniden yüklendi",
+    "saveFailed": "Kaydedilmedi. Denetim başarısız oldu veya dosya yazılamadı.",
+    "combined": "Bu birim için systemd'nin okuduğu her şey",
+    "delete": "Birim sil",
+    "deleteTitle": "{{unit}} silinsin mi?",
+    "deleteDesc": "Durdurulur, önyüklemeye başlamaz ve dosyası ile ekleri kaldırılır.",
+    "deleted": "{{unit}} silindi",
+    "deleteFailed": "Birim silinemedi."
+  },
+  "create": {
+    "add": "Yeni hizmet",
+    "title": "Yeni hizmet",
+    "name": "Ad",
+    "nameHint": "/etc/systemd/system içinde name.service olarak kaydedilir.",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Ne yaptığı",
+    "command": "Komut",
+    "commandHint": "Programın tam yolu, ardından argümanları.",
+    "user": "Kullanıcı olarak çalıştır",
+    "group": "Grup",
+    "folder": "Çalışma dizini",
+    "environment": "Çevre",
+    "environmentHint": "Her satırda bir AD=değer.",
+    "timer": "Zamanlamaya göre çalıştır",
+    "timerHint": "Komutu sürekli çalıştırmak yerine belirli zamanlarda çalıştıran bir zamanlayıcı oluşturun.",
+    "schedule": "Zamanlama",
+    "scheduleHint": "daily, hourly veya Mon *-*-* 03:00:00 gibi bir OnCalendar değeri.",
+    "type": "Tür",
+    "types": {
+      "simple": "Basit, çalışmaya devam eder",
+      "exec": "Yürütme, çalışmaya devam eder",
+      "forking": "Çatallama, arka planda başlar",
+      "oneshot": "Tek seferlik, çalışır ve çıkar",
+      "notify": "Bildirim, hazır olduğunda systemd'ye haber verir"
+    },
+    "restart": "Yeniden başlat",
+    "restarts": {
+      "on-failure": "Başarısız olduğunda",
+      "always": "Her zaman",
+      "on-abnormal": "Çöktüğünde",
+      "no": "Asla"
+    },
+    "restartSec": "Yeniden başlatmadan önce bekle (saniye)",
+    "after": "Şunun ardından başlat",
+    "afterHint": "Beklenecek birimler, boşluklarla ayrılmış.",
+    "enable": "Önyüklemeye başlat",
+    "enableHint": "Zamanlama için bu, zamanlayıcıyı etkinleştirir.",
+    "start": "Şimdi başlat",
+    "save": "Oluştur",
+    "done": "{{unit}} oluşturuldu",
+    "failed": "Hizmet oluşturulamadı."
+  },
+  "timers": {
+    "search": "Zamanlayıcıları ara",
+    "empty": "Zamanlayıcı yok.",
+    "loadFailed": "Zamanlayıcılar listelenemedi.",
+    "next": "Sonraki {{when}} ({{left}} içinde)",
+    "noNext": "Planlanmış bir şey yok",
+    "last": "son {{when}} ({{ago}} önce)",
+    "neverRan": "hiç çalışmadı",
+    "runNow": "Şimdi çalıştır",
+    "ran": "{{unit}} başlatıldı",
+    "turnOn": "Aç",
+    "turnOff": "Kapat"
+  },
+  "journal": {
+    "unit": "Birimler",
+    "unitPlaceholder": "Tüm birimler veya nginx.service",
+    "search": "Ara",
+    "searchPlaceholder": "Metin ara",
+    "priority": "Öncelik",
+    "anyPriority": "Herhangi bir öncelik",
+    "priorityUpTo": "{{name}} ve daha düşük",
+    "since": "Tarihinden itibaren",
+    "sinceOptions": {
+      "-15min": "Son 15 dakika",
+      "-1h": "Son 1 saat",
+      "-6h": "Son 6 saat",
+      "today": "Bugün",
+      "-24h": "Son 24 saat",
+      "-7d": "Son 7 gün",
+      "any": "Herhangi bir zaman"
+    },
+    "boot": "Önyükleme",
+    "anyBoot": "Herhangi bir önyükleme",
+    "thisBoot": "Bu önyükleme",
+    "lines": "Satırlar",
+    "lineCount_one": "{{count}} satır",
+    "lineCount_other": "{{count}} satır",
+    "kernel": "Sadece çekirdek",
+    "follow": "Takip et",
+    "following": "Takip ediliyor",
+    "pause": "Duraklat",
+    "resume": "Devam et",
+    "clear": "Temizle",
+    "download": "İndir",
+    "connecting": "Bağlanıyor...",
+    "ended": "Akış sona erdi",
+    "shown_one": "{{count}} giriş",
+    "shown_other": "{{count}} giriş",
+    "usage": "Günlük {{size}} yer kullanıyor",
+    "vacuum": "Boş alan aç",
+    "vacuumTitle": "Eski günlük dosyaları silinsin mi?",
+    "vacuumDesc": "4 haftadan eski günlük girişleri sunucudan silinecektir.",
+    "vacuumDone": "Günlük artık {{size}} yer kullanıyor",
+    "vacuumFailed": "Boş alan açılamadı.",
+    "empty": "Giriş yok.",
+    "loadFailed": "Günlük okunamadı."
+  },
+  "files": {
+    "filter": "Dosyaları filtrele",
+    "roots": "{{roots}} köklerinden. Klasörleri sunucu ayarlarından değiştirebilirsiniz.",
+    "showRotated": "Eski kopyaları göster",
+    "empty": "Günlük dosyası bulunamadı.",
+    "loadFailed": "Günlük dosyaları listelenemedi.",
+    "search": "Ara",
+    "searchPlaceholder": "Metin ara",
+    "download": "İndir",
+    "downloadFailed": "Dosya indirilemedi.",
+    "readFailed": "Dosya okunamadı.",
+    "noLines": "Satır yok."
+  },
+  "logs": {
+    "empty": "Burada henüz bir şey yok."
+  },
+  "companion": {
+    "openTab": "Hizmetler sekmesini aç",
+    "toggle": "Hizmetler paneli"
+  }
+}

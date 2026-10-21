@@ -1,0 +1,324 @@
+{
+  "plugin": {
+    "name": "Servicii",
+    "description": "Gestionează serviciile, temporizatoarele și jurnalele pe gazdele tale prin SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Folosește Servicii",
+      "description": "Deschide fila Servicii pe gazdele la care ai acces. Modificările necesită, de asemenea, permisiuni de editare pe gazdă."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Servicii",
+        "description": "Afișează fila Servicii pentru această gazdă pentru a gestiona serviciile systemd, temporizatoarele și jurnalele."
+      },
+      "useSudo": {
+        "label": "Folosește sudo",
+        "description": "Execută modificările și citirile protejate cu sudo fără parolă când autentificarea nu este root."
+      },
+      "readOnly": {
+        "label": "Doar citire",
+        "description": "Permite citirea serviciilor și jurnalelor, dar blochează orice modificare din Termix."
+      },
+      "logPaths": {
+        "label": "Dosare de jurnale",
+        "description": "Dosarele pe care vizualizarea fișierelor de jurnal le poate citi, separate prin virgule.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panou lângă terminal",
+        "description": "Afișează un panou de servicii lângă terminalul SSH al acestui gazdă."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Deschide panoul de servicii cu un terminal",
+        "description": "Afișează panoul de servicii când se deschide un terminal pe o gazdă care îl are configurat."
+      },
+      "companionSide": {
+        "label": "Poziția panoului de servicii",
+        "description": "Unde se află panoul față de terminal.",
+        "right": "Dreapta",
+        "left": "Stânga",
+        "bottom": "Jos"
+      },
+      "companionSize": {
+        "label": "Dimensiunea panoului de servicii",
+        "description": "Lățimea, sau înălțimea când este jos, în pixeli."
+      },
+      "companionEdgeButton": {
+        "label": "Buton de margine pentru panoul de servicii",
+        "description": "Afișează un buton mic pe marginea terminalului pentru a deschide panoul."
+      }
+    }
+  },
+  "common": {
+    "back": "Înapoi"
+  },
+  "tab": {
+    "title": "Servicii",
+    "noHost": "Alege un gazdă pentru a gestiona serviciile sale.",
+    "loading": "Se încarcă...",
+    "refresh": "Reîmprospătează",
+    "error": "Nu s-au putut citi serviciile de pe acest gazdă.",
+    "disabled": "Serviciile nu sunt activate pentru această gazdă. Activează-le în setările gazdei.",
+    "sudo": "Modificările necesită o autentificare root sau sudo fără parolă. Rulează `sudo -n true` pe gazdă pentru a verifica.",
+    "noInit": "Niciun sistem de inițializare găsit",
+    "noInitHint": "Această gazdă nu are systemd sau OpenRC pe care Termix să îl poată folosi. Fișierele de jurnal funcționează încă.",
+    "readOnly": "Doar citire",
+    "failedCount_one": "{{count}} eșuat",
+    "failedCount_few": "{{count}} eșuate",
+    "failedCount_other": "{{count}} eșuate",
+    "viewServices": "Servicii",
+    "viewTimers": "Temporizatoare",
+    "viewJournal": "Jurnal",
+    "viewFiles": "Fișiere jurnal"
+  },
+  "units": {
+    "search": "Caută servicii",
+    "type": "Tip unitate",
+    "empty": "Nicio unitate nu corespunde.",
+    "loadFailed": "Nu s-au putut lista unitățile.",
+    "confirmStop": "Oprești {{unit}}?",
+    "confirmStopDesc": "Orice depinde de aceasta s-ar putea să nu mai funcționeze până când repornește.",
+    "filters": {
+      "all": "Toate",
+      "running": "Active",
+      "failed": "Eșuat",
+      "stopped": "Oprit",
+      "enabled": "Pornește la boot"
+    },
+    "types": {
+      "service": "Servicii",
+      "socket": "Socket-uri",
+      "timer": "Temporizatoare",
+      "target": "Ținte",
+      "path": "Căi",
+      "mount": "Puncte de montare"
+    }
+  },
+  "actions": {
+    "start": "Pornește",
+    "stop": "Oprește",
+    "restart": "Redenumește",
+    "reload": "Reîncarcă",
+    "enable": "Pornește la pornire",
+    "disable": "Nu porni la pornire",
+    "enable-now": "Activează",
+    "disable-now": "Dezactivează",
+    "mask": "Maschează",
+    "unmask": "Demaschează",
+    "reset-failed": "Șterge starea de eroare",
+    "revert": "Anulează",
+    "failed": "Aceasta nu a funcționat.",
+    "confirm": {
+      "stop": "Oprești {{unit}}?",
+      "disable": "Nu mai porni {{unit}} la pornire?",
+      "disable-now": "Dezactivezi {{unit}}?",
+      "mask": "Maschezi {{unit}}?",
+      "revert": "Anulezi {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Orice se bazează pe acesta poate înceta să funcționeze până când repornește.",
+      "disable": "Rămâne activ acum, dar nu va porni după repornire.",
+      "disable-now": "Se oprește acum și nu va porni după repornire.",
+      "mask": "O unitate mascată nu poate fi pornită deloc, manual sau de alte unități, până când o demaschezi.",
+      "revert": "Aceasta elimină fișierele drop-in și copiile locale ale unității, și restaurează versiunea din pachet."
+    },
+    "done": {
+      "start": "Am pornit {{unit}}",
+      "stop": "Am oprit {{unit}}",
+      "restart": "Am repornit {{unit}}",
+      "reload": "Am reîncărcat {{unit}}",
+      "enable": "{{unit}} pornește la pornire",
+      "disable": "{{unit}} nu va porni la pornire",
+      "enable-now": "Am activat {{unit}}",
+      "disable-now": "Am dezactivat {{unit}}",
+      "mask": "Am mascat {{unit}}",
+      "unmask": "Am demascat {{unit}}",
+      "reset-failed": "Am șters starea de eroare a {{unit}}",
+      "revert": "Am anulat {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Notifică-mă când eșuează",
+    "stop": "Oprește notificările",
+    "badge": "Monitorizat",
+    "on": "Vei primi o notificare când {{unit}} eșuează",
+    "off": "Nu mai sunt notificări pentru {{unit}}",
+    "failed": "Nu s-a putut modifica notificarea."
+  },
+  "detail": {
+    "loadFailed": "Nu s-a putut citi această unitate.",
+    "editFile": "Editează unitatea",
+    "description": "Descriere",
+    "since": "Rulează din",
+    "result": "Rezultat",
+    "pid": "PID principal",
+    "memory": "Memorie",
+    "peak": "vârf",
+    "cpu": "Timp CPU",
+    "tasks": "Sarcini",
+    "restarts": "Reporniri",
+    "type": "Tip",
+    "user": "Utilizator",
+    "file": "Fișier unitate",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Pornit de",
+    "triggers": "Pornește",
+    "wantedBy": "Dorit de",
+    "requires": "Necesită",
+    "after": "După",
+    "statusText": "systemctl status",
+    "log": "Jurnal recent"
+  },
+  "editor": {
+    "loadFailed": "Nu s-a putut citi fișierul unității.",
+    "override": "Suprascriere",
+    "fullFile": "Fișier complet",
+    "overrideHint": "O suprascriere este un fișier „drop-in” care modifică doar liniile pe care le introduceți aici. Actualizările pachetului continuă să funcționeze. Lăsați gol și salvați pentru a o elimina.",
+    "overrideTemplate": "Liniile de aici adaugă sau înlocuiesc setările proprii ale unității",
+    "localHint": "Acest fișier de unitate se află în /etc/systemd/system, deci îl puteți edita.",
+    "vendorHint": "Această unitate provine dintr-un pachet ({{path}}). Salvarea fișierului complet creează o copie în /etc/systemd/system care are prioritate. Anularea elimină copia.",
+    "notWritable": "Fișierele nu pot fi scrise pentru acest tip de unitate.",
+    "check": "Verificare",
+    "checking": "Se verifică...",
+    "checkOk": "Verificarea a reușit.",
+    "checkBad": "Verificarea a detectat probleme.",
+    "checkFailed": "Nu s-a putut executa verificarea.",
+    "save": "Verificare și salvare",
+    "saved": "Unitatea {{unit}} a fost salvată și systemd a fost reîncărcat",
+    "saveFailed": "Nu a fost salvat. Verificarea a eșuat sau nu s-a putut scrie fișierul.",
+    "combined": "Tot ce citește systemd pentru această unitate",
+    "delete": "Șterge unitatea",
+    "deleteTitle": "Ștergeți {{unit}}?",
+    "deleteDesc": "Se oprește, nu mai pornește la boot, iar fișierul său și drop-in-urile sunt șterse.",
+    "deleted": "{{unit}} șters",
+    "deleteFailed": "Nu s-a putut șterge unitatea."
+  },
+  "create": {
+    "add": "Serviciu nou",
+    "title": "Serviciu nou",
+    "name": "Nume",
+    "nameHint": "Salvat ca name.service în /etc/systemd/system.",
+    "description": "Descriere",
+    "descriptionPlaceholder": "Ce face",
+    "command": "Comandă",
+    "commandHint": "Calea completă către program, urmată de argumentele sale.",
+    "user": "Execută ca utilizator",
+    "group": "Grup",
+    "folder": "Dosar de lucru",
+    "environment": "Mediu",
+    "environmentHint": "Un NAME=valoare pe linie.",
+    "timer": "Execută pe un program",
+    "timerHint": "Creează un cronometru care execută comanda la ore stabilite, în loc să o mențină în execuție.",
+    "schedule": "Program",
+    "scheduleHint": "O valoare OnCalendar, precum daily, hourly sau Mon *-*-* 03:00:00.",
+    "type": "Tip",
+    "types": {
+      "simple": "Simplu, rămâne în execuție",
+      "exec": "Exec, rămâne în execuție",
+      "forking": "Forking, pornește în fundal",
+      "oneshot": "One shot, se execută și se încheie",
+      "notify": "Notify, anunță systemd când este gata"
+    },
+    "restart": "Redeschidere",
+    "restarts": {
+      "on-failure": "Când eșuează",
+      "always": "Întotdeauna",
+      "on-abnormal": "Când se blochează",
+      "no": "Niciodată"
+    },
+    "restartSec": "Așteaptă înainte de restart (secunde)",
+    "after": "Pornește după",
+    "afterHint": "Unități de timp de așteptare, separate prin spații.",
+    "enable": "Pornește la pornirea sistemului",
+    "enableHint": "Pentru un program, aceasta activează cronometrul.",
+    "start": "Pornește acum",
+    "save": "Creează",
+    "done": "{{unit}} creat",
+    "failed": "Nu s-a putut crea serviciul."
+  },
+  "timers": {
+    "search": "Caută cronometre",
+    "empty": "Niciun cronometru.",
+    "loadFailed": "Nu s-a putut lista cronometrele.",
+    "next": "Următorul {{when}} (în {{left}})",
+    "noNext": "Nimic planificat",
+    "last": "ultima dată {{when}} (acum {{ago}})",
+    "neverRan": "nu a rulat niciodată",
+    "runNow": "Rulează acum",
+    "ran": "A pornit {{unit}}",
+    "turnOn": "Activează",
+    "turnOff": "Dezactivează"
+  },
+  "journal": {
+    "unit": "Unități",
+    "unitPlaceholder": "Toate unitățile, sau nginx.service",
+    "search": "Caută",
+    "searchPlaceholder": "Text de căutat",
+    "priority": "Prioritate",
+    "anyPriority": "Orice prioritate",
+    "priorityUpTo": "{{name}} și mai grav",
+    "since": "Din",
+    "sinceOptions": {
+      "-15min": "Ultimele 15 minute",
+      "-1h": "Ultima oră",
+      "-6h": "Ultimele 6 ore",
+      "today": "Astăzi",
+      "-24h": "Ultimele 24 de ore",
+      "-7d": "Ultimele 7 zile",
+      "any": "Oricând"
+    },
+    "boot": "Pornire",
+    "anyBoot": "Orice pornire",
+    "thisBoot": "Această pornire",
+    "lines": "Linii",
+    "lineCount_one": "{{count}} linie",
+    "lineCount_few": "{{count}} linii",
+    "lineCount_other": "{{count}} linii",
+    "kernel": "Doar kernel",
+    "follow": "Urmărește",
+    "following": "Se urmărește",
+    "pause": "Pauză",
+    "resume": "Reia",
+    "clear": "Șterge",
+    "download": "Descarcă",
+    "connecting": "Se conectează...",
+    "ended": "Fluxul s-a încheiat",
+    "shown_one": "{{count}} intrare",
+    "shown_few": "{{count}} intrări",
+    "shown_other": "{{count}} intrări",
+    "usage": "Jurnalul folosește {{size}}",
+    "vacuum": "Eliberează spațiu",
+    "vacuumTitle": "Ștergi fișierele vechi din jurnal?",
+    "vacuumDesc": "Intrările din jurnal mai vechi de 4 săptămâni vor fi șterse de pe gazdă.",
+    "vacuumDone": "Jurnalul folosește acum {{size}}",
+    "vacuumFailed": "Nu s-a putut elibera spațiu.",
+    "empty": "Nicio intrare.",
+    "loadFailed": "Nu s-a putut citi jurnalul."
+  },
+  "files": {
+    "filter": "Filtrează fișierele",
+    "roots": "Din {{roots}}. Modifică dosarele în setările gazdei.",
+    "showRotated": "Afișează copii vechi",
+    "empty": "Nu s-au găsit fișiere jurnal.",
+    "loadFailed": "Nu s-au putut lista fișierele jurnal.",
+    "search": "Caută",
+    "searchPlaceholder": "Text de căutat",
+    "download": "Descarcă",
+    "downloadFailed": "Nu s-a putut descărca fișierul.",
+    "readFailed": "Nu s-a putut citi fișierul.",
+    "noLines": "Nicio linie."
+  },
+  "logs": {
+    "empty": "Încă nu există nimic aici."
+  },
+  "companion": {
+    "openTab": "Deschideți fila Servicii",
+    "toggle": "Panoul de servicii"
+  }
+}

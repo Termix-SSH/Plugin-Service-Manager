@@ -1,0 +1,318 @@
+{
+  "plugin": {
+    "name": "Layanan",
+    "description": "Kelola layanan, timer, dan log pada host Anda melalui SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Gunakan Layanan",
+      "description": "Buka tab Layanan pada host yang dapat Anda jangkau. Perubahan juga memerlukan akses edit ke host."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Layanan",
+        "description": "Tampilkan tab Layanan untuk host ini guna mengelola layanan systemd, timer, dan log."
+      },
+      "useSudo": {
+        "label": "Gunakan sudo",
+        "description": "Jalankan perubahan dan baca yang dilindungi dengan sudo tanpa kata sandi saat login bukan sebagai root."
+      },
+      "readOnly": {
+        "label": "Hanya baca",
+        "description": "Izinkan membaca layanan dan log, tetapi blokir setiap perubahan dari Termix."
+      },
+      "logPaths": {
+        "label": "Folder log",
+        "description": "Folder yang dapat dibaca oleh tampilan file log, dipisahkan dengan koma.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel di samping terminal",
+        "description": "Tampilkan panel layanan di sebelah terminal SSH host ini."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Buka panel layanan bersama terminal",
+        "description": "Tampilkan panel layanan saat terminal terbuka pada host yang mendukungnya."
+      },
+      "companionSide": {
+        "label": "Posisi panel layanan",
+        "description": "Di mana panel berada di samping terminal.",
+        "right": "Kanan",
+        "left": "Kiri",
+        "bottom": "Bawah"
+      },
+      "companionSize": {
+        "label": "Ukuran panel layanan",
+        "description": "Lebar, atau tinggi di bagian bawah, dalam piksel."
+      },
+      "companionEdgeButton": {
+        "label": "Tombol tepi panel layanan",
+        "description": "Tampilkan tombol kecil di tepi terminal untuk membuka panel."
+      }
+    }
+  },
+  "common": {
+    "back": "Kembali"
+  },
+  "tab": {
+    "title": "Layanan",
+    "noHost": "Pilih host untuk mengelola layanannya.",
+    "loading": "Memuat...",
+    "refresh": "Segarkan",
+    "error": "Tidak dapat membaca layanan di host ini.",
+    "disabled": "Layanan tidak diaktifkan untuk host ini. Aktifkan di pengaturan host.",
+    "sudo": "Perubahan memerlukan login root atau sudo tanpa kata sandi. Jalankan sudo -n true di host untuk memeriksa.",
+    "noInit": "Sistem init tidak ditemukan",
+    "noInitHint": "Host ini tidak memiliki systemd atau OpenRC yang dapat digunakan Termix. File log masih berfungsi.",
+    "readOnly": "Hanya baca",
+    "failedCount_other": "{{count}} gagal",
+    "viewServices": "Layanan",
+    "viewTimers": "Penjadwal",
+    "viewJournal": "Jurnal",
+    "viewFiles": "Berkas log"
+  },
+  "units": {
+    "search": "Cari layanan",
+    "type": "Jenis unit",
+    "empty": "Tidak ada unit yang cocok.",
+    "loadFailed": "Gagal menampilkan daftar unit.",
+    "confirmStop": "Hentikan {{unit}}?",
+    "confirmStopDesc": "Aplikasi lain yang bergantung padanya mungkin berhenti berfungsi hingga unit ini dimulai kembali.",
+    "filters": {
+      "all": "Semua",
+      "running": "Berjalan",
+      "failed": "Gagal",
+      "stopped": "Berhenti",
+      "enabled": "Mulai saat boot"
+    },
+    "types": {
+      "service": "Layanan",
+      "socket": "Socket",
+      "timer": "Timer",
+      "target": "Target",
+      "path": "Path",
+      "mount": "Mount"
+    }
+  },
+  "actions": {
+    "start": "Mulai",
+    "stop": "Berhenti",
+    "restart": "Mulai Ulang",
+    "reload": "Muat Ulang",
+    "enable": "Jalankan saat boot",
+    "disable": "Jangan jalankan saat boot",
+    "enable-now": "Nyalakan",
+    "disable-now": "Matikan",
+    "mask": "Mask",
+    "unmask": "Unmask",
+    "reset-failed": "Bersihkan yang gagal",
+    "revert": "Kembalikan",
+    "failed": "Itu tidak berhasil.",
+    "confirm": {
+      "stop": "Hentikan {{unit}}?",
+      "disable": "Jangan mulai {{unit}} saat boot?",
+      "disable-now": "Matikan {{unit}}?",
+      "mask": "Masking {{unit}}?",
+      "revert": "Kembalikan {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Apa pun yang membutuhkannya mungkin berhenti berfungsi hingga dimulai lagi.",
+      "disable": "Ini tetap berjalan sekarang, tetapi tidak akan dimulai setelah reboot.",
+      "disable-now": "Ini berhenti sekarang dan tidak akan dimulai setelah reboot.",
+      "mask": "Unit yang dimaskir tidak dapat dimulai sama sekali, baik secara manual maupun oleh unit lain, sampai Anda menghapus masknya.",
+      "revert": "Ini akan menghapus drop-in dan salinan lokal unit, serta mengembalikan versi dari paket."
+    },
+    "done": {
+      "start": "{{unit}} dimulai",
+      "stop": "{{unit}} dihentikan",
+      "restart": "{{unit}} dimulai ulang",
+      "reload": "{{unit}} dimuat ulang",
+      "enable": "{{unit}} dimulai saat boot",
+      "disable": "{{unit}} tidak akan dimulai saat boot",
+      "enable-now": "{{unit}} diaktifkan",
+      "disable-now": "{{unit}} dinonaktifkan",
+      "mask": "Menyembunyikan {{unit}}",
+      "unmask": "Menampilkan {{unit}}",
+      "reset-failed": "Menghapus status gagal dari {{unit}}",
+      "revert": "Memulihkan {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Beritahu saya saat gagal",
+    "stop": "Hentikan notifikasi",
+    "badge": "Dipantau",
+    "on": "Anda akan menerima notifikasi saat {{unit}} gagal",
+    "off": "Tidak ada lagi notifikasi untuk {{unit}}",
+    "failed": "Gagal mengubah notifikasi."
+  },
+  "detail": {
+    "loadFailed": "Tidak dapat membaca unit ini.",
+    "editFile": "Edit unit",
+    "description": "Deskripsi",
+    "since": "Berjalan sejak",
+    "result": "Hasil",
+    "pid": "PID Utama",
+    "memory": "Memori",
+    "peak": "puncak",
+    "cpu": "Waktu CPU",
+    "tasks": "Tugas",
+    "restarts": "Restarts",
+    "type": "Tipe",
+    "user": "Pengguna",
+    "file": "File unit",
+    "dropIns": "Drop-in",
+    "triggeredBy": "Dijalankan oleh",
+    "triggers": "Memulai",
+    "wantedBy": "Dibutuhkan oleh",
+    "requires": "Memerlukan",
+    "after": "Setelah",
+    "statusText": "systemctl status",
+    "log": "Log terbaru"
+  },
+  "editor": {
+    "loadFailed": "Tidak dapat membaca file unit.",
+    "override": "Timpa",
+    "fullFile": "File lengkap",
+    "overrideHint": "Timpa adalah file drop-in yang hanya mengubah baris yang Anda masukkan di sini. Pembaruan paket tetap berfungsi. Kosongkan dan simpan untuk menghapusnya.",
+    "overrideTemplate": "Baris di sini menambahkan atau mengganti pengaturan unit itu sendiri",
+    "localHint": "File unit ini berada di /etc/systemd/system, jadi Anda bebas mengeditnya.",
+    "vendorHint": "Unit ini berasal dari paket ({{path}}). Menyimpan file lengkap akan menyalinnya ke /etc/systemd/system yang akan mengungguli aslinya. Memulihkan akan menghapus salinan tersebut.",
+    "notWritable": "File tidak dapat ditulis untuk jenis unit ini.",
+    "check": "Periksa",
+    "checking": "Memeriksa...",
+    "checkOk": "Pemeriksaan berhasil.",
+    "checkBad": "Pemeriksaan menemukan masalah.",
+    "checkFailed": "Tidak dapat menjalankan pemeriksaan.",
+    "save": "Periksa dan simpan",
+    "saved": "{{unit}} disimpan dan systemd dimuat ulang",
+    "saveFailed": "Tidak disimpan. Pemeriksaan gagal atau file tidak dapat ditulis.",
+    "combined": "Semua yang dibaca systemd untuk unit ini",
+    "delete": "Hapus unit",
+    "deleteTitle": "Hapus {{unit}}?",
+    "deleteDesc": "Unit akan dihentikan, tidak akan dimulai saat boot, dan file serta drop-in-nya akan dihapus.",
+    "deleted": "{{unit}} dihapus",
+    "deleteFailed": "Gagal menghapus unit."
+  },
+  "create": {
+    "add": "Layanan baru",
+    "title": "Layanan baru",
+    "name": "Nama",
+    "nameHint": "Disimpan sebagai name.service di /etc/systemd/system.",
+    "description": "Deskripsi",
+    "descriptionPlaceholder": "Apa fungsinya",
+    "command": "Perintah",
+    "commandHint": "Path lengkap ke program, lalu argumennya.",
+    "user": "Jalankan sebagai pengguna",
+    "group": "Grup",
+    "folder": "Folder kerja",
+    "environment": "Lingkungan",
+    "environmentHint": "Satu NAMA=nilai per baris.",
+    "timer": "Jalankan berdasarkan jadwal",
+    "timerHint": "Buat timer yang menjalankan perintah pada waktu tertentu, bukan menjalankannya terus-menerus.",
+    "schedule": "Jadwal",
+    "scheduleHint": "Nilai OnCalendar, seperti daily, hourly, atau Mon *-*-* 03:00:00.",
+    "type": "Tipe",
+    "types": {
+      "simple": "Simple, terus berjalan",
+      "exec": "Exec, terus berjalan",
+      "forking": "Forking, dimulai di latar belakang",
+      "oneshot": "One shot, berjalan lalu keluar",
+      "notify": "Notify, memberi tahu systemd saat siap"
+    },
+    "restart": "Mulai ulang",
+    "restarts": {
+      "on-failure": "Saat gagal",
+      "always": "Selalu",
+      "on-abnormal": "Saat terjadi crash",
+      "no": "Tidak pernah"
+    },
+    "restartSec": "Tunggu sebelum restart (detik)",
+    "after": "Mulai setelah",
+    "afterHint": "Unit untuk ditunggu, dipisahkan dengan spasi.",
+    "enable": "Mulai saat boot",
+    "enableHint": "Untuk jadwal, ini mengaktifkan timer.",
+    "start": "Mulai sekarang",
+    "save": "Buat",
+    "done": "{{unit}} berhasil dibuat",
+    "failed": "Gagal membuat layanan."
+  },
+  "timers": {
+    "search": "Cari timer",
+    "empty": "Tidak ada timer.",
+    "loadFailed": "Gagal menampilkan daftar timer.",
+    "next": "Berikutnya {{when}} (dalam {{left}})",
+    "noNext": "Tidak ada jadwal",
+    "last": "terakhir {{when}} ({{ago}} yang lalu)",
+    "neverRan": "belum pernah dijalankan",
+    "runNow": "Jalankan sekarang",
+    "ran": "Memulai {{unit}}",
+    "turnOn": "Nyalakan",
+    "turnOff": "Matikan"
+  },
+  "journal": {
+    "unit": "Unit",
+    "unitPlaceholder": "Semua unit, atau nginx.service",
+    "search": "Cari",
+    "searchPlaceholder": "Teks pencarian",
+    "priority": "Prioritas",
+    "anyPriority": "Semua prioritas",
+    "priorityUpTo": "{{name}} dan lebih buruk",
+    "since": "Sejak",
+    "sinceOptions": {
+      "-15min": "15 menit terakhir",
+      "-1h": "1 jam terakhir",
+      "-6h": "6 jam terakhir",
+      "today": "Hari ini",
+      "-24h": "24 jam terakhir",
+      "-7d": "7 hari terakhir",
+      "any": "Kapan saja"
+    },
+    "boot": "Boot",
+    "anyBoot": "Semua boot",
+    "thisBoot": "Boot saat ini",
+    "lines": "Baris",
+    "lineCount_other": "{{count}} baris",
+    "kernel": "Hanya Kernel",
+    "follow": "Ikuti",
+    "following": "Mengikuti",
+    "pause": "Jeda",
+    "resume": "Lanjutkan",
+    "clear": "Bersihkan",
+    "download": "Unduh",
+    "connecting": "Menghubungkan...",
+    "ended": "Aliran berakhir",
+    "shown_other": "{{count}} entri",
+    "usage": "Jurnal menggunakan {{size}}",
+    "vacuum": "Bebaskan ruang",
+    "vacuumTitle": "Hapus file jurnal lama?",
+    "vacuumDesc": "Entri jurnal yang berusia lebih dari 4 minggu akan dihapus dari host.",
+    "vacuumDone": "Jurnal sekarang menggunakan {{size}}",
+    "vacuumFailed": "Gagal membebaskan ruang.",
+    "empty": "Tidak ada entri.",
+    "loadFailed": "Gagal membaca jurnal."
+  },
+  "files": {
+    "filter": "Filter file",
+    "roots": "Dari {{roots}}. Ubah folder di pengaturan host.",
+    "showRotated": "Tampilkan salinan lama",
+    "empty": "Tidak ada file log ditemukan.",
+    "loadFailed": "Tidak dapat menampilkan daftar file log.",
+    "search": "Cari",
+    "searchPlaceholder": "Cari teks",
+    "download": "Unduh",
+    "downloadFailed": "Tidak dapat mengunduh file.",
+    "readFailed": "Tidak dapat membaca file.",
+    "noLines": "Tidak ada baris."
+  },
+  "logs": {
+    "empty": "Belum ada apa-apa di sini."
+  },
+  "companion": {
+    "openTab": "Buka tab Layanan",
+    "toggle": "Panel Layanan"
+  }
+}

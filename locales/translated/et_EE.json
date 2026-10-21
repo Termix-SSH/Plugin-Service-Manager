@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Teenused",
+    "description": "Halda teenuseid, aegureid ja logisid oma hostidel SSH kaudu."
+  },
+  "permissions": {
+    "use": {
+      "title": "Teenuste kasutamine",
+      "description": "Ava Teenuste vahekaart hostidel, kuhu saad ligi pääseda. Muudatuste tegemiseks on vaja ka hosti muutmise õigusi."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Teenused",
+        "description": "Kuva selle hosti jaoks Teenuste vahekaart, et hallata systemd teenuseid, aegureid ja logisid."
+      },
+      "useSudo": {
+        "label": "Kasuta sudo",
+        "description": "Käivita muudatused ja kaitstud lugemised paroolita sudo abil, kui sisselogimine ei ole root."
+      },
+      "readOnly": {
+        "label": "Ainult lugemine",
+        "description": "Luba teenuste ja logide lugemine, kuid blokeeri kõik Termixi poolt tehtavad muudatused."
+      },
+      "logPaths": {
+        "label": "Logikaustad",
+        "description": "Kaustad, millest Logifailide vaade võib lugeda, eraldatud koolonitega.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Paneel terminali kõrval",
+        "description": "Paku teenuste paneeli selle hosti SSH terminali kõrval."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Ava teenuste paneel koos terminaliga",
+        "description": "Kuva teenuste paneel, kui terminal avatakse hostil, millel see on olemas."
+      },
+      "companionSide": {
+        "label": "Teenuste paneeli asukoht",
+        "description": "Kus paneel terminali kõrval asub.",
+        "right": "Parem",
+        "left": "Vasakul",
+        "bottom": "All"
+      },
+      "companionSize": {
+        "label": "Teenuste paneeli suurus",
+        "description": "Laius või kõrgus all, pikslites."
+      },
+      "companionEdgeButton": {
+        "label": "Teenuste paneeli servanupp",
+        "description": "Kuva terminali serval väike nupp paneeli avamiseks."
+      }
+    }
+  },
+  "common": {
+    "back": "Tagasi"
+  },
+  "tab": {
+    "title": "Teenused",
+    "noHost": "Vali host, et hallata selle teenuseid.",
+    "loading": "Laadimine...",
+    "refresh": "Värskenda",
+    "error": "Selle hosti teenuseid ei õnnestunud lugeda.",
+    "disabled": "Selle hosti teenused pole sisse lülitatud. Lülita need sisse hosti seadetes.",
+    "sudo": "Muudatuste tegemiseks on vaja juurkasutaja sisselogimist või paroolita sudo-d. Kontrollimiseks käivita hostil käsk sudo -n true.",
+    "noInit": "Algussüsteemi ei leitud",
+    "noInitHint": "Sellel hostil puudub systemd või OpenRC, mida Termix saaks kasutada. Logifailid töötavad siiski.",
+    "readOnly": "Ainult lugemiseks",
+    "failedCount_one": "{{count}} nurjus",
+    "failedCount_other": "{{count}} nurjus",
+    "viewServices": "Teenused",
+    "viewTimers": "Ajastid",
+    "viewJournal": "Logi",
+    "viewFiles": "Logifailid"
+  },
+  "units": {
+    "search": "Otsi teenuseid",
+    "type": "Ühiku tüüp",
+    "empty": "Ühtegi ühikut ei leitud.",
+    "loadFailed": "Ühikute loetelu laadimine ebaõnnestus.",
+    "confirmStop": "Kas peatada {{unit}}?",
+    "confirmStopDesc": "Kõik, mis seda vajab, võib lakkata töötamast, kuni see uuesti käivitub.",
+    "filters": {
+      "all": "Kõik",
+      "running": "Töötavad",
+      "failed": "Ebaõnnestunud",
+      "stopped": "Peatatud",
+      "enabled": "Käivita käivitamisel"
+    },
+    "types": {
+      "service": "Teenused",
+      "socket": "Soklid",
+      "timer": "Ajasturid",
+      "target": "Sihtmärgid",
+      "path": "Teekonnad",
+      "mount": "Mäntumispunktid"
+    }
+  },
+  "actions": {
+    "start": "Käivita",
+    "stop": "Peata",
+    "restart": "Taaskäivita",
+    "reload": "Laadi uuesti",
+    "enable": "Käivita süsteemi käivitamisel",
+    "disable": "Ära käivita süsteemi käivitamisel",
+    "enable-now": "Lülita sisse",
+    "disable-now": "Lülita välja",
+    "mask": "Maskeeri",
+    "unmask": "Eemalda mask",
+    "reset-failed": "Kustuta ebaõnnestunud olek",
+    "revert": "Taasta",
+    "failed": "See ei õnnestunud.",
+    "confirm": {
+      "stop": "Kas peatada {{unit}}?",
+      "disable": "Kas keelata {{unit}} käivitamine süsteemi käivitamisel?",
+      "disable-now": "Kas lülitada {{unit}} välja?",
+      "mask": "Kas maskeerida {{unit}}?",
+      "revert": "Kas taastada {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Kõik, mis seda vajab, võib lakkata töötamast, kuni see uuesti käivitub.",
+      "disable": "See töötab praegu edasi, kuid ei käivitu pärast taaskäivitust.",
+      "disable-now": "See peatub kohe ja ei käivitu pärast taaskäivitust.",
+      "mask": "Maskeeritud üksust ei saa käivitada üldse, ei käsitsi ega teiste üksuste poolt, enne kui selle maskeeringu eemaldad.",
+      "revert": "See eemaldab drop-in failid ja üksuse kohalikud koopia ning taastab pakist pärineva versiooni."
+    },
+    "done": {
+      "start": "{{unit}} käivitatud",
+      "stop": "{{unit}} peatatud",
+      "restart": "{{unit}} taaskäivitatud",
+      "reload": "{{unit}} laaditud uuesti",
+      "enable": "{{unit}} käivitub süsteemi käivitamisel",
+      "disable": "{{unit}} ei käivitu süsteemi käivitamisel",
+      "enable-now": "{{unit}} sisse lülitatud",
+      "disable-now": "{{unit}} välja lülitatud",
+      "mask": "Peidetud {{unit}}",
+      "unmask": "Avatud {{unit}}",
+      "reset-failed": "Tühjendatud {{unit}} ebaõnnestunud olek",
+      "revert": "Taastatud {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Teavita mind ebaõnnestumisel",
+    "stop": "Peata teavitused",
+    "badge": "Jälgitav",
+    "on": "Saad teavituse, kui {{unit}} ebaõnnestub",
+    "off": "{{unit}} kohta enam teavitusi ei saadeta",
+    "failed": "Teavituse muutmiseks ei õnnestunud."
+  },
+  "detail": {
+    "loadFailed": "Selle ühiku lugemine ei õnnestunud.",
+    "editFile": "Muuda ühikut",
+    "description": "Kirjeldus",
+    "since": "Töötab alates",
+    "result": "Tulemus",
+    "pid": "Põhiprotsessi ID",
+    "memory": "Mälu",
+    "peak": "tipp",
+    "cpu": "CPU aeg",
+    "tasks": "Ülesanded",
+    "restarts": "Taaskäivitused",
+    "type": "Tüüp",
+    "user": "Kasutaja",
+    "file": "Ühiku fail",
+    "dropIns": "Lisafailid",
+    "triggeredBy": "Käivitas",
+    "triggers": "Käivitab",
+    "wantedBy": "Nõutud poolt",
+    "requires": "Nõuab",
+    "after": "Pärast",
+    "statusText": "systemctl status",
+    "log": "Viimased logid"
+  },
+  "editor": {
+    "loadFailed": "Ühiku faili ei õnnestunud lugeda.",
+    "override": "Ülekirjutamine",
+    "fullFile": "Terve fail",
+    "overrideHint": "Ülekirjutamine on drop-in-fail, mis muudab ainult siia sisestatud ridu. Paki uuendused jätkavad tööd. Jäta tühjaks ja salvesta, et see eemaldada.",
+    "overrideTemplate": "Siin olevad read lisavad või asendavad ühiku enda seadeid",
+    "localHint": "See ühiku fail asub kataloogis /etc/systemd/system, seega saad seda vabalt muuta.",
+    "vendorHint": "See ühik pärineb pakist ({{path}}). Tervel failil salvestamine loob koopiana kataloogi /etc/systemd/system, mis on prioriteedilt kõrgem. Tagasivõtmine eemaldab selle koopia.",
+    "notWritable": "Selle tüüpi ühiku faile ei saa kirjutada.",
+    "check": "Kontrolli",
+    "checking": "Kontrollimine...",
+    "checkOk": "Kontroll õnnestus.",
+    "checkBad": "Kontroll leidis vigu.",
+    "checkFailed": "Kontrolli ei õnnestunud käivitada.",
+    "save": "Kontrolli ja salvesta",
+    "saved": "Ühik {{unit}} salvestatud ja systemd taaskäivitatud",
+    "saveFailed": "Pole salvestatud. Kontroll ebaõnnestus või faili ei õnnestunud kirjutada.",
+    "combined": "Kõik, mida systemd selle ühiku jaoks loeb",
+    "delete": "Kustuta ühik",
+    "deleteTitle": "Kas kustutada üksus {{unit}}?",
+    "deleteDesc": "See peatatakse, ei käivitu süsteemi käivitamisel ja selle failid ning lisakonfiguratsioonid eemaldatakse.",
+    "deleted": "Üksus {{unit}} kustutatud",
+    "deleteFailed": "Üksuse kustutamine ebaõnnestus."
+  },
+  "create": {
+    "add": "Uus teenus",
+    "title": "Uus teenus",
+    "name": "Nimi",
+    "nameHint": "Salvestatakse nimega name.service kausta /etc/systemd/system.",
+    "description": "Kirjeldus",
+    "descriptionPlaceholder": "Mida see teeb",
+    "command": "Käsk",
+    "commandHint": "Programmi täielik asukoha tee ja seejärel selle argumendid.",
+    "user": "Käivita kasutajana",
+    "group": "Grupp",
+    "folder": "Töökaust",
+    "environment": "Keskkond",
+    "environmentHint": "Üks NIMI=väärtus rida.",
+    "timer": "Käivita ajakava alusel",
+    "timerHint": "Loo taimer, mis käivitab käsu kindlatel kellaaegadel, mitte hoiab seda pidevalt käimas.",
+    "schedule": "Ajakava",
+    "scheduleHint": "OnCalendar väärtus, näiteks daily, hourly või Mon *-*-* 03:00:00.",
+    "type": "Tüüp",
+    "types": {
+      "simple": "Lihtne, töötab pidevalt",
+      "exec": "Exec, töötab pidevalt",
+      "forking": "Forking, käivitub taustal",
+      "oneshot": "Ühekordne, käivitub ja väljub",
+      "notify": "Teavita, teatab systemdile, kui valmis"
+    },
+    "restart": "Taaskäivita",
+    "restarts": {
+      "on-failure": "Nõrkumisel",
+      "always": "Alati",
+      "on-abnormal": "Kui see kukub",
+      "no": "Mitte kunagi"
+    },
+    "restartSec": "Oota enne taaskäivitamist (sekundites)",
+    "after": "Käivita pärast",
+    "afterHint": "Ühikud, mille jaoks oodata, eraldatud tühikutega.",
+    "enable": "Käivita süsteemi käivitamisel",
+    "enableHint": "Ajastuse puhul see lülitab taimeri sisse.",
+    "start": "Käivita kohe",
+    "save": "Loo",
+    "done": "{{unit}} loodud",
+    "failed": "Teenust ei õnnestunud luua."
+  },
+  "timers": {
+    "search": "Otsi aegareid",
+    "empty": "Aegareid pole.",
+    "loadFailed": "Aegareid ei õnnestunud loetleda.",
+    "next": "Järgmine {{when}} ({{left}} pärast)",
+    "noNext": "Midagi pole planeeritud",
+    "last": "viimati {{when}} ({{ago}} tagasi)",
+    "neverRan": "pole kunagi käivitatud",
+    "runNow": "Käivita kohe",
+    "ran": "Käivitas {{unit}}",
+    "turnOn": "Lülita sisse",
+    "turnOff": "Lülita välja"
+  },
+  "journal": {
+    "unit": "Ühikud",
+    "unitPlaceholder": "Kõik ühikud või nginx.service",
+    "search": "Otsi",
+    "searchPlaceholder": "Otsitav tekst",
+    "priority": "Prioriteet",
+    "anyPriority": "Suvaline prioriteet",
+    "priorityUpTo": "{{name}} ja halvem",
+    "since": "Alates",
+    "sinceOptions": {
+      "-15min": "Viimased 15 minutit",
+      "-1h": "Viimane tund",
+      "-6h": "Viimased 6 tundi",
+      "today": "Täna",
+      "-24h": "Viimased 24 tundi",
+      "-7d": "Viimased 7 päeva",
+      "any": "Igasugune aeg"
+    },
+    "boot": "Laadimine",
+    "anyBoot": "Igasugune laadimine",
+    "thisBoot": "See laadimine",
+    "lines": "Readmed",
+    "lineCount_one": "{{count}} readme",
+    "lineCount_other": "{{count}} readmed",
+    "kernel": "Ainult tuum",
+    "follow": "Jälgi",
+    "following": "Jälgimine",
+    "pause": "Peata",
+    "resume": "Jätka",
+    "clear": "Tühjenda",
+    "download": "Laadi alla",
+    "connecting": "Ühenduse loomine...",
+    "ended": "Voog lõpetatud",
+    "shown_one": "{{count}} kirje",
+    "shown_other": "{{count}} kirjet",
+    "usage": "Süsteemipäevik kasutab {{size}}",
+    "vacuum": "Vaba ruum",
+    "vacuumTitle": "Kas kustutada vanad süsteemipäeviku failid?",
+    "vacuumDesc": "Süsteemipäeviku kirjed, mis on vanemad kui 4 nädalat, kustutatakse hostist.",
+    "vacuumDone": "Süsteemipäevik kasutab nüüd {{size}}",
+    "vacuumFailed": "Ruumi vabastamine ei õnnestunud.",
+    "empty": "Kirjeid pole.",
+    "loadFailed": "Süsteemipäeviku lugemine ei õnnestunud."
+  },
+  "files": {
+    "filter": "Filtreeri failid",
+    "roots": "Allikas: {{roots}}. Muuda kausta seadeid hosti seadetes.",
+    "showRotated": "Kuva vanad koopiad",
+    "empty": "Logifaile ei leitud.",
+    "loadFailed": "Logifailide loetelu laadimine ebaõnnestus.",
+    "search": "Otsi",
+    "searchPlaceholder": "Otsitav tekst",
+    "download": "Laadi alla",
+    "downloadFailed": "Faili allalaadimine ebaõnnestus.",
+    "readFailed": "Faili lugemine ebaõnnestus.",
+    "noLines": "Ridu pole."
+  },
+  "logs": {
+    "empty": "Siin pole veel midagi."
+  },
+  "companion": {
+    "openTab": "Ava Teenused-vaheleht",
+    "toggle": "Teenuste paneel"
+  }
+}

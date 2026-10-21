@@ -1,0 +1,318 @@
+{
+  "plugin": {
+    "name": "서비스",
+    "description": "SSH를 통해 호스트의 서비스, 타이머 및 로그를 관리합니다."
+  },
+  "permissions": {
+    "use": {
+      "title": "서비스 사용",
+      "description": "접근 가능한 호스트에서 서비스 탭을 엽니다. 변경 사항 적용에는 호스트에 대한 편집 권한도 필요합니다."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "서비스",
+        "description": "systemd 서비스, 타이머 및 로그를 관리할 수 있도록 이 호스트에 서비스 탭을 표시합니다."
+      },
+      "useSudo": {
+        "label": "sudo 사용",
+        "description": "로그인 사용자가 root가 아닐 때, 변경 사항 적용 및 보호된 읽기 작업을 비밀번호 없는 sudo로 실행합니다."
+      },
+      "readOnly": {
+        "label": "읽기 전용",
+        "description": "서비스 및 로그 읽기는 허용하지만, Termix를 통한 모든 변경 작업을 차단합니다."
+      },
+      "logPaths": {
+        "label": "로그 폴더",
+        "description": "로그 파일 뷰에서 읽을 수 있는 폴더를 쉼표로 구분하여 입력하세요.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "터미널 옆 패널",
+        "description": "이 호스트의 SSH 터미널 옆에 서비스 패널을 표시합니다."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "터미널과 함께 서비스 패널 열기",
+        "description": "서비스 패널이 설정된 호스트에서 터미널이 열릴 때 서비스 패널을 표시합니다."
+      },
+      "companionSide": {
+        "label": "서비스 패널 위치",
+        "description": "터미널 옆에 패널이 표시되는 위치입니다.",
+        "right": "오른쪽",
+        "left": "왼쪽",
+        "bottom": "아래"
+      },
+      "companionSize": {
+        "label": "서비스 패널 크기",
+        "description": "너비 또는 아래쪽 높이 (픽셀 단위)."
+      },
+      "companionEdgeButton": {
+        "label": "서비스 패널 가장자리 버튼",
+        "description": "패널을 열 수 있는 작은 버튼을 터미널 가장자리에 표시합니다."
+      }
+    }
+  },
+  "common": {
+    "back": "뒤로"
+  },
+  "tab": {
+    "title": "서비스",
+    "noHost": "서비스를 관리할 호스트를 선택하세요.",
+    "loading": "로딩 중...",
+    "refresh": "새로고침",
+    "error": "이 호스트의 서비스를 읽을 수 없습니다.",
+    "disabled": "이 호스트에서 서비스가 활성화되지 않았습니다. 호스트 설정에서 활성화하세요.",
+    "sudo": "변경 사항을 적용하려면 루트 로그인 또는 비밀번호 없는 sudo가 필요합니다. 호스트에서 sudo -n true를 실행하여 확인하세요.",
+    "noInit": "init 시스템을 찾을 수 없습니다",
+    "noInitHint": "Termix에서 사용할 수 있는 systemd 또는 OpenRC가 이 호스트에 없습니다. 로그 파일은 여전히 사용할 수 있습니다.",
+    "readOnly": "읽기 전용",
+    "failedCount_other": "{{count}}개 실패",
+    "viewServices": "서비스",
+    "viewTimers": "타이머",
+    "viewJournal": "저널",
+    "viewFiles": "로그 파일"
+  },
+  "units": {
+    "search": "서비스 검색",
+    "type": "유닛 유형",
+    "empty": "일치하는 유닛이 없습니다.",
+    "loadFailed": "유닛 목록을 가져올 수 없습니다.",
+    "confirmStop": "{{unit}}을(를) 중지하시겠습니까?",
+    "confirmStopDesc": "이 유닛에 의존하는 서비스는 다시 시작할 때까지 작동하지 않을 수 있습니다.",
+    "filters": {
+      "all": "전체",
+      "running": "실행 중",
+      "failed": "실패",
+      "stopped": "중지됨",
+      "enabled": "부팅 시 시작"
+    },
+    "types": {
+      "service": "서비스",
+      "socket": "소켓",
+      "timer": "타이머",
+      "target": "타겟",
+      "path": "경로",
+      "mount": "마운트"
+    }
+  },
+  "actions": {
+    "start": "시작",
+    "stop": "중지",
+    "restart": "재시작",
+    "reload": "다시 로드",
+    "enable": "부팅 시 시작",
+    "disable": "부팅 시 시작 안 함",
+    "enable-now": "켜기",
+    "disable-now": "끄기",
+    "mask": "마스크",
+    "unmask": "마스크 해제",
+    "reset-failed": "실패 상태 초기화",
+    "revert": "되돌리기",
+    "failed": "작업이 실패했습니다.",
+    "confirm": {
+      "stop": "{{unit}}을(를) 중지하시겠습니까?",
+      "disable": "부팅 시 {{unit}}을(를) 시작하지 않도록 하시겠습니까?",
+      "disable-now": "{{unit}}을(를) 끄시겠습니까?",
+      "mask": "{{unit}}을(를) 마스킹하시겠습니까?",
+      "revert": "{{unit}}을(를) 되돌리시겠습니까?"
+    },
+    "confirmDesc": {
+      "stop": "이 서비스를 사용하는 다른 기능들이 다시 시작될 때까지 작동하지 않을 수 있습니다.",
+      "disable": "현재는 계속 실행되지만, 재부팅 후에는 시작되지 않습니다.",
+      "disable-now": "지금 중지되며 재부팅 후에도 시작되지 않습니다.",
+      "mask": "마스크가 적용된 유닛은 마스크가 해제될 때까지 수동으로든 다른 유닛에 의해든 전혀 시작할 수 없습니다.",
+      "revert": "이 작업은 드롭인 파일과 로컬 유닛 복사본을 제거하고 패키지에서 제공된 버전으로 복원합니다."
+    },
+    "done": {
+      "start": "{{unit}} 시작됨",
+      "stop": "{{unit}} 중지됨",
+      "restart": "{{unit}} 재시작됨",
+      "reload": "{{unit}} 다시 로드됨",
+      "enable": "{{unit}} 부팅 시 시작됨",
+      "disable": "{{unit}} 부팅 시 시작 안 함",
+      "enable-now": "{{unit}} 켜짐",
+      "disable-now": "{{unit}} 꺼짐",
+      "mask": "마스크 처리된 {{unit}}",
+      "unmask": "마스크 해제된 {{unit}}",
+      "reset-failed": "{{unit}}의 실패 상태가 초기화되었습니다",
+      "revert": "{{unit}}이(가) 되돌려졌습니다"
+    }
+  },
+  "watch": {
+    "start": "실패 시 알림 받기",
+    "stop": "알림 중지",
+    "badge": "감시 중",
+    "on": "{{unit}}이(가) 실패하면 알림을 받게 됩니다",
+    "off": "{{unit}}에 대한 알림이 더 이상 전송되지 않습니다",
+    "failed": "알림 상태를 변경할 수 없습니다."
+  },
+  "detail": {
+    "loadFailed": "이 유닛을 읽을 수 없습니다.",
+    "editFile": "유닛 편집",
+    "description": "설명",
+    "since": "실행 시작 시각",
+    "result": "결과",
+    "pid": "메인 PID",
+    "memory": "메모리",
+    "peak": "최대치",
+    "cpu": "CPU 시간",
+    "tasks": "작업",
+    "restarts": "재시작 횟수",
+    "type": "유형",
+    "user": "사용자",
+    "file": "유닛 파일",
+    "dropIns": "드롭인",
+    "triggeredBy": "시작 원인",
+    "triggers": "트리거",
+    "wantedBy": "요청자",
+    "requires": "필수 의존성",
+    "after": "이후 실행",
+    "statusText": "systemctl status",
+    "log": "최근 로그"
+  },
+  "editor": {
+    "loadFailed": "유닛 파일을 읽을 수 없습니다.",
+    "override": "오버라이드",
+    "fullFile": "전체 파일",
+    "overrideHint": "오버라이드는 여기에 입력한 줄만 변경하는 드롭인 파일입니다. 패키지 업데이트도 정상적으로 작동합니다. 비우고 저장하면 오버라이드가 제거됩니다.",
+    "overrideTemplate": "여기에 입력한 줄은 유닛 자체 설정에 추가되거나 대체됩니다",
+    "localHint": "이 유닛 파일은 /etc/systemd/system에 있으므로 직접 수정할 수 있습니다.",
+    "vendorHint": "이 유닛은 패키지({{path}})에서 제공됩니다. 전체 파일을 저장하면 /etc/systemd/system에 복사본이 생성되어 우선 적용됩니다. 되돌리면 복사본이 제거됩니다.",
+    "notWritable": "이 유형의 유닛은 파일 작성이 지원되지 않습니다.",
+    "check": "확인",
+    "checking": "확인 중...",
+    "checkOk": "검사가 통과했습니다.",
+    "checkBad": "검사 중 문제가 발견되었습니다.",
+    "checkFailed": "검사를 실행할 수 없습니다.",
+    "save": "확인 후 저장",
+    "saved": "{{unit}}이(가) 저장되고 systemd가 다시 로드되었습니다",
+    "saveFailed": "저장되지 않았습니다. 검사가 실패했거나 파일을 쓸 수 없습니다.",
+    "combined": "이 유닛에 대해 systemd가 읽는 모든 설정",
+    "delete": "유닛 삭제",
+    "deleteTitle": "이 {{unit}}을(를) 삭제하시겠습니까?",
+    "deleteDesc": "서비스가 중지되고 부팅 시 시작되지 않으며, 관련 파일과 드롭인 설정이 제거됩니다.",
+    "deleted": "{{unit}} 삭제 완료",
+    "deleteFailed": "유닛을 삭제할 수 없습니다."
+  },
+  "create": {
+    "add": "새 서비스 추가",
+    "title": "새 서비스",
+    "name": "이름",
+    "nameHint": "/etc/systemd/system에 name.service로 저장됩니다.",
+    "description": "설명",
+    "descriptionPlaceholder": "무엇을 하는지",
+    "command": "명령어",
+    "commandHint": "프로그램의 전체 경로와 그 인수를 입력하세요.",
+    "user": "실행할 사용자",
+    "group": "그룹",
+    "folder": "작업 폴더",
+    "environment": "환경 변수",
+    "environmentHint": "한 줄에 NAME=value 형식으로 하나씩 입력하세요.",
+    "timer": "일정 실행",
+    "timerHint": "명령어를 계속 실행하는 대신, 설정된 시간에 실행되도록 타이머를 만듭니다.",
+    "schedule": "일정",
+    "scheduleHint": "daily, hourly 또는 Mon *-*-* 03:00:00과 같은 OnCalendar 값입니다.",
+    "type": "유형",
+    "types": {
+      "simple": "Simple, 계속 실행",
+      "exec": "Exec, 계속 실행",
+      "forking": "Forking, 백그라운드에서 시작",
+      "oneshot": "One shot, 실행 후 종료",
+      "notify": "Notify, 준비 완료 시 systemd에 알림"
+    },
+    "restart": "재시작",
+    "restarts": {
+      "on-failure": "실패 시",
+      "always": "항상",
+      "on-abnormal": "크래시 발생 시",
+      "no": "절대 안 함"
+    },
+    "restartSec": "재시작 대기 시간 (초)",
+    "after": "다음 시작",
+    "afterHint": "대기할 단어를 공백으로 구분하여 입력하세요.",
+    "enable": "부팅 시 시작",
+    "enableHint": "스케줄의 경우 타이머를 활성화합니다.",
+    "start": "지금 시작",
+    "save": "생성",
+    "done": "{{unit}}이(가) 생성되었습니다",
+    "failed": "서비스를 생성할 수 없습니다."
+  },
+  "timers": {
+    "search": "타이머 검색",
+    "empty": "타이머가 없습니다.",
+    "loadFailed": "타이머 목록을 가져올 수 없습니다.",
+    "next": "다음 실행: {{when}} ({{left}} 후)",
+    "noNext": "예약된 작업 없음",
+    "last": "마지막 실행: {{when}} ({{ago}} 전)",
+    "neverRan": "실행 기록 없음",
+    "runNow": "지금 실행",
+    "ran": "{{unit}} 시작됨",
+    "turnOn": "켜기",
+    "turnOff": "끄기"
+  },
+  "journal": {
+    "unit": "유닛",
+    "unitPlaceholder": "모든 유닛 또는 nginx.service",
+    "search": "검색",
+    "searchPlaceholder": "검색어",
+    "priority": "우선순위",
+    "anyPriority": "모든 우선순위",
+    "priorityUpTo": "{{name}} 이하",
+    "since": "시작 시간",
+    "sinceOptions": {
+      "-15min": "최근 15분",
+      "-1h": "최근 1시간",
+      "-6h": "최근 6시간",
+      "today": "오늘",
+      "-24h": "최근 24시간",
+      "-7d": "최근 7일",
+      "any": "모든 시간"
+    },
+    "boot": "부팅",
+    "anyBoot": "모든 부팅",
+    "thisBoot": "현재 부팅",
+    "lines": "줄",
+    "lineCount_other": "{{count}}줄",
+    "kernel": "커널만",
+    "follow": "추적",
+    "following": "추적 중",
+    "pause": "일시 정지",
+    "resume": "재개",
+    "clear": "지우기",
+    "download": "다운로드",
+    "connecting": "연결 중...",
+    "ended": "스트림이 종료되었습니다",
+    "shown_other": "{{count}}개 항목",
+    "usage": "저널 사용량: {{size}}",
+    "vacuum": "사용 가능한 공간",
+    "vacuumTitle": "과거 저널 파일을 삭제하시겠습니까?",
+    "vacuumDesc": "4주 이상 된 저널 항목이 호스트에서 삭제됩니다.",
+    "vacuumDone": "저널 사용량: {{size}}",
+    "vacuumFailed": "공간을 확보할 수 없습니다.",
+    "empty": "항목이 없습니다.",
+    "loadFailed": "저널을 읽을 수 없습니다."
+  },
+  "files": {
+    "filter": "파일 필터링",
+    "roots": "{{roots}}에서 가져옵니다. 호스트 설정에서 폴더를 변경하세요.",
+    "showRotated": "이전 복사본 표시",
+    "empty": "로그 파일을 찾을 수 없습니다.",
+    "loadFailed": "로그 파일 목록을 가져올 수 없습니다.",
+    "search": "검색",
+    "searchPlaceholder": "검색어 입력",
+    "download": "다운로드",
+    "downloadFailed": "파일을 다운로드할 수 없습니다.",
+    "readFailed": "파일을 읽을 수 없습니다.",
+    "noLines": "줄이 없습니다."
+  },
+  "logs": {
+    "empty": "아직 내용이 없습니다."
+  },
+  "companion": {
+    "openTab": "서비스 탭 열기",
+    "toggle": "서비스 패널"
+  }
+}

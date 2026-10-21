@@ -1,0 +1,324 @@
+{
+  "plugin": {
+    "name": "Serviços",
+    "description": "Gerir serviços, temporizadores e registos nos seus hosts via SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Utilizar Serviços",
+      "description": "Abrir a separação Serviços nos hosts a que tem acesso. As alterações também requerem permissão de edição no host."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Serviços",
+        "description": "Mostrar a separação Serviços para este host, para gerir serviços, temporizadores e registos do systemd."
+      },
+      "useSudo": {
+        "label": "Usar sudo",
+        "description": "Executar alterações e leituras protegidas com sudo sem palavra-passe quando a sessão não for root."
+      },
+      "readOnly": {
+        "label": "Apenas leitura",
+        "description": "Permitir a leitura de serviços e registos, mas bloquear todas as alterações provenientes do Termix."
+      },
+      "logPaths": {
+        "label": "Pastas de registos",
+        "description": "Pastas que a vista de ficheiros de registo pode ler, separadas por vírgulas.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Painel junto ao terminal",
+        "description": "Mostrar um painel de serviços junto ao terminal SSH deste servidor."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Abrir o painel de serviços com um terminal",
+        "description": "Mostrar o painel de serviços quando um terminal abre num servidor que o tenha."
+      },
+      "companionSide": {
+        "label": "Lado do painel de serviços",
+        "description": "Onde o painel fica junto ao terminal.",
+        "right": "Direita",
+        "left": "Esquerda",
+        "bottom": "Inferior"
+      },
+      "companionSize": {
+        "label": "Tamanho do painel de serviços",
+        "description": "Largura, ou altura na parte inferior, em pixels."
+      },
+      "companionEdgeButton": {
+        "label": "Botão lateral do painel de serviços",
+        "description": "Mostrar um pequeno botão na borda do terminal para abrir o painel."
+      }
+    }
+  },
+  "common": {
+    "back": "Voltar"
+  },
+  "tab": {
+    "title": "Serviços",
+    "noHost": "Selecione um host para gerir os seus serviços.",
+    "loading": "A carregar...",
+    "refresh": "Atualizar",
+    "error": "Não foi possível ler os serviços neste host.",
+    "disabled": "Os serviços não estão ativados para este host. Ative-os nas definições do host.",
+    "sudo": "As alterações requerem acesso root ou sudo sem palavra-passe. Execute sudo -n true no host para verificar.",
+    "noInit": "Nenhum sistema de inicialização encontrado",
+    "noInitHint": "Este host não tem systemd nem OpenRC que o Termix possa utilizar. Os registos de eventos continuam a funcionar.",
+    "readOnly": "Apenas leitura",
+    "failedCount_one": "{{count}} falhou",
+    "failedCount_many": "{{count}} falharam",
+    "failedCount_other": "{{count}} falharam",
+    "viewServices": "Serviços",
+    "viewTimers": "Temporizadores",
+    "viewJournal": "Registo",
+    "viewFiles": "Ficheiros de registo"
+  },
+  "units": {
+    "search": "Pesquisar serviços",
+    "type": "Tipo de unidade",
+    "empty": "Nenhuma unidade corresponde.",
+    "loadFailed": "Não foi possível listar as unidades.",
+    "confirmStop": "Parar {{unit}}?",
+    "confirmStopDesc": "Tudo o que dependa dele pode deixar de funcionar até ser reiniciado.",
+    "filters": {
+      "all": "Todas",
+      "running": "Em execução",
+      "failed": "Falhou",
+      "stopped": "Parado",
+      "enabled": "Iniciar no arranque"
+    },
+    "types": {
+      "service": "Serviços",
+      "socket": "Sockets",
+      "timer": "Temporizadores",
+      "target": "Alvos",
+      "path": "Caminhos",
+      "mount": "Montagens"
+    }
+  },
+  "actions": {
+    "start": "Iniciar",
+    "stop": "Parar",
+    "restart": "Reiniciar",
+    "reload": "Recarregar",
+    "enable": "Iniciar no arranque",
+    "disable": "Não iniciar no arranque",
+    "enable-now": "Ligar",
+    "disable-now": "Desligar",
+    "mask": "Ocultar",
+    "unmask": "Revelar",
+    "reset-failed": "Limpar falhas",
+    "revert": "Reverter",
+    "failed": "Isto não funcionou.",
+    "confirm": {
+      "stop": "Parar {{unit}}?",
+      "disable": "Deixar de iniciar {{unit}} no arranque?",
+      "disable-now": "Desligar {{unit}}?",
+      "mask": "Ocultar {{unit}}?",
+      "revert": "Reverter {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Tudo o que dependa disto pode deixar de funcionar até que seja reiniciado.",
+      "disable": "Continua a funcionar agora, mas não iniciará após um reinício.",
+      "disable-now": "Para agora e não iniciará após um reinício.",
+      "mask": "Uma unidade oculta não pode ser iniciada de forma alguma, manualmente ou por outras unidades, até que seja revelada.",
+      "revert": "Isto remove as configurações adicionais e cópias locais da unidade, e restaura a versão do pacote."
+    },
+    "done": {
+      "start": "{{unit}} iniciado",
+      "stop": "{{unit}} parado",
+      "restart": "{{unit}} reiniciado",
+      "reload": "{{unit}} recarregado",
+      "enable": "{{unit}} inicia no arranque",
+      "disable": "{{unit}} não inicia no arranque",
+      "enable-now": "{{unit}} ligado",
+      "disable-now": "{{unit}} desligado",
+      "mask": "{{unit}} oculto",
+      "unmask": "{{unit}} revelado",
+      "reset-failed": "Estado de falha de {{unit}} limpo",
+      "revert": "{{unit}} revertido"
+    }
+  },
+  "watch": {
+    "start": "Avisar-me quando falhar",
+    "stop": "Parar avisos",
+    "badge": "Monitorizado",
+    "on": "Receberá um aviso quando {{unit}} falhar",
+    "off": "Sem mais avisos para {{unit}}",
+    "failed": "Não foi possível alterar o aviso."
+  },
+  "detail": {
+    "loadFailed": "Não foi possível ler esta unidade.",
+    "editFile": "Editar unidade",
+    "description": "Descrição",
+    "since": "Em execução desde",
+    "result": "Resultado",
+    "pid": "PID principal",
+    "memory": "Memória",
+    "peak": "pico",
+    "cpu": "Tempo de CPU",
+    "tasks": "Tarefas",
+    "restarts": "Reinícios",
+    "type": "Tipo",
+    "user": "Utilizador",
+    "file": "Ficheiro da unidade",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Iniciado por",
+    "triggers": "Inicia",
+    "wantedBy": "Desejado por",
+    "requires": "Requer",
+    "after": "Depois de",
+    "statusText": "systemctl status",
+    "log": "Registo recente"
+  },
+  "editor": {
+    "loadFailed": "Não foi possível ler o ficheiro da unidade.",
+    "override": "Substituir",
+    "fullFile": "Ficheiro completo",
+    "overrideHint": "Uma substituição é um ficheiro drop-in que altera apenas as linhas que aqui inserir. As atualizações do pacote continuam a funcionar. Deixe vazio e guarde para a remover.",
+    "overrideTemplate": "As linhas aqui adicionam ou substituem as definições da própria unidade",
+    "localHint": "Este ficheiro de unidade está em /etc/systemd/system, por isso pode editá-lo.",
+    "vendorHint": "Esta unidade provém de um pacote ({{path}}). Guardar o ficheiro completo coloca uma cópia em /etc/systemd/system que tem prioridade. Reverter remove a cópia novamente.",
+    "notWritable": "Não é possível escrever ficheiros para este tipo de unidade.",
+    "check": "Verificar",
+    "checking": "A verificar...",
+    "checkOk": "A verificação passou.",
+    "checkBad": "A verificação detetou problemas.",
+    "checkFailed": "Não foi possível executar a verificação.",
+    "save": "Verificar e guardar",
+    "saved": "Guardado {{unit}} e recarregado o systemd",
+    "saveFailed": "Não guardado. A verificação falhou ou não foi possível escrever o ficheiro.",
+    "combined": "Tudo o que o systemd lê para esta unidade",
+    "delete": "Eliminar unidade",
+    "deleteTitle": "Eliminar {{unit}}?",
+    "deleteDesc": "É parada, não arranca no arranque do sistema e o seu ficheiro e drop-ins são removidos.",
+    "deleted": "Eliminado {{unit}}",
+    "deleteFailed": "Não foi possível eliminar a unidade."
+  },
+  "create": {
+    "add": "Novo serviço",
+    "title": "Novo serviço",
+    "name": "Nome",
+    "nameHint": "Guardado como name.service em /etc/systemd/system.",
+    "description": "Descrição",
+    "descriptionPlaceholder": "O que faz",
+    "command": "Comando",
+    "commandHint": "O caminho completo para o programa, seguido dos seus argumentos.",
+    "user": "Executar como utilizador",
+    "group": "Grupo",
+    "folder": "Pasta de trabalho",
+    "environment": "Ambiente",
+    "environmentHint": "Um NOME=valor por linha.",
+    "timer": "Executar com agendamento",
+    "timerHint": "Criar um temporizador que executa o comando em horários definidos em vez de o manter em execução.",
+    "schedule": "Agendamento",
+    "scheduleHint": "Um valor OnCalendar, como daily, hourly ou Mon *-*-* 03:00:00.",
+    "type": "Tipo",
+    "types": {
+      "simple": "Simples, mantém-se em execução",
+      "exec": "Exec, mantém-se em execução",
+      "forking": "Forking, arranca em segundo plano",
+      "oneshot": "One shot, executa e termina",
+      "notify": "Notify, informa o systemd quando estiver pronto"
+    },
+    "restart": "Reiniciar",
+    "restarts": {
+      "on-failure": "Quando falha",
+      "always": "Sempre",
+      "on-abnormal": "Quando falha criticamente",
+      "no": "Nunca"
+    },
+    "restartSec": "Aguardar antes de reiniciar (segundos)",
+    "after": "Arrancar após",
+    "afterHint": "Unidades para aguardar, separadas por espaços.",
+    "enable": "Arrancar no arranque do sistema",
+    "enableHint": "Para um agendamento, isto ativa o temporizador.",
+    "start": "Arrancar agora",
+    "save": "Criar",
+    "done": "Criado {{unit}}",
+    "failed": "Não foi possível criar o serviço."
+  },
+  "timers": {
+    "search": "Pesquisar temporizadores",
+    "empty": "Sem temporizadores.",
+    "loadFailed": "Não foi possível listar os temporizadores.",
+    "next": "Próximo {{when}} (em {{left}})",
+    "noNext": "Nada planeado",
+    "last": "último {{when}} (há {{ago}})",
+    "neverRan": "nunca executado",
+    "runNow": "Executar agora",
+    "ran": "Iniciado {{unit}}",
+    "turnOn": "Ligar",
+    "turnOff": "Desligar"
+  },
+  "journal": {
+    "unit": "Unidades",
+    "unitPlaceholder": "Todas as unidades, ou nginx.service",
+    "search": "Pesquisar",
+    "searchPlaceholder": "Texto de pesquisa",
+    "priority": "Prioridade",
+    "anyPriority": "Qualquer prioridade",
+    "priorityUpTo": "{{name}} e pior",
+    "since": "Desde",
+    "sinceOptions": {
+      "-15min": "Últimos 15 minutos",
+      "-1h": "Última hora",
+      "-6h": "Últimas 6 horas",
+      "today": "Hoje",
+      "-24h": "Últimas 24 horas",
+      "-7d": "Últimos 7 dias",
+      "any": "Qualquer altura"
+    },
+    "boot": "Arranque",
+    "anyBoot": "Qualquer arranque",
+    "thisBoot": "Este arranque",
+    "lines": "Linhas",
+    "lineCount_one": "{{count}} linha",
+    "lineCount_many": "{{count}} linhas",
+    "lineCount_other": "{{count}} linhas",
+    "kernel": "Apenas kernel",
+    "follow": "Seguir",
+    "following": "A seguir",
+    "pause": "Pausar",
+    "resume": "Retomar",
+    "clear": "Limpar",
+    "download": "Transferir",
+    "connecting": "A ligar...",
+    "ended": "Transmissão terminada",
+    "shown_one": "{{count}} entrada",
+    "shown_many": "{{count}} entradas",
+    "shown_other": "{{count}} entradas",
+    "usage": "O registo utiliza {{size}}",
+    "vacuum": "Liberar espaço",
+    "vacuumTitle": "Remover ficheiros antigos do registo?",
+    "vacuumDesc": "As entradas do registo com mais de 4 semanas serão eliminadas do servidor.",
+    "vacuumDone": "O registo agora utiliza {{size}}",
+    "vacuumFailed": "Não foi possível libertar espaço.",
+    "empty": "Sem entradas.",
+    "loadFailed": "Não foi possível ler o registo."
+  },
+  "files": {
+    "filter": "Filtrar ficheiros",
+    "roots": "De {{roots}}. Altere as pastas nas definições do host.",
+    "showRotated": "Mostrar cópias antigas",
+    "empty": "Nenhum ficheiro de registo encontrado.",
+    "loadFailed": "Não foi possível listar os ficheiros de registo.",
+    "search": "Pesquisar",
+    "searchPlaceholder": "Texto de pesquisa",
+    "download": "Transferir",
+    "downloadFailed": "Não foi possível transferir o ficheiro.",
+    "readFailed": "Não foi possível ler o ficheiro.",
+    "noLines": "Sem linhas."
+  },
+  "logs": {
+    "empty": "Ainda não há nada aqui."
+  },
+  "companion": {
+    "openTab": "Abrir a separação Serviços",
+    "toggle": "Painel de serviços"
+  }
+}

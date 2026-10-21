@@ -1,0 +1,318 @@
+{
+  "plugin": {
+    "name": "Perkhidmatan",
+    "description": "Urus perkhidmatan, pemasa dan log pada hos anda melalui SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Gunakan Perkhidmatan",
+      "description": "Buka tab Perkhidmatan pada hos yang boleh anda capai. Perubahan juga memerlukan akses sunting ke hos."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Perkhidmatan",
+        "description": "Paparkan tab Perkhidmatan untuk hos ini bagi mengurus perkhidmatan, pemasa dan log systemd."
+      },
+      "useSudo": {
+        "label": "Gunakan sudo",
+        "description": "Jalankan perubahan dan bacaan dilindungi dengan sudo tanpa kata laluan apabila log masuk bukan root."
+      },
+      "readOnly": {
+        "label": "Baca sahaja",
+        "description": "Benarkan bacaan perkhidmatan dan log, tetapi halang setiap perubahan dari Termix."
+      },
+      "logPaths": {
+        "label": "Folder log",
+        "description": "Folder yang boleh dibaca oleh paparan fail log, dipisahkan dengan koma.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel di sebelah terminal",
+        "description": "Tawarkan panel perkhidmatan di sebelah terminal SSH hos ini."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Buka panel perkhidmatan bersama terminal",
+        "description": "Paparkan panel perkhidmatan apabila terminal dibuka pada hos yang menyokongnya."
+      },
+      "companionSide": {
+        "label": "Sisi panel perkhidmatan",
+        "description": "Di mana panel diletakkan di sebelah terminal.",
+        "right": "Kanan",
+        "left": "Kiri",
+        "bottom": "Bawah"
+      },
+      "companionSize": {
+        "label": "Saiz panel perkhidmatan",
+        "description": "Lebar, atau tinggi di bahagian bawah, dalam piksel."
+      },
+      "companionEdgeButton": {
+        "label": "Butang tepi panel perkhidmatan",
+        "description": "Paparkan butang kecil di tepi terminal untuk membuka panel."
+      }
+    }
+  },
+  "common": {
+    "back": "Kembali"
+  },
+  "tab": {
+    "title": "Perkhidmatan",
+    "noHost": "Pilih hos untuk menguruskan perkhidmatannya.",
+    "loading": "Memuatkan...",
+    "refresh": "Muat semula",
+    "error": "Tidak dapat membaca perkhidmatan pada hos ini.",
+    "disabled": "Perkhidmatan tidak diaktifkan untuk hos ini. Aktifkan ia dalam tetapan hos.",
+    "sudo": "Perubahan memerlukan log masuk root atau sudo tanpa kata laluan. Jalankan sudo -n true pada hos untuk memeriksa.",
+    "noInit": "Sistem init tidak ditemui",
+    "noInitHint": "Hos ini tidak mempunyai systemd atau OpenRC yang boleh digunakan oleh Termix. Fail log masih berfungsi.",
+    "readOnly": "Baca sahaja",
+    "failedCount_other": "{{count}} gagal",
+    "viewServices": "Perkhidmatan",
+    "viewTimers": "Pemasa",
+    "viewJournal": "Buletin",
+    "viewFiles": "Fail log"
+  },
+  "units": {
+    "search": "Cari perkhidmatan",
+    "type": "Jenis unit",
+    "empty": "Tiada unit sepadan.",
+    "loadFailed": "Tidak dapat menyenaraikan unit.",
+    "confirmStop": "Hentikan {{unit}}?",
+    "confirmStopDesc": "Apa-apa yang memerlukannya mungkin berhenti berfungsi sehingga ia dimulakan semula.",
+    "filters": {
+      "all": "Semua",
+      "running": "Berjalan",
+      "failed": "Gagal",
+      "stopped": "Berhenti",
+      "enabled": "Mula semasa boot"
+    },
+    "types": {
+      "service": "Perkhidmatan",
+      "socket": "Soket",
+      "timer": "Pemasa",
+      "target": "Sasaran",
+      "path": "Laluan",
+      "mount": "Pemasangan"
+    }
+  },
+  "actions": {
+    "start": "Mula",
+    "stop": "Henti",
+    "restart": "Mula Semula",
+    "reload": "Muat Semula",
+    "enable": "Mula semasa boot",
+    "disable": "Jangan mula semasa boot",
+    "enable-now": "Hidupkan",
+    "disable-now": "Matikan",
+    "mask": "Topeng",
+    "unmask": "Tanggalkan topeng",
+    "reset-failed": "Kosongkan gagal",
+    "revert": "Pulihkan",
+    "failed": "Tindakan itu tidak berjaya.",
+    "confirm": {
+      "stop": "Hentikan {{unit}}?",
+      "disable": "Hentikan permulaan {{unit}} semasa boot?",
+      "disable-now": "Matikan {{unit}}?",
+      "mask": "Topengkan {{unit}}?",
+      "revert": "Pulihkan {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Apa-apa yang memerlukannya mungkin berhenti berfungsi sehingga ia dimulakan semula.",
+      "disable": "Ia terus berjalan sekarang, tetapi tidak akan bermula selepas boot semula.",
+      "disable-now": "Ia berhenti sekarang dan tidak akan bermula selepas boot semula.",
+      "mask": "Unit yang ditopengkan tidak boleh dimulakan sama sekali, sama ada secara manual atau oleh unit lain, sehingga anda menanggalkan topengnya.",
+      "revert": "Ini akan membuang fail drop-in dan salinan tempatan unit, serta mengembalikan versi dari pakej."
+    },
+    "done": {
+      "start": "{{unit}} telah dimulakan",
+      "stop": "{{unit}} telah dihentikan",
+      "restart": "{{unit}} telah dimulakan semula",
+      "reload": "{{unit}} telah dimuat semula",
+      "enable": "{{unit}} bermula semasa boot",
+      "disable": "{{unit}} tidak akan bermula semasa boot",
+      "enable-now": "{{unit}} telah dihidupkan",
+      "disable-now": "{{unit}} telah dimatikan",
+      "mask": "{{unit}} telah ditopengkan",
+      "unmask": "{{unit}} telah ditanggalkan topengnya",
+      "reset-failed": "Keadaan gagal {{unit}} telah dikosongkan",
+      "revert": "{{unit}} telah dipulihkan"
+    }
+  },
+  "watch": {
+    "start": "Beritahu saya apabila ia gagal",
+    "stop": "Hentikan amaran",
+    "badge": "Dipantau",
+    "on": "Anda akan menerima amaran apabila {{unit}} gagal",
+    "off": "Tiada lagi amaran untuk {{unit}}",
+    "failed": "Tidak dapat mengubah amaran."
+  },
+  "detail": {
+    "loadFailed": "Tidak dapat membaca unit ini.",
+    "editFile": "Sunting unit",
+    "description": "Penerangan",
+    "since": "Berjalan sejak",
+    "result": "Hasil",
+    "pid": "PID Utama",
+    "memory": "Memori",
+    "peak": "puncak",
+    "cpu": "Masa CPU",
+    "tasks": "Tugas",
+    "restarts": "Mula Semula",
+    "type": "Jenis",
+    "user": "Pengguna",
+    "file": "Fail unit",
+    "dropIns": "Drop-in",
+    "triggeredBy": "Dimulakan oleh",
+    "triggers": "Memulakan",
+    "wantedBy": "Diingini oleh",
+    "requires": "Memerlukan",
+    "after": "Selepas",
+    "statusText": "systemctl status",
+    "log": "Log terkini"
+  },
+  "editor": {
+    "loadFailed": "Tidak dapat membaca fail unit.",
+    "override": "Tindih",
+    "fullFile": "Fail penuh",
+    "overrideHint": "Tindih ialah fail drop-in yang hanya mengubah baris yang anda letakkan di sini. Kemas kini pakej akan terus berfungsi. Kosongkan dan simpan untuk menyingkirkannya.",
+    "overrideTemplate": "Baris di sini menambah atau menggantikan tetapan unit itu sendiri",
+    "localHint": "Fail unit ini berada di /etc/systemd/system, jadi ia boleh diedit oleh anda.",
+    "vendorHint": "Unit ini berasal daripada pakej ({{path}}). Menyimpan fail penuh akan meletakkan salinan di /etc/systemd/system yang akan mengatasi asalnya. Pulihkan untuk menyingkirkan salinan tersebut.",
+    "notWritable": "Fail tidak boleh ditulis untuk jenis unit ini.",
+    "check": "Semak",
+    "checking": "Sedang menyemak...",
+    "checkOk": "Pemeriksaan berjaya.",
+    "checkBad": "Pemeriksaan menemui masalah.",
+    "checkFailed": "Tidak dapat menjalankan pemeriksaan.",
+    "save": "Semak dan simpan",
+    "saved": "{{unit}} disimpan dan systemd dimuat semula",
+    "saveFailed": "Tidak disimpan. Pemeriksaan gagal atau fail tidak dapat ditulis.",
+    "combined": "Semua yang dibaca oleh systemd untuk unit ini",
+    "delete": "Padam unit",
+    "deleteTitle": "Padam {{unit}}?",
+    "deleteDesc": "Ia akan dihentikan, tidak akan dimulakan semasa but, dan fail serta drop-innya akan dialih keluar.",
+    "deleted": "{{unit}} telah dipadam",
+    "deleteFailed": "Gagal memadam unit."
+  },
+  "create": {
+    "add": "Perkhidmatan baharu",
+    "title": "Perkhidmatan baharu",
+    "name": "Nama",
+    "nameHint": "Disimpan sebagai name.service di /etc/systemd/system.",
+    "description": "Keterangan",
+    "descriptionPlaceholder": "Apa yang ia lakukan",
+    "command": "Arahan",
+    "commandHint": "Laluan penuh ke program, diikuti argumennya.",
+    "user": "Jalankan sebagai pengguna",
+    "group": "Kumpulan",
+    "folder": "Folder kerja",
+    "environment": "Persekitaran",
+    "environmentHint": "Satu NAMA=nilai setiap baris.",
+    "timer": "Jalankan mengikut jadual",
+    "timerHint": "Buat pemasa yang menjalankan arahan pada masa yang ditetapkan, bukan mengekalkannya berjalan.",
+    "schedule": "Jadual",
+    "scheduleHint": "Nilai OnCalendar, seperti daily, hourly atau Mon *-*-* 03:00:00.",
+    "type": "Jenis",
+    "types": {
+      "simple": "Ringkas, terus berjalan",
+      "exec": "Exec, terus berjalan",
+      "forking": "Forking, bermula di latar belakang",
+      "oneshot": "Satu kali, berjalan dan keluar",
+      "notify": "Pemberitahuan, memberitahu systemd apabila sedia"
+    },
+    "restart": "Mula Semula",
+    "restarts": {
+      "on-failure": "Apabila gagal",
+      "always": "Sentiasa",
+      "on-abnormal": "Apabila ia rosak",
+      "no": "Tidak pernah"
+    },
+    "restartSec": "Tunggu sebelum mulakan semula (saat)",
+    "after": "Mula selepas",
+    "afterHint": "Unit untuk menunggu, dipisahkan dengan ruang.",
+    "enable": "Mula semasa boot",
+    "enableHint": "Untuk jadual, ini menghidupkan pemasa.",
+    "start": "Mula sekarang",
+    "save": "Cipta",
+    "done": "{{unit}} dicipta",
+    "failed": "Tidak dapat mencipta perkhidmatan."
+  },
+  "timers": {
+    "search": "Cari pemasa",
+    "empty": "Tiada pemasa.",
+    "loadFailed": "Tidak dapat menyenaraikan pemasa.",
+    "next": "Seterusnya {{when}} (dalam {{left}})",
+    "noNext": "Tiada yang dirancang",
+    "last": "terakhir {{when}} ({{ago}} yang lalu)",
+    "neverRan": "tidak pernah dijalankan",
+    "runNow": "Jalankan sekarang",
+    "ran": "Memulakan {{unit}}",
+    "turnOn": "Hidupkan",
+    "turnOff": "Matikan"
+  },
+  "journal": {
+    "unit": "Unit",
+    "unitPlaceholder": "Semua unit, atau nginx.service",
+    "search": "Cari",
+    "searchPlaceholder": "Teks carian",
+    "priority": "Keutamaan",
+    "anyPriority": "Sebarang keutamaan",
+    "priorityUpTo": "{{name}} dan lebih teruk",
+    "since": "Sejak",
+    "sinceOptions": {
+      "-15min": "15 minit lalu",
+      "-1h": "1 jam lalu",
+      "-6h": "6 jam lalu",
+      "today": "Hari ini",
+      "-24h": "24 jam lalu",
+      "-7d": "7 hari lalu",
+      "any": "Mana-mana masa"
+    },
+    "boot": "But",
+    "anyBoot": "Mana-mana but",
+    "thisBoot": "But ini",
+    "lines": "Baris",
+    "lineCount_other": "{{count}} baris",
+    "kernel": "Teras sahaja",
+    "follow": "Ikuti",
+    "following": "Mengikuti",
+    "pause": "Jeda",
+    "resume": "Sambung",
+    "clear": "Kosongkan",
+    "download": "Muat turun",
+    "connecting": "Menyambung...",
+    "ended": "Aliran tamat",
+    "shown_other": "{{count}} entri",
+    "usage": "Jurnal menggunakan {{size}}",
+    "vacuum": "Ruang kosong",
+    "vacuumTitle": "Buang fail jurnal lama?",
+    "vacuumDesc": "Entri jurnal yang lebih lama daripada 4 minggu akan dipadam dari hos.",
+    "vacuumDone": "Jurnal kini menggunakan {{size}}",
+    "vacuumFailed": "Gagal membebaskan ruang.",
+    "empty": "Tiada entri.",
+    "loadFailed": "Gagal membaca jurnal."
+  },
+  "files": {
+    "filter": "Tapis fail",
+    "roots": "Dari {{roots}}. Tukar folder dalam tetapan hos.",
+    "showRotated": "Papar salinan lama",
+    "empty": "Tiada fail log ditemui.",
+    "loadFailed": "Gagal menyenaraikan fail log.",
+    "search": "Cari",
+    "searchPlaceholder": "Cari teks",
+    "download": "Muat turun",
+    "downloadFailed": "Gagal memuat turun fail.",
+    "readFailed": "Gagal membaca fail.",
+    "noLines": "Tiada baris."
+  },
+  "logs": {
+    "empty": "Tiada apa-apa di sini lagi."
+  },
+  "companion": {
+    "openTab": "Buka tab Perkhidmatan",
+    "toggle": "Panel Perkhidmatan"
+  }
+}

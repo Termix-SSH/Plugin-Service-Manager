@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Szolgáltatások",
+    "description": "Szolgáltatások, időzítők és naplók kezelése a hosztokon SSH-n keresztül."
+  },
+  "permissions": {
+    "use": {
+      "title": "Szolgáltatások használata",
+      "description": "Nyissa meg a Szolgáltatások fület az elérhető hosztokon. A módosításokhoz szerkesztési hozzáférés is szükséges a hoszthoz."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Szolgáltatások",
+        "description": "A Szolgáltatások fül megjelenítése ehhez a hoszthoz a systemd szolgáltatások, időzítők és naplók kezeléséhez."
+      },
+      "useSudo": {
+        "label": "Sudo használata",
+        "description": "A módosítások és a védett olvasások futtatása jelszó nélküli sudo-val, ha a bejelentkezés nem root."
+      },
+      "readOnly": {
+        "label": "Csak olvasható",
+        "description": "Szolgáltatások és naplók olvasásának engedélyezése, de minden módosítás blokkolása Termixből."
+      },
+      "logPaths": {
+        "label": "Napló mappák",
+        "description": "A Naplófájlok nézet által olvasható mappák, vesszővel elválasztva.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel a terminál mellett",
+        "description": "Szolgáltatás panel megjelenítése a host SSH terminálja mellett."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Szolgáltatás panel megnyitása terminállal",
+        "description": "Szolgáltatás panel megjelenítése, amikor egy olyan hoston nyílik terminál, amely rendelkezik vele."
+      },
+      "companionSide": {
+        "label": "Szolgáltatás panel oldala",
+        "description": "Ahol a panel a terminál mellett helyezkedik el.",
+        "right": "Jobb",
+        "left": "Bal",
+        "bottom": "Alsó"
+      },
+      "companionSize": {
+        "label": "Szolgáltatások panel mérete",
+        "description": "Szélesség, vagy az alsó elhelyezés esetén magasság, pixelekben."
+      },
+      "companionEdgeButton": {
+        "label": "Szolgáltatások panel szélére helyezett gomb",
+        "description": "Egy kis gomb megjelenítése a terminál szélén a panel megnyitásához."
+      }
+    }
+  },
+  "common": {
+    "back": "Vissza"
+  },
+  "tab": {
+    "title": "Szolgáltatások",
+    "noHost": "Válasszon egy gazdagépet a szolgáltatásainak kezeléséhez.",
+    "loading": "Betöltés...",
+    "refresh": "Frissítés",
+    "error": "Nem sikerült beolvasni a szolgáltatásokat ezen a hoszton.",
+    "disabled": "A szolgáltatások nincsenek engedélyezve ezen a hoszton. Kapcsold be a hoszt beállításaiban.",
+    "sudo": "A módosítások root hozzáférést vagy jelszó nélküli sudo-t igényelnek. Futtasd a sudo -n true parancsot a hoszton a teszteléshez.",
+    "noInit": "Nem található init rendszer",
+    "noInitHint": "Ezen a hoszton nincs olyan systemd vagy OpenRC, amelyet a Termix használhatna. A naplófájlok továbbra is működnek.",
+    "readOnly": "Csak olvasható",
+    "failedCount_one": "{{count}} sikertelen",
+    "failedCount_other": "{{count}} sikertelen",
+    "viewServices": "Szolgáltatások",
+    "viewTimers": "Időzítők",
+    "viewJournal": "Napló",
+    "viewFiles": "Naplófájlok"
+  },
+  "units": {
+    "search": "Szolgáltatások keresése",
+    "type": "Egység típusa",
+    "empty": "Nincs találat.",
+    "loadFailed": "Az egységek listázása sikertelen.",
+    "confirmStop": "Megállítja a(z) {{unit}} egységet?",
+    "confirmStopDesc": "A tőle függő szolgáltatások addig nem fognak működni, amíg újra el nem indul.",
+    "filters": {
+      "all": "Összes",
+      "running": "Fut",
+      "failed": "Sikertelen",
+      "stopped": "Leállítva",
+      "enabled": "Indítás bootoláskor"
+    },
+    "types": {
+      "service": "Szolgáltatások",
+      "socket": "Socketek",
+      "timer": "Időzítők",
+      "target": "Célok",
+      "path": "Útvonalak",
+      "mount": "Csatolások"
+    }
+  },
+  "actions": {
+    "start": "Indítás",
+    "stop": "Megállítás",
+    "restart": "Újraindítás",
+    "reload": "Újratöltés",
+    "enable": "Indítás bootoláskor",
+    "disable": "Ne indítsa bootoláskor",
+    "enable-now": "Bekapcsolás",
+    "disable-now": "Kikapcsolás",
+    "mask": "Elrejtés",
+    "unmask": "Megjelenítés",
+    "reset-failed": "Hibák törlése",
+    "revert": "Visszaállítás",
+    "failed": "Ez nem működött.",
+    "confirm": {
+      "stop": "Megállítja a(z) {{unit}} egységet?",
+      "disable": "Megakadályozza a(z) {{unit}} egység indítását bootoláskor?",
+      "disable-now": "Kikapcsolja a(z) {{unit}} egységet?",
+      "mask": "Elmaszkolja a(z) {{unit}} egységet?",
+      "revert": "Visszaállítja a(z) {{unit}} egységet?"
+    },
+    "confirmDesc": {
+      "stop": "Minden, ami rá támaszkodik, leállhat, amíg újra el nem indul.",
+      "disable": "Jelenleg tovább fut, de újraindítás után nem indul el.",
+      "disable-now": "Most leáll, és újraindítás után sem indul el.",
+      "mask": "Egy maszkolt egység nem indítható el sem kézzel, sem más egységek által, amíg fel nem oldja a maszkolást.",
+      "revert": "Ez eltávolítja a drop-in fájlokat és a helyi másolatokat az egységtől, és visszaállítja a csomagból származó verziót."
+    },
+    "done": {
+      "start": "A(z) {{unit}} elindult",
+      "stop": "A(z) {{unit}} leállt",
+      "restart": "A(z) {{unit}} újraindult",
+      "reload": "A(z) {{unit}} konfigurációja frissítve",
+      "enable": "A(z) {{unit}} indul rendszerindításkor",
+      "disable": "A(z) {{unit}} nem indul rendszerindításkor",
+      "enable-now": "A(z) {{unit}} bekapcsolva",
+      "disable-now": "A(z) {{unit}} kikapcsolva",
+      "mask": "Elrejtve: {{unit}}",
+      "unmask": "Megjelenítve: {{unit}}",
+      "reset-failed": "A(z) {{unit}} sikertelen állapota visszaállítva",
+      "revert": "Visszaállítva: {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Értesítsen, ha sikertelen",
+    "stop": "Értesítések leállítása",
+    "badge": "Figyelt",
+    "on": "Értesítést kap, ha a(z) {{unit}} sikertelen",
+    "off": "Nem lesz több értesítés a(z) {{unit}}-hoz",
+    "failed": "Az értesítés módosítása sikertelen."
+  },
+  "detail": {
+    "loadFailed": "Nem sikerült beolvasni ezt az egységet.",
+    "editFile": "Egység szerkesztése",
+    "description": "Leírás",
+    "since": "Futtatás ideje",
+    "result": "Eredmény",
+    "pid": "Fő PID",
+    "memory": "Memória",
+    "peak": "csúcs",
+    "cpu": "CPU idő",
+    "tasks": "Feladatok",
+    "restarts": "Újraindítások",
+    "type": "Típus",
+    "user": "Felhasználó",
+    "file": "Egységfájl",
+    "dropIns": "Drop-in fájlok",
+    "triggeredBy": "Indította",
+    "triggers": "Indítások",
+    "wantedBy": "Kéri",
+    "requires": "Szükséges",
+    "after": "Utána",
+    "statusText": "systemctl status",
+    "log": "Legutóbbi napló"
+  },
+  "editor": {
+    "loadFailed": "Nem sikerült beolvasni az egységfájlt.",
+    "override": "Felülírás",
+    "fullFile": "Teljes fájl",
+    "overrideHint": "A felülírás egy drop-in fájl, amely csak az itt megadott sorokat módosítja. A csomagfrissítések továbbra is működnek. Hagyd üresen és mentsd el, hogy eltávolítsd.",
+    "overrideTemplate": "Az itt megadott sorok kiegészítik vagy felülírják az egység saját beállításait",
+    "localHint": "Ez az egységfájl az /etc/systemd/system könyvtárban található, így szabadon szerkesztheted.",
+    "vendorHint": "Ez az egység egy csomagból származik ({{path}}). A teljes fájl mentése egy másolatot készít az /etc/systemd/system könyvtárba, amely felülírja az eredetit. A visszaállítás eltávolítja ezt a másolatot.",
+    "notWritable": "Ez az egységfajl nem írható.",
+    "check": "Ellenőrzés",
+    "checking": "Ellenőrzés...",
+    "checkOk": "Az ellenőrzés sikeres volt.",
+    "checkBad": "Az ellenőrzés problémákat talált.",
+    "checkFailed": "Az ellenőrzés nem futtatható.",
+    "save": "Ellenőrzés és mentés",
+    "saved": "A(z) {{unit}} mentve, a systemd újratöltve",
+    "saveFailed": "Nem mentve. Az ellenőrzés sikertelen volt, vagy a fájl nem írható.",
+    "combined": "Minden, amit a systemd beolvas ehhez az egységhez",
+    "delete": "Egység törlése",
+    "deleteTitle": "Törli a(z) {{unit}} egységet?",
+    "deleteDesc": "Megáll, nem indul el rendszerindításkor, és a fájljai, valamint a drop-in beállításai eltávolításra kerülnek.",
+    "deleted": "A(z) {{unit}} egység törölve",
+    "deleteFailed": "Az egység nem törölhető."
+  },
+  "create": {
+    "add": "Új szolgáltatás",
+    "title": "Új szolgáltatás",
+    "name": "Név",
+    "nameHint": "A /etc/systemd/system könyvtárban name.service néven kerül mentésre.",
+    "description": "Leírás",
+    "descriptionPlaceholder": "Mit csinál",
+    "command": "Parancs",
+    "commandHint": "A program teljes elérési útja, majd a paraméterei.",
+    "user": "Futtatás felhasználóként",
+    "group": "Csoport",
+    "folder": "Munkakönyvtár",
+    "environment": "Környezet",
+    "environmentHint": "Egy NEVE=érték soronként.",
+    "timer": "Ütemezett futtatás",
+    "timerHint": "Hozzon létre egy időzítőt, amely a megadott időpontokban hajtja végre a parancsot, ahelyett, hogy folyamatosan futtatná.",
+    "schedule": "Ütemezés",
+    "scheduleHint": "OnCalendar érték, például daily, hourly vagy Mon *-*-* 03:00:00.",
+    "type": "Típus",
+    "types": {
+      "simple": "Simple, folyamatosan fut",
+      "exec": "Exec, folyamatosan fut",
+      "forking": "Forking, háttérben indul",
+      "oneshot": "Oneshot, futtat és kilép",
+      "notify": "Notify, értesíti a systemd-et, amikor kész"
+    },
+    "restart": "Újraindítás",
+    "restarts": {
+      "on-failure": "Sikertelenség esetén",
+      "always": "Mindig",
+      "on-abnormal": "Sürücsapáskor",
+      "no": "Soha"
+    },
+    "restartSec": "Várakozás újraindítás előtt (másodperc)",
+    "after": "Indítás után",
+    "afterHint": "Várakozási egységek, szóközzel elválasztva.",
+    "enable": "Indítás bootoláskor",
+    "enableHint": "Ütemezés esetén ez aktiválja az időzítőt.",
+    "start": "Indítás most",
+    "save": "Létrehozás",
+    "done": "{{unit}} létrehozva",
+    "failed": "Nem sikerült létrehozni a szolgáltatást."
+  },
+  "timers": {
+    "search": "Időzítők keresése",
+    "empty": "Nincsenek időzítők.",
+    "loadFailed": "Nem sikerült listázni az időzítőket.",
+    "next": "Következő: {{when}} ({{left}} múlva)",
+    "noNext": "Nincs tervezve",
+    "last": "Utolsó: {{when}} ({{ago}} ezelőtt)",
+    "neverRan": "soha nem futott",
+    "runNow": "Futtatás most",
+    "ran": "Indítva: {{unit}}",
+    "turnOn": "Bekapcsolás",
+    "turnOff": "Kikapcsolás"
+  },
+  "journal": {
+    "unit": "Egységek",
+    "unitPlaceholder": "Minden egység, vagy nginx.service",
+    "search": "Keresés",
+    "searchPlaceholder": "Keresendő szöveg",
+    "priority": "Prioritás",
+    "anyPriority": "Bármilyen prioritás",
+    "priorityUpTo": "{{name}} és rosszabb",
+    "since": "Mióta",
+    "sinceOptions": {
+      "-15min": "Utolsó 15 perc",
+      "-1h": "Utolsó óra",
+      "-6h": "Utolsó 6 óra",
+      "today": "Ma",
+      "-24h": "Utolsó 24 óra",
+      "-7d": "Utolsó 7 nap",
+      "any": "Bármikor"
+    },
+    "boot": "Indítás",
+    "anyBoot": "Bármely indítás",
+    "thisBoot": "Jelenlegi indítás",
+    "lines": "Sorok",
+    "lineCount_one": "{{count}} sor",
+    "lineCount_other": "{{count}} sor",
+    "kernel": "Csak kernel",
+    "follow": "Követés",
+    "following": "Követés aktív",
+    "pause": "Szüneteltetés",
+    "resume": "Folytatás",
+    "clear": "Törlés",
+    "download": "Letöltés",
+    "connecting": "Csatlakozás...",
+    "ended": "A stream véget ért",
+    "shown_one": "{{count}} bejegyzés",
+    "shown_other": "{{count}} bejegyzés",
+    "usage": "A napló {{size}} helyet foglal",
+    "vacuum": "Helyfelszabadítás",
+    "vacuumTitle": "Régi naplófájlok törlése?",
+    "vacuumDesc": "A 4 hétnél régebbi naplóbejegyzések törlődnek a gazdagépről.",
+    "vacuumDone": "A napló most {{size}} helyet foglal",
+    "vacuumFailed": "Nem sikerült helyet felszabadítani.",
+    "empty": "Nincsenek bejegyzések.",
+    "loadFailed": "Nem sikerült beolvasni a naplót."
+  },
+  "files": {
+    "filter": "Fájlok szűrése",
+    "roots": "A(z) {{roots}} mappákból. A mappák módosítása a gazdagép beállításaiban lehetséges.",
+    "showRotated": "Régi másolatok megjelenítése",
+    "empty": "Nem található naplófájl.",
+    "loadFailed": "A naplófájlok listázása sikertelen.",
+    "search": "Keresés",
+    "searchPlaceholder": "Szöveg keresése",
+    "download": "Letöltés",
+    "downloadFailed": "A fájl letöltése sikertelen.",
+    "readFailed": "A fájl olvasása sikertelen.",
+    "noLines": "Nincs sor."
+  },
+  "logs": {
+    "empty": "Még nincs itt semmi."
+  },
+  "companion": {
+    "openTab": "Nyisd meg a Szolgáltatások fület",
+    "toggle": "Szolgáltatások panel"
+  }
+}

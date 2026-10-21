@@ -1,0 +1,327 @@
+{
+  "plugin": {
+    "name": "Služby",
+    "description": "Spravujte služby, časovače a protokoly na vašich hostitelích prostřednictvím SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Používat služby",
+      "description": "Otevřete kartu Služby na hostitelích, ke kterým máte přístup. Pro změny je také potřeba oprávnění k úpravě hostitele."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Služby",
+        "description": "Zobrazit kartu Služby pro tento hostitel pro správu systemd služeb, časovačů a protokolů."
+      },
+      "useSudo": {
+        "label": "Použít sudo",
+        "description": "Spouštět změny a chráněné čtení pomocí sudo bez hesla, pokud přihlášení není jako root."
+      },
+      "readOnly": {
+        "label": "Pouze pro čtení",
+        "description": "Povolit čtení služeb a protokolů, ale blokovat všechny změny z Termixu."
+      },
+      "logPaths": {
+        "label": "Složky s logy",
+        "description": "Složky, ze kterých může zobrazení souborů logů číst, oddělené čárkami.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel vedle terminálu",
+        "description": "Nabídnout panel se službami vedle SSH terminálu tohoto hostitele."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Otevřít panel se službami s terminálem",
+        "description": "Zobrazit panel se službami při otevření terminálu na hostiteli, který jej má."
+      },
+      "companionSide": {
+        "label": "Poloha panelu se službami",
+        "description": "Kde se panel nachází vedle terminálu.",
+        "right": "Vpravo",
+        "left": "Vlevo",
+        "bottom": "Dole"
+      },
+      "companionSize": {
+        "label": "Velikost panelu služeb",
+        "description": "Šířka, nebo výška při umístění dole, v pixelech."
+      },
+      "companionEdgeButton": {
+        "label": "Tlačítko na okraji panelu služeb",
+        "description": "Zobrazit malé tlačítko na okraji terminálu pro otevření panelu."
+      }
+    }
+  },
+  "common": {
+    "back": "Zpět"
+  },
+  "tab": {
+    "title": "Služby",
+    "noHost": "Vyberte hostitele pro správu jeho služeb.",
+    "loading": "Načítání...",
+    "refresh": "Obnovit",
+    "error": "Nelze načíst služby na tomto hostiteli.",
+    "disabled": "Služby nejsou pro tohoto hostitele povoleny. Povolte je v nastavení hostitele.",
+    "sudo": "Změny vyžadují přihlášení jako root nebo sudo bez hesla. Pro kontrolu spusťte na hostiteli příkaz sudo -n true.",
+    "noInit": "Nebyl nalezen žádný init systém",
+    "noInitHint": "Tento hostitel nemá systemd ani OpenRC, které by Termix mohl použít. Soubory logů stále fungují.",
+    "readOnly": "Pouze pro čtení",
+    "failedCount_one": "{{count}} selhal",
+    "failedCount_few": "{{count}} selhaly",
+    "failedCount_many": "{{count}} selhalo",
+    "failedCount_other": "{{count}} selhalo",
+    "viewServices": "Služby",
+    "viewTimers": "Časovače",
+    "viewJournal": "Deník",
+    "viewFiles": "Soubory protokolů"
+  },
+  "units": {
+    "search": "Hledat služby",
+    "type": "Typ jednotky",
+    "empty": "Žádné jednotky neodpovídají.",
+    "loadFailed": "Nelze zobrazit seznam jednotek.",
+    "confirmStop": "Zastavit {{unit}}?",
+    "confirmStopDesc": "Vše, co na ni závisí, může přestat fungovat, dokud se znovu nespustí.",
+    "filters": {
+      "all": "Všechny",
+      "running": "Běžící",
+      "failed": "Selhalo",
+      "stopped": "Zastaveno",
+      "enabled": "Spustit při startu"
+    },
+    "types": {
+      "service": "Služby",
+      "socket": "Sokety",
+      "timer": "Časovače",
+      "target": "Cíle",
+      "path": "Cesty",
+      "mount": "Připojené úložiště"
+    }
+  },
+  "actions": {
+    "start": "Spustit",
+    "stop": "Zastavit",
+    "restart": "Restartovat",
+    "reload": "Načíst znovu",
+    "enable": "Spustit při startu",
+    "disable": "Nespouštět při startu",
+    "enable-now": "Zapnout",
+    "disable-now": "Vypnout",
+    "mask": "Zamaskovat",
+    "unmask": "Odemaskovat",
+    "reset-failed": "Vymazat chyby",
+    "revert": "Zpět",
+    "failed": "To nefungovalo.",
+    "confirm": {
+      "stop": "Zastavit {{unit}}?",
+      "disable": "Zakázat spouštění {{unit}} při startu systému?",
+      "disable-now": "Vypnout {{unit}}?",
+      "mask": "Maskovat {{unit}}?",
+      "revert": "Vrátit změny u {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Vše, co na něm závisí, může přestat fungovat, dokud se znovu nespustí.",
+      "disable": "Nyní běží dál, ale po restartu se nespustí.",
+      "disable-now": "Nyní se zastaví a po restartu se nespustí.",
+      "mask": "Maskovaná jednotka nelze spustit žádným způsobem, ani ručně, ani jinými jednotkami, dokud ji nezrušíte.",
+      "revert": "Tím se odstraní drop-in soubory a místní kopie jednotky a obnoví se verze z balíčku."
+    },
+    "done": {
+      "start": "Spuštěno {{unit}}",
+      "stop": "Zastaveno {{unit}}",
+      "restart": "Restartováno {{unit}}",
+      "reload": "Obnoveno {{unit}}",
+      "enable": "{{unit}} se spouští při startu",
+      "disable": "{{unit}} se nespouští při startu",
+      "enable-now": "Zapnuto {{unit}}",
+      "disable-now": "Vypnuto {{unit}}",
+      "mask": "Zamaskováno {{unit}}",
+      "unmask": "Odemaskováno {{unit}}",
+      "reset-failed": "Resetován stav selhání pro {{unit}}",
+      "revert": "Vráceno {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Upozornit mě při selhání",
+    "stop": "Zastavit upozornění",
+    "badge": "Sledováno",
+    "on": "Obdržíte upozornění, když {{unit}} selže",
+    "off": "Žádná další upozornění pro {{unit}}",
+    "failed": "Nelze změnit upozornění."
+  },
+  "detail": {
+    "loadFailed": "Nelze načíst tuto jednotku.",
+    "editFile": "Upravit jednotku",
+    "description": "Popis",
+    "since": "Běží od",
+    "result": "Výsledek",
+    "pid": "Hlavní PID",
+    "memory": "Paměť",
+    "peak": "vrchol",
+    "cpu": "Čas CPU",
+    "tasks": "Úlohy",
+    "restarts": "Reštarty",
+    "type": "Typ",
+    "user": "Uživatel",
+    "file": "Soubor jednotky",
+    "dropIns": "Drop-iny",
+    "triggeredBy": "Spuštěno pomocí",
+    "triggers": "Spouští",
+    "wantedBy": "Požadováno od",
+    "requires": "Vyžaduje",
+    "after": "Po",
+    "statusText": "systemctl status",
+    "log": "Nedávný log"
+  },
+  "editor": {
+    "loadFailed": "Nelze přečíst soubor jednotky.",
+    "override": "Přepsat",
+    "fullFile": "Celý soubor",
+    "overrideHint": "Přepsání je drop-in soubor, který mění pouze řádky, které sem zadáte. Aktualizace balíčku budou nadále fungovat. Nechte prázdné a uložte pro odstranění.",
+    "overrideTemplate": "Řádky zde přidávají nebo nahrazují vlastní nastavení jednotky",
+    "localHint": "Tento soubor jednotky se nachází v /etc/systemd/system, takže je k dispozici pro úpravy.",
+    "vendorHint": "Tato jednotka pochází z balíčku ({{path}}). Uložení celého souboru vytvoří kopii v /etc/systemd/system, která má přednost. Vrácení změn odstraní kopii.",
+    "notWritable": "Pro tento typ jednotky nelze zapisovat soubory.",
+    "check": "Zkontrolovat",
+    "checking": "Kontroluji...",
+    "checkOk": "Kontrola úspěšná.",
+    "checkBad": "Kontrola odhalila problémy.",
+    "checkFailed": "Kontrolu se nepodařilo provést.",
+    "save": "Zkontrolovat a uložit",
+    "saved": "Uloženo {{unit}} a systemd byl znovu načten",
+    "saveFailed": "Neuloženo. Kontrola selhala nebo se nepodařilo zapsat soubor.",
+    "combined": "Vše, co systemd čte pro tuto jednotku",
+    "delete": "Smazat jednotku",
+    "deleteTitle": "Smazat {{unit}}?",
+    "deleteDesc": "Služba se zastaví, nespustí se při startu systému a její soubory i drop-iny budou odstraněny.",
+    "deleted": "Služba {{unit}} smazána",
+    "deleteFailed": "Nelze smazat službu."
+  },
+  "create": {
+    "add": "Nová služba",
+    "title": "Nová služba",
+    "name": "Název",
+    "nameHint": "Uloženo jako name.service v /etc/systemd/system.",
+    "description": "Popis",
+    "descriptionPlaceholder": "Co služba dělá",
+    "command": "Příkaz",
+    "commandHint": "Plná cesta k programu a následně jeho argumenty.",
+    "user": "Spustit jako uživatel",
+    "group": "Skupina",
+    "folder": "Pracovní složka",
+    "environment": "Prostředí",
+    "environmentHint": "Jeden NAME=hodnota na řádek.",
+    "timer": "Spustit podle plánu",
+    "timerHint": "Vytvořte časovač, který spustí příkaz v nastavených časech, místo aby běžel neustále.",
+    "schedule": "Plán",
+    "scheduleHint": "Hodnota OnCalendar, například daily, hourly nebo Mon *-*-* 03:00:00.",
+    "type": "Typ",
+    "types": {
+      "simple": "Simple, běží neustále",
+      "exec": "Exec, běží neustále",
+      "forking": "Forking, spustí se na pozadí",
+      "oneshot": "Oneshot, spustí se a ukončí",
+      "notify": "Notify, oznámí systemd, kdy je připraven"
+    },
+    "restart": "Restart",
+    "restarts": {
+      "on-failure": "Při selhání",
+      "always": "Vždy",
+      "on-abnormal": "Při pádu",
+      "no": "Nikdy"
+    },
+    "restartSec": "Počkat před restartem (sekundy)",
+    "after": "Spustit po",
+    "afterHint": "Jednotky čekání oddělené mezerami.",
+    "enable": "Spustit při startu",
+    "enableHint": "Pro plánování toto aktivuje časovač.",
+    "start": "Spustit nyní",
+    "save": "Vytvořit",
+    "done": "Vytvořeno {{unit}}",
+    "failed": "Službu se nepodařilo vytvořit."
+  },
+  "timers": {
+    "search": "Hledat časovače",
+    "empty": "Žádné časovače.",
+    "loadFailed": "Seznam časovačů se nepodařilo načíst.",
+    "next": "Další {{when}} (za {{left}})",
+    "noNext": "Nic naplánováno",
+    "last": "poslední {{when}} (před {{ago}})",
+    "neverRan": "nikdy nespouštěn",
+    "runNow": "Spustit nyní",
+    "ran": "Spuštěno {{unit}}",
+    "turnOn": "Zapnout",
+    "turnOff": "Vypnout"
+  },
+  "journal": {
+    "unit": "Jednotky",
+    "unitPlaceholder": "Všechny jednotky, nebo nginx.service",
+    "search": "Hledat",
+    "searchPlaceholder": "Hledaný text",
+    "priority": "Priorita",
+    "anyPriority": "Jakákoliv priorita",
+    "priorityUpTo": "{{name}} a horší",
+    "since": "Od",
+    "sinceOptions": {
+      "-15min": "Posledních 15 minut",
+      "-1h": "Poslední hodina",
+      "-6h": "Posledních 6 hodin",
+      "today": "Dnes",
+      "-24h": "Posledních 24 hodin",
+      "-7d": "Posledních 7 dní",
+      "any": "Kdykoliv"
+    },
+    "boot": "Spuštění",
+    "anyBoot": "Jakékoliv spuštění",
+    "thisBoot": "Toto spuštění",
+    "lines": "Řádky",
+    "lineCount_one": "{{count}} řádek",
+    "lineCount_few": "{{count}} řádky",
+    "lineCount_many": "{{count}} řádků",
+    "lineCount_other": "{{count}} řádků",
+    "kernel": "Pouze jádro",
+    "follow": "Sledovat",
+    "following": "Sleduji",
+    "pause": "Pozastavit",
+    "resume": "Pokračovat",
+    "clear": "Vymazat",
+    "download": "Stáhnout",
+    "connecting": "Připojování...",
+    "ended": "Proud ukončen",
+    "shown_one": "{{count}} záznam",
+    "shown_few": "{{count}} záznamy",
+    "shown_many": "{{count}} záznamů",
+    "shown_other": "{{count}} záznamů",
+    "usage": "Deník používá {{size}}",
+    "vacuum": "Uvolnit místo",
+    "vacuumTitle": "Odstranit staré soubory deníku?",
+    "vacuumDesc": "Záznamy deníku starší než 4 týdny budou ze serveru smazány.",
+    "vacuumDone": "Deník nyní používá {{size}}",
+    "vacuumFailed": "Nelze uvolnit místo.",
+    "empty": "Žádné záznamy.",
+    "loadFailed": "Nelze číst deník."
+  },
+  "files": {
+    "filter": "Filtrovat soubory",
+    "roots": "Z {{roots}}. Změňte složky v nastavení hostitele.",
+    "showRotated": "Zobrazit staré kopie",
+    "empty": "Nebyly nalezeny žádné logové soubory.",
+    "loadFailed": "Nelze vypsat logové soubory.",
+    "search": "Hledat",
+    "searchPlaceholder": "Hledat text",
+    "download": "Stáhnout",
+    "downloadFailed": "Nelze stáhnout soubor.",
+    "readFailed": "Nelze přečíst soubor.",
+    "noLines": "Žádné řádky."
+  },
+  "logs": {
+    "empty": "Zatím zde nic není."
+  },
+  "companion": {
+    "openTab": "Otevřít kartu Služby",
+    "toggle": "Panel Služby"
+  }
+}

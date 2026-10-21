@@ -1,0 +1,318 @@
+{
+  "plugin": {
+    "name": "服務",
+    "description": "透過 SSH 管理主機上的服務、定時器與日誌。"
+  },
+  "permissions": {
+    "use": {
+      "title": "使用服務",
+      "description": "在您能連線的主機上開啟「服務」分頁。進行變更也需要擁有該主機的編輯權限。"
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "服務",
+        "description": "為此主機顯示「服務」分頁，以便管理 systemd 服務、定時器與日誌。"
+      },
+      "useSudo": {
+        "label": "使用 sudo",
+        "description": "當登入使用者非 root 時，使用免密碼 sudo 執行變更與受保護的讀取操作。"
+      },
+      "readOnly": {
+        "label": "唯讀",
+        "description": "允許讀取服務與日誌，但阻止來自 Termix 的所有變更。"
+      },
+      "logPaths": {
+        "label": "日誌資料夾",
+        "description": "日誌檔案檢視可能讀取的資料夾，以逗號分隔。",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "終端機旁的面板",
+        "description": "在此主機的 SSH 終端機旁提供服務面板。"
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "開啟終端機時顯示服務面板",
+        "description": "當終端機在具有此功能的主機上開啟時，顯示服務面板。"
+      },
+      "companionSide": {
+        "label": "服務面板位置",
+        "description": "面板相對於終端機的位置。",
+        "right": "右側",
+        "left": "左側",
+        "bottom": "底部"
+      },
+      "companionSize": {
+        "label": "服務面板大小",
+        "description": "寬度，或位於底部時的高度，單位為像素。"
+      },
+      "companionEdgeButton": {
+        "label": "服務面板邊緣按鈕",
+        "description": "在終端機邊緣顯示一個小按鈕，用於開啟面板。"
+      }
+    }
+  },
+  "common": {
+    "back": "返回"
+  },
+  "tab": {
+    "title": "服務",
+    "noHost": "選擇一台主機以管理其服務。",
+    "loading": "載入中...",
+    "refresh": "重新整理",
+    "error": "無法讀取此主機上的服務。",
+    "disabled": "此主機未啟用服務功能。請前往主機設定中開啟。",
+    "sudo": "變更需要 root 登入或免密碼 sudo。請在主機上執行 sudo -n true 以檢查。",
+    "noInit": "未找到初始化系統",
+    "noInitHint": "此主機沒有 Termix 可使用的 systemd 或 OpenRC。日誌檔案仍可正常使用。",
+    "readOnly": "唯讀",
+    "failedCount_other": "{{count}} 個失敗",
+    "viewServices": "服務",
+    "viewTimers": "定時器",
+    "viewJournal": "日誌",
+    "viewFiles": "日誌檔案"
+  },
+  "units": {
+    "search": "搜尋服務",
+    "type": "單元類型",
+    "empty": "沒有符合的單元。",
+    "loadFailed": "無法列出單元。",
+    "confirmStop": "停止 {{unit}}？",
+    "confirmStopDesc": "依賴此項目的功能可能會停止運作，直到它再次啟動。",
+    "filters": {
+      "all": "全部",
+      "running": "執行中",
+      "failed": "失敗",
+      "stopped": "已停止",
+      "enabled": "開機時啟動"
+    },
+    "types": {
+      "service": "服務",
+      "socket": "Socket",
+      "timer": "定時器",
+      "target": "目標",
+      "path": "路徑",
+      "mount": "掛載點"
+    }
+  },
+  "actions": {
+    "start": "啟動",
+    "stop": "停止",
+    "restart": "重新啟動",
+    "reload": "重新載入",
+    "enable": "開機時啟動",
+    "disable": "開機時不啟動",
+    "enable-now": "開啟",
+    "disable-now": "關閉",
+    "mask": "遮蔽",
+    "unmask": "取消遮蔽",
+    "reset-failed": "清除失敗狀態",
+    "revert": "還原",
+    "failed": "操作失敗。",
+    "confirm": {
+      "stop": "停止 {{unit}}？",
+      "disable": "不再於開機時啟動 {{unit}}？",
+      "disable-now": "關閉 {{unit}}？",
+      "mask": "遮蔽 {{unit}}？",
+      "revert": "還原 {{unit}}？"
+    },
+    "confirmDesc": {
+      "stop": "依賴此服務的項目可能會停止運作，直到它再次啟動。",
+      "disable": "目前仍會繼續執行，但重新開機後不會自動啟動。",
+      "disable-now": "現在立即停止，且重新開機後不會自動啟動。",
+      "mask": "被遮罩的單元在解除遮罩之前，無論手動還是透過其他單元，都無法啟動。",
+      "revert": "此操作將移除 drop-in 設定與本機副本，並恢復套件中的原始版本。"
+    },
+    "done": {
+      "start": "已啟動 {{unit}}",
+      "stop": "已停止 {{unit}}",
+      "restart": "已重新啟動 {{unit}}",
+      "reload": "已重新載入 {{unit}}",
+      "enable": "{{unit}} 已設定為開機時啟動",
+      "disable": "{{unit}} 已設定為開機時不啟動",
+      "enable-now": "已啟用 {{unit}}",
+      "disable-now": "已停用 {{unit}}",
+      "mask": "已遮蔽 {{unit}}",
+      "unmask": "已取消遮蔽 {{unit}}",
+      "reset-failed": "已清除 {{unit}} 的失敗狀態",
+      "revert": "已還原 {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "失敗時通知我",
+    "stop": "停止通知",
+    "badge": "已監控",
+    "on": "當 {{unit}} 失敗時，您將收到通知",
+    "off": "不再為 {{unit}} 發送通知",
+    "failed": "無法變更通知設定。"
+  },
+  "detail": {
+    "loadFailed": "無法讀取此服務單元。",
+    "editFile": "編輯服務單元",
+    "description": "說明",
+    "since": "執行時間",
+    "result": "結果",
+    "pid": "主要 PID",
+    "memory": "記憶體",
+    "peak": "峰值",
+    "cpu": "CPU 時間",
+    "tasks": "工作數",
+    "restarts": "重新啟動次數",
+    "type": "類型",
+    "user": "使用者",
+    "file": "單元檔案",
+    "dropIns": "Drop-in 設定",
+    "triggeredBy": "觸發來源",
+    "triggers": "觸發項目",
+    "wantedBy": "被以下項目要求",
+    "requires": "依賴項目",
+    "after": "啟動順序",
+    "statusText": "systemctl status",
+    "log": "近期日誌"
+  },
+  "editor": {
+    "loadFailed": "無法讀取單元檔案。",
+    "override": "覆寫",
+    "fullFile": "完整檔案",
+    "overrideHint": "覆寫是一種 drop-in 檔案，僅會變更您在此處設定的行。套件更新後仍可正常運作。留空並儲存即可移除覆寫。",
+    "overrideTemplate": "此處的行會新增或取代單元自身的設定",
+    "localHint": "此單元檔案位於 /etc/systemd/system，您可以自由編輯。",
+    "vendorHint": "此單元來自套件（{{path}}）。儲存完整檔案會在 /etc/systemd/system 中建立一份副本，其優先級高於原檔案。還原將移除該副本。",
+    "notWritable": "此類型的單元無法寫入檔案。",
+    "check": "檢查",
+    "checking": "正在檢查...",
+    "checkOk": "檢查通過。",
+    "checkBad": "檢查發現問題。",
+    "checkFailed": "無法執行檢查。",
+    "save": "檢查並儲存",
+    "saved": "已儲存 {{unit}} 並重新載入 systemd",
+    "saveFailed": "未儲存。檢查失敗或無法寫入檔案。",
+    "combined": "systemd 為此單元讀取的所有設定",
+    "delete": "刪除單元",
+    "deleteTitle": "刪除 {{unit}}？",
+    "deleteDesc": "將停止該服務，不再於開機時啟動，並移除其設定檔與 drop-in 檔案。",
+    "deleted": "已刪除 {{unit}}",
+    "deleteFailed": "無法刪除該服務。"
+  },
+  "create": {
+    "add": "新增服務",
+    "title": "新增服務",
+    "name": "名稱",
+    "nameHint": "將以 name.service 的名稱儲存於 /etc/systemd/system。",
+    "description": "描述",
+    "descriptionPlaceholder": "說明其功能",
+    "command": "指令",
+    "commandHint": "程式的完整路徑，接著是它的參數。",
+    "user": "以使用者身分執行",
+    "group": "群組",
+    "folder": "工作目錄",
+    "environment": "環境變數",
+    "environmentHint": "每行一個 NAME=value。",
+    "timer": "排程執行",
+    "timerHint": "建立定時器，在指定時間執行指令，而非持續運行。",
+    "schedule": "排程",
+    "scheduleHint": "OnCalendar 值，例如 daily、hourly 或 Mon *-*-* 03:00:00。",
+    "type": "類型",
+    "types": {
+      "simple": "Simple，持續執行",
+      "exec": "Exec，持續執行",
+      "forking": "Forking，在背景啟動",
+      "oneshot": "One shot，執行後退出",
+      "notify": "Notify，就緒時通知 systemd"
+    },
+    "restart": "重新啟動",
+    "restarts": {
+      "on-failure": "失敗時",
+      "always": "一律",
+      "on-abnormal": "當發生錯誤時",
+      "no": "永不"
+    },
+    "restartSec": "重啟前等待時間（秒）",
+    "after": "啟動於",
+    "afterHint": "以空格分隔的等待單位。",
+    "enable": "開機時啟動",
+    "enableHint": "若為排程，此選項將啟用計時器。",
+    "start": "立即啟動",
+    "save": "建立",
+    "done": "已建立 {{unit}}",
+    "failed": "無法建立服務。"
+  },
+  "timers": {
+    "search": "搜尋計時器",
+    "empty": "沒有計時器。",
+    "loadFailed": "無法列出計時器。",
+    "next": "下次 {{when}}（剩餘 {{left}}）",
+    "noNext": "無排程",
+    "last": "上次 {{when}}（{{ago}} 前）",
+    "neverRan": "從未執行",
+    "runNow": "立即執行",
+    "ran": "已啟動 {{unit}}",
+    "turnOn": "開啟",
+    "turnOff": "關閉"
+  },
+  "journal": {
+    "unit": "服務單元",
+    "unitPlaceholder": "所有單元，或 nginx.service",
+    "search": "搜尋",
+    "searchPlaceholder": "搜尋文字",
+    "priority": "優先級",
+    "anyPriority": "任何優先級",
+    "priorityUpTo": "{{name}} 及以下",
+    "since": "自",
+    "sinceOptions": {
+      "-15min": "最近 15 分鐘",
+      "-1h": "最近 1 小時",
+      "-6h": "最近 6 小時",
+      "today": "今天",
+      "-24h": "最近 24 小時",
+      "-7d": "最近 7 天",
+      "any": "不限時間"
+    },
+    "boot": "開機",
+    "anyBoot": "任何開機",
+    "thisBoot": "本次開機",
+    "lines": "行數",
+    "lineCount_other": "{{count}} 行",
+    "kernel": "僅核心",
+    "follow": "追蹤",
+    "following": "追蹤中",
+    "pause": "暫停",
+    "resume": "恢復",
+    "clear": "清除",
+    "download": "下載",
+    "connecting": "連線中...",
+    "ended": "串流已結束",
+    "shown_other": "{{count}} 筆項目",
+    "usage": "日誌使用 {{size}}",
+    "vacuum": "釋放空間",
+    "vacuumTitle": "要移除舊的日誌檔案嗎？",
+    "vacuumDesc": "超過 4 週的日誌項目將從主機中刪除。",
+    "vacuumDone": "日誌現在使用 {{size}}",
+    "vacuumFailed": "無法釋放空間。",
+    "empty": "沒有項目。",
+    "loadFailed": "無法讀取日誌。"
+  },
+  "files": {
+    "filter": "篩選檔案",
+    "roots": "來自 {{roots}}。請在主機設定中變更資料夾。",
+    "showRotated": "顯示舊版副本",
+    "empty": "找不到日誌檔案。",
+    "loadFailed": "無法列出日誌檔案。",
+    "search": "搜尋",
+    "searchPlaceholder": "搜尋文字",
+    "download": "下載",
+    "downloadFailed": "無法下載檔案。",
+    "readFailed": "無法讀取檔案。",
+    "noLines": "沒有行。"
+  },
+  "logs": {
+    "empty": "這裡還沒有任何內容。"
+  },
+  "companion": {
+    "openTab": "開啟服務分頁",
+    "toggle": "服務面板"
+  }
+}

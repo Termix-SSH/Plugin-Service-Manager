@@ -1,0 +1,324 @@
+{
+  "plugin": {
+    "name": "Serveis",
+    "description": "Gestioneu serveis, temporitzadors i registres als vostres amfitrions a través d'SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Utilitzar serveis",
+      "description": "Obriu la pestanya Serveis als amfitrions a què podeu accedir. Els canvis també requereixen permís d'edició de l'amfitrió."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Serveis",
+        "description": "Mostra la pestanya Serveis per a aquest amfitrió per gestionar serveis, temporitzadors i registres de systemd."
+      },
+      "useSudo": {
+        "label": "Utilitzar sudo",
+        "description": "Executeu els canvis i les lectures protegides amb sudo sense contrasenya quan l'inici de sessió no sigui root."
+      },
+      "readOnly": {
+        "label": "Només lectura",
+        "description": "Permet llegir serveis i registres, però bloqueja tots els canvis des de Termix."
+      },
+      "logPaths": {
+        "label": "Carpetes de registres",
+        "description": "Carpetes que la vista de fitxers de registre pot llegir, separades per comes.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panell al costat del terminal",
+        "description": "Mostra un panell de serveis al costat del terminal SSH d'aquest host."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Obre el panell de serveis amb un terminal",
+        "description": "Mostra el panell de serveis quan s'obre un terminal en un host que el tingui."
+      },
+      "companionSide": {
+        "label": "Costat del panell de serveis",
+        "description": "On es col·loca el panell al costat del terminal.",
+        "right": "Dreta",
+        "left": "Esquerra",
+        "bottom": "Part inferior"
+      },
+      "companionSize": {
+        "label": "Mida del panell de serveis",
+        "description": "Amplada, o alçada a la part inferior, en píxels."
+      },
+      "companionEdgeButton": {
+        "label": "Botó lateral del panell de serveis",
+        "description": "Mostra un botó petit al costat del terminal per obrir el panell."
+      }
+    }
+  },
+  "common": {
+    "back": "Enrere"
+  },
+  "tab": {
+    "title": "Serveis",
+    "noHost": "Tria un host per gestionar els seus serveis.",
+    "loading": "S'està carregant...",
+    "refresh": "Refrescar",
+    "error": "No s'han pogut llegir els serveis d'aquest host.",
+    "disabled": "Els serveis no estan activats per a aquest host. Activeu-los a la configuració de l'host.",
+    "sudo": "Els canvis requereixen un inici de sessió com a arrel o un sudo sense contrasenya. Executeu `sudo -n true` a l'host per comprovar-ho.",
+    "noInit": "No s'ha trobat cap sistema d'inicialització",
+    "noInitHint": "Aquest host no té systemd ni OpenRC que Termix pugui utilitzar. Els fitxers de registre continuen funcionant.",
+    "readOnly": "Només lectura",
+    "failedCount_one": "{{count}} ha fallat",
+    "failedCount_many": "{{count}} han fallat",
+    "failedCount_other": "{{count}} han fallat",
+    "viewServices": "Serveis",
+    "viewTimers": "Temporitzadors",
+    "viewJournal": "Registre",
+    "viewFiles": "Fitxers de registre"
+  },
+  "units": {
+    "search": "Cerca serveis",
+    "type": "Tipus d'unitat",
+    "empty": "Cap unitat coincideix.",
+    "loadFailed": "No s'han pogut llistar les unitats.",
+    "confirmStop": "Aturar {{unit}}?",
+    "confirmStopDesc": "Tot el que en depengui pot deixar de funcionar fins que es torni a iniciar.",
+    "filters": {
+      "all": "Totes",
+      "running": "En execució",
+      "failed": "Fallit",
+      "stopped": "Aturat",
+      "enabled": "Inicia en l'arrencada"
+    },
+    "types": {
+      "service": "Serveis",
+      "socket": "Sòcols",
+      "timer": "Temporitzadors",
+      "target": "Objectius",
+      "path": "Camins",
+      "mount": "Muntatges"
+    }
+  },
+  "actions": {
+    "start": "Inicia",
+    "stop": "Atura",
+    "restart": "Reinicia",
+    "reload": "Recarrega",
+    "enable": "Inicia en l'arrencada",
+    "disable": "No iniciïs en l'arrencada",
+    "enable-now": "Activa",
+    "disable-now": "Desactiva",
+    "mask": "Oculta",
+    "unmask": "Desoculta",
+    "reset-failed": "Neteja els errors",
+    "revert": "Desfer",
+    "failed": "No ha funcionat.",
+    "confirm": {
+      "stop": "Aturar {{unit}}?",
+      "disable": "No iniciar {{unit}} en l'arrencada?",
+      "disable-now": "Aturar {{unit}}?",
+      "mask": "Ocultar {{unit}}?",
+      "revert": "Desfer {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Tot el que en depengui pot deixar de funcionar fins que es torni a iniciar.",
+      "disable": "Continua funcionant ara, però no s'iniciarà després d'un reinici.",
+      "disable-now": "S'atura ara i no s'iniciarà després d'un reinici.",
+      "mask": "Una unitat emmascarada no es pot iniciar en absolut, ni manualment ni per altres unitats, fins que la desemmascareu.",
+      "revert": "Això elimina els fitxers drop-in i les còpies locals de la unitat, i restaura la versió del paquet."
+    },
+    "done": {
+      "start": "S'ha iniciat {{unit}}",
+      "stop": "S'ha aturat {{unit}}",
+      "restart": "S'ha reiniciat {{unit}}",
+      "reload": "S'ha recarregat {{unit}}",
+      "enable": "{{unit}} s'iniciarà en arrencar",
+      "disable": "{{unit}} no s'iniciarà en arrencar",
+      "enable-now": "S'ha activat {{unit}}",
+      "disable-now": "S'ha desactivat {{unit}}",
+      "mask": "S'ha ocultat {{unit}}",
+      "unmask": "S'ha desocultat {{unit}}",
+      "reset-failed": "S'ha esborrat l'estat d'error de {{unit}}",
+      "revert": "S'ha revertit {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Avisa'm quan falli",
+    "stop": "Atura les alertes",
+    "badge": "Vigilat",
+    "on": "Rebràs una alerta quan {{unit}} falli",
+    "off": "No hi haurà més alertes per a {{unit}}",
+    "failed": "No s'ha pogut canviar l'alerta."
+  },
+  "detail": {
+    "loadFailed": "No s'ha pogut llegir aquesta unitat.",
+    "editFile": "Edita l'unitat",
+    "description": "Descripció",
+    "since": "En execució des de",
+    "result": "Resultat",
+    "pid": "PID principal",
+    "memory": "Memòria",
+    "peak": "màxim",
+    "cpu": "Temps de CPU",
+    "tasks": "Tasques",
+    "restarts": "Reinicis",
+    "type": "Tipus",
+    "user": "Usuari",
+    "file": "Fitxer d'unitat",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Iniciat per",
+    "triggers": "Inicis",
+    "wantedBy": "Desitjat per",
+    "requires": "Requereix",
+    "after": "Després de",
+    "statusText": "systemctl status",
+    "log": "Registre recent"
+  },
+  "editor": {
+    "loadFailed": "No s'ha pogut llegir el fitxer d'unitat.",
+    "override": "Sobreescriure",
+    "fullFile": "Fitxer complet",
+    "overrideHint": "Una sobreescriptura és un fitxer d'aplicació que només modifica les línies que hi indiqueu. Les actualitzacions del paquet continuen funcionant. Deixeu-lo buit i deseu per eliminar-lo.",
+    "overrideTemplate": "Les línies d'aquí s'afegeixen o substitueixen la configuració pròpia de l'unitat",
+    "localHint": "Aquest fitxer d'unitat es troba a /etc/systemd/system, per la qual cosa podeu editar-lo lliurement.",
+    "vendorHint": "Aquesta unitat prové d'un paquet ({{path}}). En desar el fitxer complet, es crea una còpia a /etc/systemd/system que té prioritat sobre l'original. En revertir, s'elimina la còpia.",
+    "notWritable": "No es poden escriure fitxers per a aquest tipus d'unitat.",
+    "check": "Comprovar",
+    "checking": "Comprovant...",
+    "checkOk": "La comprovació ha superat.",
+    "checkBad": "La comprovació ha trobat problemes.",
+    "checkFailed": "No s'ha pogut executar la comprovació.",
+    "save": "Comprovar i desar",
+    "saved": "S'ha desat {{unit}} i s'ha recarregat systemd",
+    "saveFailed": "No s'ha desat. La comprovació ha fallat o no s'ha pogut escriure el fitxer.",
+    "combined": "Tot el que systemd llegeix per a aquesta unitat",
+    "delete": "Suprimeix l'unitat",
+    "deleteTitle": "Vols suprimir {{unit}}?",
+    "deleteDesc": "S'atura, no s'iniciarà en arrencar i se suprimiran el seu fitxer i els seus fitxers d'addició.",
+    "deleted": "{{unit}} suprimit",
+    "deleteFailed": "No s'ha pogut suprimir la unitat."
+  },
+  "create": {
+    "add": "Nou servei",
+    "title": "Nou servei",
+    "name": "Nom",
+    "nameHint": "Es desa com a name.service a /etc/systemd/system.",
+    "description": "Descripció",
+    "descriptionPlaceholder": "Què fa",
+    "command": "Comanda",
+    "commandHint": "La ruta completa al programa, seguida dels seus arguments.",
+    "user": "Executar com a usuari",
+    "group": "Grup",
+    "folder": "Carpeta de treball",
+    "environment": "Entorn",
+    "environmentHint": "Un NOM=valor per línia.",
+    "timer": "Executar segons un horari",
+    "timerHint": "Crea un temporitzador que executi la comanda en moments concrets en lloc de mantenir-la en execució.",
+    "schedule": "Horari",
+    "scheduleHint": "Un valor d'OnCalendar, com daily, hourly o Mon *-*-* 03:00:00.",
+    "type": "Tipus",
+    "types": {
+      "simple": "Simple, es manté en execució",
+      "exec": "Exec, es manté en execució",
+      "forking": "Forking, s'inicia en segon pla",
+      "oneshot": "One shot, s'executa i surt",
+      "notify": "Notify, informa systemd quan està llest"
+    },
+    "restart": "Reinici",
+    "restarts": {
+      "on-failure": "Quan falla",
+      "always": "Sempre",
+      "on-abnormal": "Quan es produeixi un error",
+      "no": "Mai"
+    },
+    "restartSec": "Espera abans de reiniciar (segons)",
+    "after": "Inicia després de",
+    "afterHint": "Unitats de temps d'espera, separades per espais.",
+    "enable": "Inicia en l'arrencada",
+    "enableHint": "Per a un programa, això activa el temporitzador.",
+    "start": "Inicia ara",
+    "save": "Crea",
+    "done": "S'ha creat {{unit}}",
+    "failed": "No s'ha pogut crear el servei."
+  },
+  "timers": {
+    "search": "Cerca temporitzadors",
+    "empty": "Cap temporitzador.",
+    "loadFailed": "No s'ha pogut llistar els temporitzadors.",
+    "next": "Proper {{when}} (d'aquí {{left}})",
+    "noNext": "Res programat",
+    "last": "últim {{when}} (fa {{ago}})",
+    "neverRan": "mai s'ha executat",
+    "runNow": "Executa ara",
+    "ran": "S'ha iniciat {{unit}}",
+    "turnOn": "Encén",
+    "turnOff": "Apaga"
+  },
+  "journal": {
+    "unit": "Unitats",
+    "unitPlaceholder": "Totes les unitats, o nginx.service",
+    "search": "Cerca",
+    "searchPlaceholder": "Text de cerca",
+    "priority": "Prioritat",
+    "anyPriority": "Qualsevol prioritat",
+    "priorityUpTo": "{{name}} i pitjor",
+    "since": "Des de",
+    "sinceOptions": {
+      "-15min": "Últims 15 minuts",
+      "-1h": "Última hora",
+      "-6h": "Últimes 6 hores",
+      "today": "Avui",
+      "-24h": "Últimes 24 hores",
+      "-7d": "Últims 7 dies",
+      "any": "Qualsevol moment"
+    },
+    "boot": "Arrencada",
+    "anyBoot": "Qualsevol arrencada",
+    "thisBoot": "Aquesta arrencada",
+    "lines": "Línies",
+    "lineCount_one": "{{count}} línia",
+    "lineCount_many": "{{count}} línies",
+    "lineCount_other": "{{count}} línies",
+    "kernel": "Només nucli",
+    "follow": "Seguir",
+    "following": "Seguint",
+    "pause": "Pausa",
+    "resume": "Reprendre",
+    "clear": "Netejar",
+    "download": "Descarregar",
+    "connecting": "Connectant...",
+    "ended": "Transmissió finalitzada",
+    "shown_one": "{{count}} entrada",
+    "shown_many": "{{count}} entrades",
+    "shown_other": "{{count}} entrades",
+    "usage": "El registre utilitza {{size}}",
+    "vacuum": "Alliberar espai",
+    "vacuumTitle": "Vols eliminar els fitxers antics del registre?",
+    "vacuumDesc": "Les entrades del registre amb més de 4 setmanes s'eliminaran de l'amfitrió.",
+    "vacuumDone": "El registre ara utilitza {{size}}",
+    "vacuumFailed": "No s'ha pogut alliberar espai.",
+    "empty": "No hi ha entrades.",
+    "loadFailed": "No s'ha pogut llegir el registre."
+  },
+  "files": {
+    "filter": "Filtra fitxers",
+    "roots": "Des de {{roots}}. Canvia les carpetes a la configuració de l'amfitrió.",
+    "showRotated": "Mostra còpies antigues",
+    "empty": "No s'han trobat fitxers de registre.",
+    "loadFailed": "No s'han pogut llistar els fitxers de registre.",
+    "search": "Cerca",
+    "searchPlaceholder": "Cerca text",
+    "download": "Descarrega",
+    "downloadFailed": "No s'ha pogut descarregar el fitxer.",
+    "readFailed": "No s'ha pogut llegir el fitxer.",
+    "noLines": "Sense línies."
+  },
+  "logs": {
+    "empty": "Encara no hi ha res aquí."
+  },
+  "companion": {
+    "openTab": "Obre la pestanya Serveis",
+    "toggle": "Panell de serveis"
+  }
+}

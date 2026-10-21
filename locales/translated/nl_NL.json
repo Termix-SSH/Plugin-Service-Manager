@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Diensten",
+    "description": "Beheer diensten, timers en logs op je hosts via SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Diensten gebruiken",
+      "description": "Open het tabblad Diensten op hosts die je kunt bereiken. Wijzigingen vereisen ook schrijftoegang tot de host."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Diensten",
+        "description": "Toon het tabblad Diensten voor deze host om systemd-diensten, timers en logs te beheren."
+      },
+      "useSudo": {
+        "label": "Sudo gebruiken",
+        "description": "Voer wijzigingen en beveiligde leesacties uit met wachtelloze sudo wanneer de inlog niet root is."
+      },
+      "readOnly": {
+        "label": "Alleen-lezen",
+        "description": "Sta het lezen van diensten en logs toe, maar blokkeer alle wijzigingen vanuit Termix."
+      },
+      "logPaths": {
+        "label": "Logmappen",
+        "description": "Mappen die het Logbestanden-weergave kan lezen, gescheiden door komma's.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Paneel naast de terminal",
+        "description": "Een dienstenpaneel aanbieden naast de SSH-terminal van deze host."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Dienstenpaneel openen met een terminal",
+        "description": "Het dienstenpaneel tonen wanneer een terminal opent op een host die dit heeft."
+      },
+      "companionSide": {
+        "label": "Kant van het dienstenpaneel",
+        "description": "Waar het paneel naast de terminal staat.",
+        "right": "Rechts",
+        "left": "Links",
+        "bottom": "Onder"
+      },
+      "companionSize": {
+        "label": "Grootte van het servicespaneel",
+        "description": "Breedte, of hoogte onderaan, in pixels."
+      },
+      "companionEdgeButton": {
+        "label": "Knop aan de rand van het servicespaneel",
+        "description": "Toon een kleine knop aan de rand van het terminalvenster om het paneel te openen."
+      }
+    }
+  },
+  "common": {
+    "back": "Terug"
+  },
+  "tab": {
+    "title": "Services",
+    "noHost": "Kies een host om de services te beheren.",
+    "loading": "Laden...",
+    "refresh": "Vernieuwen",
+    "error": "Kan services op deze host niet lezen.",
+    "disabled": "Services zijn niet ingeschakeld voor deze host. Schakel ze in via de host-instellingen.",
+    "sudo": "Wijzigingen vereisen een root-login of sudo zonder wachtwoord. Voer `sudo -n true` uit op de host om dit te controleren.",
+    "noInit": "Geen init-systeem gevonden",
+    "noInitHint": "Deze host heeft geen systemd of OpenRC dat Termix kan gebruiken. Logbestanden werken nog wel.",
+    "readOnly": "Alleen-lezen",
+    "failedCount_one": "{{count}} mislukt",
+    "failedCount_other": "{{count}} mislukt",
+    "viewServices": "Services",
+    "viewTimers": "Timers",
+    "viewJournal": "Journal",
+    "viewFiles": "Logbestanden"
+  },
+  "units": {
+    "search": "Zoek services",
+    "type": "Eenheidstype",
+    "empty": "Geen eenheden gevonden.",
+    "loadFailed": "Kan de eenheden niet laden.",
+    "confirmStop": "{{unit}} stoppen?",
+    "confirmStopDesc": "Alles wat ervan afhankelijk is, kan stoppen met werken tot het opnieuw wordt gestart.",
+    "filters": {
+      "all": "Alles",
+      "running": "Actief",
+      "failed": "Mislukt",
+      "stopped": "Gestopt",
+      "enabled": "Starten bij opstarten"
+    },
+    "types": {
+      "service": "Diensten",
+      "socket": "Sockets",
+      "timer": "Timers",
+      "target": "Doelen",
+      "path": "Paden",
+      "mount": "Mounts"
+    }
+  },
+  "actions": {
+    "start": "Starten",
+    "stop": "Stoppen",
+    "restart": "Herstarten",
+    "reload": "Herladen",
+    "enable": "Starten bij opstarten",
+    "disable": "Niet starten bij opstarten",
+    "enable-now": "Inschakelen",
+    "disable-now": "Uitschakelen",
+    "mask": "Maskeren",
+    "unmask": "Maskering verwijderen",
+    "reset-failed": "Mislukte status wissen",
+    "revert": "Herstellen",
+    "failed": "Dat is niet gelukt.",
+    "confirm": {
+      "stop": "{{unit}} stoppen?",
+      "disable": "{{unit}} niet meer starten bij opstarten?",
+      "disable-now": "{{unit}} uitschakelen?",
+      "mask": "{{unit}} maskeren?",
+      "revert": "{{unit}} herstellen?"
+    },
+    "confirmDesc": {
+      "stop": "Alles wat ervan afhankelijk is, kan stoppen met werken totdat het opnieuw wordt gestart.",
+      "disable": "Het blijft nu draaien, maar start niet meer na een herstart.",
+      "disable-now": "Het stopt nu en start niet meer na een herstart.",
+      "mask": "Een gemaskeerde eenheid kan helemaal niet worden gestart, handmatig of door andere eenheden, totdat je de maskering verwijdert.",
+      "revert": "Hiermee worden drop-ins en lokale kopieën van de eenheid verwijderd en wordt de versie uit het pakket hersteld."
+    },
+    "done": {
+      "start": "{{unit}} gestart",
+      "stop": "{{unit}} gestopt",
+      "restart": "{{unit}} herstart",
+      "reload": "{{unit}} herladen",
+      "enable": "{{unit}} start bij het opstarten",
+      "disable": "{{unit}} start niet bij het opstarten",
+      "enable-now": "{{unit}} ingeschakeld",
+      "disable-now": "{{unit}} uitgeschakeld",
+      "mask": "Gecamoufleerd {{unit}}",
+      "unmask": "Decamoufleerd {{unit}}",
+      "reset-failed": "De mislukte status van {{unit}} is gewist",
+      "revert": "{{unit}} is teruggedraaid"
+    }
+  },
+  "watch": {
+    "start": "Waarschuw me als het mislukt",
+    "stop": "Waarschuwingen stoppen",
+    "badge": "Gemonitord",
+    "on": "Je ontvangt een waarschuwing als {{unit}} mislukt",
+    "off": "Geen waarschuwingen meer voor {{unit}}",
+    "failed": "De waarschuwing kon niet worden gewijzigd."
+  },
+  "detail": {
+    "loadFailed": "Deze eenheid kan niet worden gelezen.",
+    "editFile": "Eenheid bewerken",
+    "description": "Beschrijving",
+    "since": "Actief sinds",
+    "result": "Resultaat",
+    "pid": "Hoofd-PID",
+    "memory": "Geheugen",
+    "peak": "piek",
+    "cpu": "CPU-tijd",
+    "tasks": "Taken",
+    "restarts": "Herstarts",
+    "type": "Type",
+    "user": "Gebruiker",
+    "file": "Eenheidsbestand",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Gestart door",
+    "triggers": "Starts",
+    "wantedBy": "Gewenst door",
+    "requires": "Vereist",
+    "after": "Na",
+    "statusText": "systemctl status",
+    "log": "Recent log"
+  },
+  "editor": {
+    "loadFailed": "Kan het eenheidsbestand niet lezen.",
+    "override": "Overschrijven",
+    "fullFile": "Volledig bestand",
+    "overrideHint": "Een overschrijving is een drop-in-bestand dat alleen de regels wijzigt die je hier plaatst. Updates van het pakket blijven werken. Laat het leeg en sla het op om het te verwijderen.",
+    "overrideTemplate": "Regels hier worden toegevoegd aan of vervangen door de eigen instellingen van de eenheid",
+    "localHint": "Dit eenheidsbestand bevindt zich in /etc/systemd/system, dus je kunt het zelf bewerken.",
+    "vendorHint": "Deze eenheid komt van een pakket ({{path}}). Als je het volledige bestand opslaat, wordt een kopie in /etc/systemd/system geplaatst die voorrang heeft. Bij terugdraaien wordt de kopie weer verwijderd.",
+    "notWritable": "Bestanden kunnen niet worden geschreven voor dit type eenheid.",
+    "check": "Controleren",
+    "checking": "Controleren...",
+    "checkOk": "De controle is geslaagd.",
+    "checkBad": "De controle heeft problemen gevonden.",
+    "checkFailed": "De controle kon niet worden uitgevoerd.",
+    "save": "Controleren en opslaan",
+    "saved": "{{unit}} opgeslagen en systemd herladen",
+    "saveFailed": "Niet opgeslagen. De controle is mislukt of het bestand kon niet worden geschreven.",
+    "combined": "Alles wat systemd voor deze eenheid leest",
+    "delete": "Eenheid verwijderen",
+    "deleteTitle": "Verwijder {{unit}}?",
+    "deleteDesc": "Het wordt gestopt, start niet meer bij het opstarten, en het bestand en de drop-ins worden verwijderd.",
+    "deleted": "{{unit}} verwijderd",
+    "deleteFailed": "De unit kon niet worden verwijderd."
+  },
+  "create": {
+    "add": "Nieuwe service",
+    "title": "Nieuwe service",
+    "name": "Naam",
+    "nameHint": "Opgeslagen als name.service in /etc/systemd/system.",
+    "description": "Beschrijving",
+    "descriptionPlaceholder": "Wat het doet",
+    "command": "Opdracht",
+    "commandHint": "Het volledige pad naar het programma, gevolgd door de argumenten.",
+    "user": "Uitvoeren als gebruiker",
+    "group": "Groep",
+    "folder": "Werkmap",
+    "environment": "Omgeving",
+    "environmentHint": "Eén NAAM=waarde per regel.",
+    "timer": "Uitvoeren volgens schema",
+    "timerHint": "Maak een timer die de opdracht op vaste tijden uitvoert, in plaats van deze continu te laten draaien.",
+    "schedule": "Schema",
+    "scheduleHint": "Een OnCalendar-waarde, zoals daily, hourly of Mon *-*-* 03:00:00.",
+    "type": "Type",
+    "types": {
+      "simple": "Simple, blijft actief",
+      "exec": "Exec, blijft actief",
+      "forking": "Forking, start op de achtergrond",
+      "oneshot": "One shot, voert uit en stopt",
+      "notify": "Notify, geeft systemd een seintje wanneer het klaar is"
+    },
+    "restart": "Herstarten",
+    "restarts": {
+      "on-failure": "Bij een fout",
+      "always": "Altijd",
+      "on-abnormal": "Bij een crash",
+      "no": "Nooit"
+    },
+    "restartSec": "Wachten voor herstart (seconden)",
+    "after": "Starten na",
+    "afterHint": "Eenheden om op te wachten, gescheiden door spaties.",
+    "enable": "Starten bij opstarten",
+    "enableHint": "Voor een schema schakelt dit de timer in.",
+    "start": "Nu starten",
+    "save": "Maken",
+    "done": "{{unit}} aangemaakt",
+    "failed": "De service kon niet worden aangemaakt."
+  },
+  "timers": {
+    "search": "Timers zoeken",
+    "empty": "Geen timers.",
+    "loadFailed": "De timers konden niet worden opgehaald.",
+    "next": "Volgende {{when}} (over {{left}})",
+    "noNext": "Niets gepland",
+    "last": "laatst {{when}} ({{ago}} geleden)",
+    "neverRan": "nooit uitgevoerd",
+    "runNow": "Nu uitvoeren",
+    "ran": "{{unit}} gestart",
+    "turnOn": "Inschakelen",
+    "turnOff": "Uitschakelen"
+  },
+  "journal": {
+    "unit": "Eenheden",
+    "unitPlaceholder": "Alle eenheden, of nginx.service",
+    "search": "Zoeken",
+    "searchPlaceholder": "Zoektekst",
+    "priority": "Prioriteit",
+    "anyPriority": "Elke prioriteit",
+    "priorityUpTo": "{{name}} en erger",
+    "since": "Sinds",
+    "sinceOptions": {
+      "-15min": "Laatste 15 minuten",
+      "-1h": "Laatste uur",
+      "-6h": "Laatste 6 uur",
+      "today": "Vandaag",
+      "-24h": "Laatste 24 uur",
+      "-7d": "Laatste 7 dagen",
+      "any": "Elke tijd"
+    },
+    "boot": "Opstarten",
+    "anyBoot": "Elk opstarten",
+    "thisBoot": "Huidig opstarten",
+    "lines": "Regels",
+    "lineCount_one": "{{count}} regel",
+    "lineCount_other": "{{count}} regels",
+    "kernel": "Alleen kernel",
+    "follow": "Volgen",
+    "following": "Volgend",
+    "pause": "Pauzeren",
+    "resume": "Hervatten",
+    "clear": "Wissen",
+    "download": "Downloaden",
+    "connecting": "Verbinden...",
+    "ended": "Stream beëindigd",
+    "shown_one": "{{count}} item",
+    "shown_other": "{{count}} items",
+    "usage": "Journal gebruikt {{size}}",
+    "vacuum": "Vrije ruimte",
+    "vacuumTitle": "Oude journalbestanden verwijderen?",
+    "vacuumDesc": "Journalitems ouder dan 4 weken worden van de host verwijderd.",
+    "vacuumDone": "Journal gebruikt nu {{size}}",
+    "vacuumFailed": "Kon geen ruimte vrijmaken.",
+    "empty": "Geen items.",
+    "loadFailed": "Kon het journal niet lezen."
+  },
+  "files": {
+    "filter": "Bestanden filteren",
+    "roots": "Vanaf {{roots}}. Wijzig de mappen in de hostinstellingen.",
+    "showRotated": "Oude kopieën tonen",
+    "empty": "Geen logbestanden gevonden.",
+    "loadFailed": "Kon de logbestanden niet ophalen.",
+    "search": "Zoeken",
+    "searchPlaceholder": "Tekst zoeken",
+    "download": "Downloaden",
+    "downloadFailed": "Kon het bestand niet downloaden.",
+    "readFailed": "Kon het bestand niet lezen.",
+    "noLines": "Geen regels."
+  },
+  "logs": {
+    "empty": "Nog niets hier."
+  },
+  "companion": {
+    "openTab": "Open het tabblad Diensten",
+    "toggle": "Dienstenpaneel"
+  }
+}

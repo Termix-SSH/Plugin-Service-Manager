@@ -1,0 +1,324 @@
+{
+  "plugin": {
+    "name": "Pakalpojumi",
+    "description": "Pārvaldiet pakalpojumus, taimerus un žurnālus savos hostos caur SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Izmantot pakalpojumus",
+      "description": "Atveriet pakalpojumu cilni hostos, kurām varat piekļūt. Izmaiņām nepieciešama arī rediģēšanas piekļuve hostam."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Pakalpojumi",
+        "description": "Rādīt šī hosta pakalpojumu cilni, lai pārvaldītu systemd pakalpojumus, taimerus un žurnālus."
+      },
+      "useSudo": {
+        "label": "Izmantot sudo",
+        "description": "Veikt izmaiņas un aizsargātās lasīšanas darbības ar parolēm brīvu sudo, ja pieteikšanās nav kā root."
+      },
+      "readOnly": {
+        "label": "Tikai lasīšana",
+        "description": "Atļaut lasīt pakalpojumus un žurnālus, bet bloķēt visas izmaiņas no Termix."
+      },
+      "logPaths": {
+        "label": "Žurnāla mapes",
+        "description": "Mapes, kurās Žurnāla failu skats var lasīt, atdalītas ar komatiem.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panelis blakus terminālim",
+        "description": "Piedāvāt pakalpojumu paneli blakus šī mezgla SSH terminālim."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Atvērt pakalpojumu paneli kopā ar termināli",
+        "description": "Rādīt pakalpojumu paneli, kad terminālis atveras uz mezgla, kam tas ir pieejams."
+      },
+      "companionSide": {
+        "label": "Pakalpojumu paneļa puse",
+        "description": "Kur panelis atrodas blakus terminālim.",
+        "right": "Labajā pusē",
+        "left": "Kreisā",
+        "bottom": "Apakšā"
+      },
+      "companionSize": {
+        "label": "Pakalpojumu panela izmērs",
+        "description": "Platums vai augstums (ja panelis ir apakšā) pikseļos."
+      },
+      "companionEdgeButton": {
+        "label": "Pakalpojumu panela malas poga",
+        "description": "Rādīt mazu pogu termināļa malā, lai atvērtu paneli."
+      }
+    }
+  },
+  "common": {
+    "back": "Atpakaļ"
+  },
+  "tab": {
+    "title": "Pakalpojumi",
+    "noHost": "Izvēlieties serveri, lai pārvaldītu tā pakalpojumus.",
+    "loading": "Ielādē...",
+    "refresh": "Atsvaidzināt",
+    "error": "Neizdevās izlasīt šī mezgla pakalpojumus.",
+    "disabled": "Šim mezglam pakalpojumi nav ieslēgti. Ieslēdziet tos mezgla iestatījumos.",
+    "sudo": "Lai veiktos izmaiņas, nepieciešama root piekļuve vai sudo bez paroles. Palaidiet komandu sudo -n true mezglā, lai pārbaudītu.",
+    "noInit": "Inicializācijas sistēma nav atrasta",
+    "noInitHint": "Šim mezglam nav systemd vai OpenRC, ko Termix varētu izmantot. Žurnāla faili joprojām strādā.",
+    "readOnly": "Tikai lasāms",
+    "failedCount_zero": "0 neizdevās",
+    "failedCount_one": "{{count}} neizdevās",
+    "failedCount_other": "{{count}} neizdevās",
+    "viewServices": "Pakalpojumi",
+    "viewTimers": "Taimeris",
+    "viewJournal": "Žurnāls",
+    "viewFiles": "Žurnāla faili"
+  },
+  "units": {
+    "search": "Meklēt pakalpojumus",
+    "type": "Vienības tips",
+    "empty": "Nav atbilstošu vienību.",
+    "loadFailed": "Neizdevās iegūt vienību sarakstu.",
+    "confirmStop": "Apturēt {{unit}}?",
+    "confirmStopDesc": "Viss, kas ir atkarīgs no šīs vienības, var pārtraukt darboties, līdz tā tiek palaista atkārtoti.",
+    "filters": {
+      "all": "Visi",
+      "running": "Darbojas",
+      "failed": "Neizdevās",
+      "stopped": "Apturēts",
+      "enabled": "Palaiņt pie sistēmas starta"
+    },
+    "types": {
+      "service": "Pakalpojumi",
+      "socket": "Savienojumi",
+      "timer": "Taimeris",
+      "target": "Mērķi",
+      "path": "Ceļi",
+      "mount": "Pievienojumi"
+    }
+  },
+  "actions": {
+    "start": "Sākt",
+    "stop": "Apturēt",
+    "restart": "Pārlādēt",
+    "reload": "Pārlādēt",
+    "enable": "Palaizt sistēmas startā",
+    "disable": "Nepalaidt sistēmas startā",
+    "enable-now": "Ieslēgt",
+    "disable-now": "Izslēgt",
+    "mask": "Apmaskēt",
+    "unmask": "Atmaskēt",
+    "reset-failed": "Notīrīt kļūdas",
+    "revert": "Atjaunot",
+    "failed": "Tas nestrādāja.",
+    "confirm": {
+      "stop": "Apturēt {{unit}}?",
+      "disable": "Pārtraukt {{unit}} palaišanu sistēmas startēšanas laikā?",
+      "disable-now": "Izslēgt {{unit}}?",
+      "mask": "Maskēt {{unit}}?",
+      "revert": "Atjaunot {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Viss, kas to izmanto, var pārtraukt darboties, līdz tas tiek palaists atkārtoti.",
+      "disable": "Tas turpina darboties pašlaik, bet netiks palaists pēc sistēmas restartēšanas.",
+      "disable-now": "Tas tiek apturēts pašlaik un netiks palaists pēc sistēmas restartēšanas.",
+      "mask": "Apmaskētu vienību nevar palaist ne manuāli, ne caur citām vienībām, līdz to atmaskē.",
+      "revert": "Tas noņem drop-in failus un vietējās vienības kopijas, atjaunojot versiju no pakotnes."
+    },
+    "done": {
+      "start": "Palaista {{unit}}",
+      "stop": "Apturēta {{unit}}",
+      "restart": "Pārlaista {{unit}}",
+      "reload": "Pārlādēta {{unit}}",
+      "enable": "{{unit}} tiek palaista sistēmas startēšanas laikā",
+      "disable": "{{unit}} netiks palaista sistēmas startēšanas laikā",
+      "enable-now": "Ieslēgta {{unit}}",
+      "disable-now": "Izslēgta {{unit}}",
+      "mask": "Apmaskēts {{unit}}",
+      "unmask": "Atmaskēts {{unit}}",
+      "reset-failed": "Notīrīts {{unit}} kļūdas stāvoklis",
+      "revert": "Atgriezts {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Brīdināt, ja tas neizdodas",
+    "stop": "Apturēt brīdinājumus",
+    "badge": "Novērots",
+    "on": "Saņemsiet brīdinājumu, ja {{unit}} neizdodas",
+    "off": "Vairs nav brīdinājumu par {{unit}}",
+    "failed": "Neizdevās mainīt brīdinājumu."
+  },
+  "detail": {
+    "loadFailed": "Neizdevās izlasīt šo vienību.",
+    "editFile": "Rediģēt vienību",
+    "description": "Apraksts",
+    "since": "Darbojas kopš",
+    "result": "Rezultāts",
+    "pid": "Galvenais PID",
+    "memory": "Atmiņa",
+    "peak": "maksimālā",
+    "cpu": "CPU laiks",
+    "tasks": "Uzdevumi",
+    "restarts": "Pārlāpīšanās",
+    "type": "Tips",
+    "user": "Lietotājs",
+    "file": "Vienības fails",
+    "dropIns": "Papildkonfigurācijas",
+    "triggeredBy": "Sākts ar",
+    "triggers": "Sāk",
+    "wantedBy": "Vēlas",
+    "requires": "Prasa",
+    "after": "Pēc",
+    "statusText": "systemctl status",
+    "log": "Nesenais žurnāls"
+  },
+  "editor": {
+    "loadFailed": "Neizdevās izlasīt vienības failu.",
+    "override": "Pārslēgt",
+    "fullFile": "Pilns fails",
+    "overrideHint": "Pārslēgums ir papildu fails, kas maina tikai šeit norādītās rindas. Pakotnes atjauninājumi turpina darboties. Atstājiet tukšu un saglabājiet, lai to noņemtu.",
+    "overrideTemplate": "Šeit norādītās rindas pievieno vai aizstāj vienības pašas iestatījumus",
+    "localHint": "Šis vienības fails atrodas direktorijā /etc/systemd/system, tāpēc to varat rediģēt.",
+    "vendorHint": "Šī vienība ir no pakotnes ({{path}}). Pilna faila saglabāšana ievieto kopiju direktorijā /etc/systemd/system, kas pārspēj oriģinālo. Atgriešana noņem šo kopiju.",
+    "notWritable": "Šāda veida vienībai failus nevar rakstīt.",
+    "check": "Pārbaudīt",
+    "checking": "Notiek pārbaude...",
+    "checkOk": "Pārbaude veiksmīga.",
+    "checkBad": "Pārbaudē tika konstatētas problēmas.",
+    "checkFailed": "Neizdevās izpildīt pārbaudi.",
+    "save": "Pārbaudīt un saglabāt",
+    "saved": "Saglabāts {{unit}} un pārlādēts systemd",
+    "saveFailed": "Nav saglabāts. Pārbaude neizdevās vai neizdevās ierakstīt failu.",
+    "combined": "Visu, ko systemd lasa šai vienībai",
+    "delete": "Dzēst vienību",
+    "deleteTitle": "Dzēst {{unit}}?",
+    "deleteDesc": "Tas tiek apturēts, netiks palaists sistēmas restartēšanas laikā, un tā fails un papildu konfigurācijas tiek dzēstas.",
+    "deleted": "Dzēsts {{unit}}",
+    "deleteFailed": "Neizdevās dzēst vienību."
+  },
+  "create": {
+    "add": "Jauna pakalpojuma pievienošana",
+    "title": "Jauns pakalpojums",
+    "name": "Nosaukums",
+    "nameHint": "Saglabāts kā name.service direktorijā /etc/systemd/system.",
+    "description": "Apraksts",
+    "descriptionPlaceholder": "Ko tas dara",
+    "command": "Komanda",
+    "commandHint": "Pilns ceļš uz programmu, pēc tam tās argumenti.",
+    "user": "Palaist kā lietotāju",
+    "group": "Grupa",
+    "folder": "Darba mape",
+    "environment": "Vide",
+    "environmentHint": "Viens NAME=vērtība katrā rindā.",
+    "timer": "Palaist pēc grafika",
+    "timerHint": "Izveidojiet taimeri, kas palaiž komandu noteiktos laikos, nevis to turpina palaist nepārtraukti.",
+    "schedule": "Grafiks",
+    "scheduleHint": "OnCalendar vērtība, piemēram, daily, hourly vai Mon *-*-* 03:00:00.",
+    "type": "Tips",
+    "types": {
+      "simple": "Vienkāršs, turpina darboties",
+      "exec": "Izpildes, turpina darboties",
+      "forking": "Atzarojošs, palaiž fonā",
+      "oneshot": "Vienreizējs, izpilda un iziet",
+      "notify": "Paziņojošs, informē systemd, kad ir gatavs"
+    },
+    "restart": "Atsāknēt",
+    "restarts": {
+      "on-failure": "Kad tas neizdodas",
+      "always": "Vienmēr",
+      "on-abnormal": "Kad tas sabrūk",
+      "no": "Nekad"
+    },
+    "restartSec": "Gaidīšanas laiks pirms restarta (sekundes)",
+    "after": "Sākt pēc",
+    "afterHint": "Vērtības, kuras gaidīt, atdalītas ar atstarpēm.",
+    "enable": "Sākt sistēmas ielādes laikā",
+    "enableHint": "Ja ir iestatīts grafiks, tas ieslēdz taimeri.",
+    "start": "Sākt tagad",
+    "save": "Izveidot",
+    "done": "Izveidots {{unit}}",
+    "failed": "Neizdevās izveidot pakalpojumu."
+  },
+  "timers": {
+    "search": "Meklēt taimerus",
+    "empty": "Nav taimera.",
+    "loadFailed": "Neizdevās iegūt taimera sarakstu.",
+    "next": "Nākamais {{when}} (pēc {{left}})",
+    "noNext": "Nekas nav plānots",
+    "last": "pēdējais {{when}} (pirms {{ago}})",
+    "neverRan": "nekad nav palaists",
+    "runNow": "Palaidiet tagad",
+    "ran": "Uzsākts {{unit}}",
+    "turnOn": "Ieslēgt",
+    "turnOff": "Izslēgt"
+  },
+  "journal": {
+    "unit": "Vienības",
+    "unitPlaceholder": "Visas vienības vai nginx.service",
+    "search": "Meklēt",
+    "searchPlaceholder": "Meklējama teksta daļa",
+    "priority": "Prioritāte",
+    "anyPriority": "Jebkura prioritāte",
+    "priorityUpTo": "{{name}} un zemāka",
+    "since": "Kopš",
+    "sinceOptions": {
+      "-15min": "Pēdējās 15 minūtes",
+      "-1h": "Pēdējā stunda",
+      "-6h": "Pēdējās 6 stundas",
+      "today": "Šodien",
+      "-24h": "Pēdējās 24 stundas",
+      "-7d": "Pēdējās 7 dienas",
+      "any": "Jebkurā laikā"
+    },
+    "boot": "Sāknēšana",
+    "anyBoot": "Jebkura sāknēšana",
+    "thisBoot": "Šī sāknēšana",
+    "lines": "Rindas",
+    "lineCount_zero": "{{count}} rindu",
+    "lineCount_one": "{{count}} rinda",
+    "lineCount_other": "{{count}} rindas",
+    "kernel": "Tikai kodols",
+    "follow": "Sekot",
+    "following": "Tiek sekots",
+    "pause": "Pauzēt",
+    "resume": "Turpināt",
+    "clear": "Notīrīt",
+    "download": "Lejupielādēt",
+    "connecting": "Notiek savienojums...",
+    "ended": "Plūsma beigusies",
+    "shown_zero": "0 ieraksti",
+    "shown_one": "{{count}} ieraksts",
+    "shown_other": "{{count}} ieraksti",
+    "usage": "Žurnāls izmanto {{size}}",
+    "vacuum": "Atbrīvot vietu",
+    "vacuumTitle": "Vai noņemt vecos žurnāla failus?",
+    "vacuumDesc": "Žurnāla ieraksti, kas vecāki par 4 nedēļām, tiek dzēsti no servera.",
+    "vacuumDone": "Žurnāls tagad izmanto {{size}}",
+    "vacuumFailed": "Neizdevās atbrīvot vietu.",
+    "empty": "Nav ierakstu.",
+    "loadFailed": "Neizdevās izlasīt žurnālu."
+  },
+  "files": {
+    "filter": "Filtrēt failus",
+    "roots": "No {{roots}}. Mainiet mapes rīciena iestatījumos.",
+    "showRotated": "Rādīt vecās kopijas",
+    "empty": "Žurnāla faili nav atrasti.",
+    "loadFailed": "Neizdevās iegūt žurnāla failu sarakstu.",
+    "search": "Meklēt",
+    "searchPlaceholder": "Meklēt tekstu",
+    "download": "Lejupielādēt",
+    "downloadFailed": "Neizdevās lejupielādēt failu.",
+    "readFailed": "Neizdevās izlasīt failu.",
+    "noLines": "Nav rindu."
+  },
+  "logs": {
+    "empty": "Šeit vēl nav nekas."
+  },
+  "companion": {
+    "openTab": "Atvērt cilni Pakalpojumi",
+    "toggle": "Pakalpojumu panelis"
+  }
+}

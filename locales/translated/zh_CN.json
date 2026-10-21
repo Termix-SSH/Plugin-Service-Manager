@@ -1,0 +1,318 @@
+{
+  "plugin": {
+    "name": "服务",
+    "description": "通过 SSH 管理主机上的服务、定时器和日志。"
+  },
+  "permissions": {
+    "use": {
+      "title": "使用服务",
+      "description": "在您有权访问的主机上打开“服务”选项卡。进行更改还需要对主机拥有编辑权限。"
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "服务",
+        "description": "为此主机显示“服务”选项卡，以管理 systemd 服务、定时器和日志。"
+      },
+      "useSudo": {
+        "label": "使用 sudo",
+        "description": "当登录用户不是 root 时，使用无密码 sudo 执行更改和受保护的操作。"
+      },
+      "readOnly": {
+        "label": "只读",
+        "description": "允许读取服务和日志，但阻止来自 Termix 的所有更改。"
+      },
+      "logPaths": {
+        "label": "日志文件夹",
+        "description": "日志文件视图可以读取的文件夹，用逗号分隔。",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "终端旁边的面板",
+        "description": "在此主机的 SSH 终端旁边显示服务面板。"
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "打开终端时同时打开服务面板",
+        "description": "当在启用了该功能的主机上打开终端时，显示服务面板。"
+      },
+      "companionSide": {
+        "label": "服务面板位置",
+        "description": "面板相对于终端的位置。",
+        "right": "右侧",
+        "left": "左侧",
+        "bottom": "底部"
+      },
+      "companionSize": {
+        "label": "服务面板大小",
+        "description": "宽度，或位于底部时的高度，单位为像素。"
+      },
+      "companionEdgeButton": {
+        "label": "服务面板边缘按钮",
+        "description": "在终端边缘显示一个小按钮，用于打开面板。"
+      }
+    }
+  },
+  "common": {
+    "back": "返回"
+  },
+  "tab": {
+    "title": "服务",
+    "noHost": "选择一个主机以管理其服务。",
+    "loading": "加载中...",
+    "refresh": "刷新",
+    "error": "无法读取此主机上的服务。",
+    "disabled": "此主机未启用服务功能。请在主机设置中开启。",
+    "sudo": "更改需要 root 登录或无需密码的 sudo 权限。请在主机上运行 sudo -n true 进行检查。",
+    "noInit": "未找到初始化系统",
+    "noInitHint": "此主机没有 Termix 可用的 systemd 或 OpenRC。日志文件仍然可用。",
+    "readOnly": "只读",
+    "failedCount_other": "{{count}} 项失败",
+    "viewServices": "服务",
+    "viewTimers": "定时器",
+    "viewJournal": "日志",
+    "viewFiles": "日志文件"
+  },
+  "units": {
+    "search": "搜索服务",
+    "type": "单元类型",
+    "empty": "没有匹配的单元。",
+    "loadFailed": "无法列出单元。",
+    "confirmStop": "停止 {{unit}}？",
+    "confirmStopDesc": "依赖它的功能可能会停止工作，直到它重新启动。",
+    "filters": {
+      "all": "全部",
+      "running": "运行中",
+      "failed": "失败",
+      "stopped": "已停止",
+      "enabled": "开机自启"
+    },
+    "types": {
+      "service": "服务",
+      "socket": "套接字",
+      "timer": "定时器",
+      "target": "目标",
+      "path": "路径",
+      "mount": "挂载点"
+    }
+  },
+  "actions": {
+    "start": "启动",
+    "stop": "停止",
+    "restart": "重启",
+    "reload": "重载",
+    "enable": "开机自启",
+    "disable": "取消开机自启",
+    "enable-now": "开启",
+    "disable-now": "关闭",
+    "mask": "屏蔽",
+    "unmask": "取消屏蔽",
+    "reset-failed": "清除失败状态",
+    "revert": "还原",
+    "failed": "操作失败。",
+    "confirm": {
+      "stop": "停止 {{unit}}？",
+      "disable": "不再在启动时自动运行 {{unit}}？",
+      "disable-now": "关闭 {{unit}}？",
+      "mask": "屏蔽 {{unit}}？",
+      "revert": "还原 {{unit}}？"
+    },
+    "confirmDesc": {
+      "stop": "依赖它的服务可能会停止工作，直到它重新启动。",
+      "disable": "它将继续运行，但重启后将不再自动启动。",
+      "disable-now": "它将立即停止，且重启后不再自动启动。",
+      "mask": "被屏蔽的单元无法启动，无论是手动启动还是由其他单元触发，直到您取消屏蔽。",
+      "revert": "此操作将移除单元的 drop-in 文件和本地副本，并恢复软件包中的原始版本。"
+    },
+    "done": {
+      "start": "已启动 {{unit}}",
+      "stop": "已停止 {{unit}}",
+      "restart": "已重启 {{unit}}",
+      "reload": "已重载 {{unit}}",
+      "enable": "{{unit}} 将在开机时启动",
+      "disable": "{{unit}} 不会在开机时启动",
+      "enable-now": "已启用 {{unit}}",
+      "disable-now": "已禁用 {{unit}}",
+      "mask": "已隐藏 {{unit}}",
+      "unmask": "已取消隐藏 {{unit}}",
+      "reset-failed": "已清除 {{unit}} 的失败状态",
+      "revert": "已还原 {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "失败时通知我",
+    "stop": "停止通知",
+    "badge": "已监控",
+    "on": "当 {{unit}} 失败时，您将收到通知",
+    "off": "不再接收 {{unit}} 的通知",
+    "failed": "无法更改通知设置。"
+  },
+  "detail": {
+    "loadFailed": "无法读取此单元。",
+    "editFile": "编辑单元",
+    "description": "描述",
+    "since": "运行时间",
+    "result": "结果",
+    "pid": "主 PID",
+    "memory": "内存",
+    "peak": "峰值",
+    "cpu": "CPU 时间",
+    "tasks": "任务",
+    "restarts": "重启次数",
+    "type": "类型",
+    "user": "用户",
+    "file": "单元文件",
+    "dropIns": "Drop-in 文件",
+    "triggeredBy": "由以下项触发",
+    "triggers": "触发器",
+    "wantedBy": "被以下项依赖",
+    "requires": "依赖",
+    "after": "在...之后",
+    "statusText": "systemctl status",
+    "log": "最近日志"
+  },
+  "editor": {
+    "loadFailed": "无法读取单元文件。",
+    "override": "覆盖",
+    "fullFile": "完整文件",
+    "overrideHint": "覆盖文件是一种 drop-in 文件，仅修改你在此处添加的行。软件包更新后仍可正常工作。留空并保存即可删除该覆盖文件。",
+    "overrideTemplate": "此处的行将添加或替换单元自身的设置",
+    "localHint": "此单元文件位于 /etc/systemd/system，你可以直接编辑它。",
+    "vendorHint": "此单元来自软件包（{{path}}）。保存完整文件会在 /etc/systemd/system 中创建一个副本，其优先级高于原文件。还原将删除该副本。",
+    "notWritable": "无法为此类单元写入文件。",
+    "check": "检查",
+    "checking": "正在检查...",
+    "checkOk": "检查通过。",
+    "checkBad": "检查发现问题。",
+    "checkFailed": "无法运行检查。",
+    "save": "检查并保存",
+    "saved": "已保存 {{unit}} 并重新加载 systemd",
+    "saveFailed": "未保存。检查失败或无法写入文件。",
+    "combined": "systemd 为此单元读取的所有内容",
+    "delete": "删除单元",
+    "deleteTitle": "删除 {{unit}}？",
+    "deleteDesc": "该单元将停止运行，不再随系统启动，其主文件和 drop-in 配置将被移除。",
+    "deleted": "已删除 {{unit}}",
+    "deleteFailed": "无法删除该单元。"
+  },
+  "create": {
+    "add": "新建服务",
+    "title": "新建服务",
+    "name": "名称",
+    "nameHint": "将保存为 /etc/systemd/system 中的 name.service。",
+    "description": "描述",
+    "descriptionPlaceholder": "简要说明其功能",
+    "command": "命令",
+    "commandHint": "程序完整路径，后跟其参数。",
+    "user": "以用户身份运行",
+    "group": "组",
+    "folder": "工作目录",
+    "environment": "环境变量",
+    "environmentHint": "每行一个 NAME=value。",
+    "timer": "按计划运行",
+    "timerHint": "创建定时器，在指定时间运行命令，而不是持续运行。",
+    "schedule": "计划",
+    "scheduleHint": "OnCalendar 值，例如 daily、hourly 或 Mon *-*-* 03:00:00。",
+    "type": "类型",
+    "types": {
+      "simple": "Simple，持续运行",
+      "exec": "Exec，持续运行",
+      "forking": "Forking，在后台启动",
+      "oneshot": "Oneshot，运行后退出",
+      "notify": "Notify，就绪时通知 systemd"
+    },
+    "restart": "重启策略",
+    "restarts": {
+      "on-failure": "失败时",
+      "always": "始终",
+      "on-abnormal": "崩溃时",
+      "no": "从不"
+    },
+    "restartSec": "重启前等待（秒）",
+    "after": "在...之后启动",
+    "afterHint": "等待的单位，用空格分隔。",
+    "enable": "开机自启",
+    "enableHint": "对于计划任务，这将启用定时器。",
+    "start": "立即启动",
+    "save": "创建",
+    "done": "已创建 {{unit}}",
+    "failed": "无法创建服务。"
+  },
+  "timers": {
+    "search": "搜索定时器",
+    "empty": "没有定时器。",
+    "loadFailed": "无法列出定时器。",
+    "next": "下次 {{when}}（{{left}} 后）",
+    "noNext": "无计划任务",
+    "last": "上次 {{when}}（{{ago}} 前）",
+    "neverRan": "从未运行",
+    "runNow": "立即运行",
+    "ran": "已启动 {{unit}}",
+    "turnOn": "开启",
+    "turnOff": "关闭"
+  },
+  "journal": {
+    "unit": "单元",
+    "unitPlaceholder": "所有单元，或 nginx.service",
+    "search": "搜索",
+    "searchPlaceholder": "搜索文本",
+    "priority": "优先级",
+    "anyPriority": "任意优先级",
+    "priorityUpTo": "{{name}} 及更低优先级",
+    "since": "自",
+    "sinceOptions": {
+      "-15min": "最近 15 分钟",
+      "-1h": "最近 1 小时",
+      "-6h": "最近 6 小时",
+      "today": "今天",
+      "-24h": "最近 24 小时",
+      "-7d": "最近 7 天",
+      "any": "不限时间"
+    },
+    "boot": "启动",
+    "anyBoot": "任意启动",
+    "thisBoot": "本次启动",
+    "lines": "行数",
+    "lineCount_other": "{{count}} 行",
+    "kernel": "仅内核",
+    "follow": "跟随",
+    "following": "正在跟随",
+    "pause": "暂停",
+    "resume": "恢复",
+    "clear": "清除",
+    "download": "下载",
+    "connecting": "正在连接...",
+    "ended": "流已结束",
+    "shown_other": "{{count}} 条记录",
+    "usage": "日志占用 {{size}}",
+    "vacuum": "释放空间",
+    "vacuumTitle": "删除旧的日志文件？",
+    "vacuumDesc": "将删除主机上 4 周前的日志记录。",
+    "vacuumDone": "日志现在占用 {{size}}",
+    "vacuumFailed": "无法释放空间。",
+    "empty": "暂无记录。",
+    "loadFailed": "无法读取日志。"
+  },
+  "files": {
+    "filter": "筛选文件",
+    "roots": "来自 {{roots}}。请在主机设置中更改文件夹。",
+    "showRotated": "显示旧副本",
+    "empty": "未找到日志文件。",
+    "loadFailed": "无法列出日志文件。",
+    "search": "搜索",
+    "searchPlaceholder": "搜索文本",
+    "download": "下载",
+    "downloadFailed": "无法下载文件。",
+    "readFailed": "无法读取文件。",
+    "noLines": "没有行。"
+  },
+  "logs": {
+    "empty": "这里还没有内容。"
+  },
+  "companion": {
+    "openTab": "打开服务选项卡",
+    "toggle": "服务面板"
+  }
+}

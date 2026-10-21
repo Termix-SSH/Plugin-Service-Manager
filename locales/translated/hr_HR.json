@@ -1,0 +1,324 @@
+{
+  "plugin": {
+    "name": "Usluge",
+    "description": "Upravljajte uslugama, tajmerima i zapisima na vašim hostovima putem SSH-a."
+  },
+  "permissions": {
+    "use": {
+      "title": "Koristi usluge",
+      "description": "Otvorite karticu Usluge na hostovima na koje možete pristupiti. Za promjene je također potreban pristup za uređivanje hosta."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Usluge",
+        "description": "Prikažite karticu Usluge za ovaj host kako biste upravljali systemd uslugama, tajmerima i zapisima."
+      },
+      "useSudo": {
+        "label": "Koristi sudo",
+        "description": "Pokrenite promjene i zaštićena čitanja pomoću sudo bez lozinke kada prijava nije root."
+      },
+      "readOnly": {
+        "label": "Samo za čitanje",
+        "description": "Dopustite čitanje usluga i zapisa, ali blokirajte sve promjene iz Termixa."
+      },
+      "logPaths": {
+        "label": "Mape za dnevnike",
+        "description": "Mape koje prikaz datoteka dnevnika može čitati, odvojene zarezima.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel pored terminala",
+        "description": "Ponudi panel usluga pored SSH terminala za ovog hosta."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Otvori panel usluga s terminalom",
+        "description": "Prikaži panel usluga kada se terminal otvori na hostu koji ga ima."
+      },
+      "companionSide": {
+        "label": "Strana panela usluga",
+        "description": "Gdje se panel nalazi pored terminala.",
+        "right": "Desno",
+        "left": "Lijevo",
+        "bottom": "Dolje"
+      },
+      "companionSize": {
+        "label": "Veličina ploče usluga",
+        "description": "Širina, odnosno visina kada je na dnu, u pikselima."
+      },
+      "companionEdgeButton": {
+        "label": "Gumb za rub ploče usluga",
+        "description": "Prikaži mali gumb na rubu terminala za otvaranje ploče."
+      }
+    }
+  },
+  "common": {
+    "back": "Natrag"
+  },
+  "tab": {
+    "title": "Usluge",
+    "noHost": "Odaberite host za upravljanje njegovim uslugama.",
+    "loading": "Učitavanje...",
+    "refresh": "Osvježi",
+    "error": "Nije moguće pročitati usluge na ovom hostu.",
+    "disabled": "Usluge nisu uključene za ovaj host. Uključite ih u postavkama hosta.",
+    "sudo": "Promjene zahtijevaju root pristup ili sudo bez lozinke. Pokrenite sudo -n true na hostu za provjeru.",
+    "noInit": "Nije pronađen init sustav",
+    "noInitHint": "Ovaj host nema systemd ili OpenRC koji Termix može koristiti. Dnevnički zapisi i dalje rade.",
+    "readOnly": "Samo za čitanje",
+    "failedCount_one": "{{count}} neuspješno",
+    "failedCount_few": "{{count}} neuspješno",
+    "failedCount_other": "{{count}} neuspješno",
+    "viewServices": "Usluge",
+    "viewTimers": "Vremenski okidači",
+    "viewJournal": "Dnevnik",
+    "viewFiles": "Datoteke dnevnika"
+  },
+  "units": {
+    "search": "Pretraži usluge",
+    "type": "Vrsta jedinice",
+    "empty": "Nema podudarnih jedinica.",
+    "loadFailed": "Nije moguće izlistati jedinice.",
+    "confirmStop": "Zaustaviti {{unit}}?",
+    "confirmStopDesc": "Sve što ovisi o njoj može prestati raditi dok se ponovno ne pokrene.",
+    "filters": {
+      "all": "Sve",
+      "running": "Pokrenuto",
+      "failed": "Neuspješno",
+      "stopped": "Zaustavljeno",
+      "enabled": "Pokreni pri pokretanju sustava"
+    },
+    "types": {
+      "service": "Usluge",
+      "socket": "Priključci",
+      "timer": "Vremenski okidači",
+      "target": "Ciljevi",
+      "path": "Putanje",
+      "mount": "Točke montiranja"
+    }
+  },
+  "actions": {
+    "start": "Pokreni",
+    "stop": "Zaustavi",
+    "restart": "Ponovno pokreni",
+    "reload": "Osveži",
+    "enable": "Pokreni pri pokretanju sustava",
+    "disable": "Ne pokreći pri pokretanju sustava",
+    "enable-now": "Uključi",
+    "disable-now": "Isključi",
+    "mask": "Maskiraj",
+    "unmask": "Ukloni masku",
+    "reset-failed": "Očisti neuspjehe",
+    "revert": "Poništi",
+    "failed": "To nije uspjelo.",
+    "confirm": {
+      "stop": "Zaustaviti {{unit}}?",
+      "disable": "Onemogućiti pokretanje {{unit}} pri pokretanju sustava?",
+      "disable-now": "Isključiti {{unit}}?",
+      "mask": "Maskirati {{unit}}?",
+      "revert": "Ponovno postaviti {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Sve što ovisi o njemu može prestati raditi dok se ponovno ne pokrene.",
+      "disable": "Nastavlja raditi, ali se neće pokrenuti nakon ponovnog pokretanja.",
+      "disable-now": "Zaustavlja se sada i neće se pokrenuti nakon ponovnog pokretanja.",
+      "mask": "Maskirana jedinica se ne može pokrenuti ni ručno ni putem drugih jedinica dok je ne demaskirate.",
+      "revert": "Ovo uklanja drop-in datoteke i lokalne kopije jedinice te vraća verziju iz paketa."
+    },
+    "done": {
+      "start": "Pokrenuta jedinica {{unit}}",
+      "stop": "Zaustavljena jedinica {{unit}}",
+      "restart": "Ponovno pokrenuta jedinica {{unit}}",
+      "reload": "Osvežena jedinica {{unit}}",
+      "enable": "Jedinica {{unit}} se pokreće pri pokretanju sustava",
+      "disable": "Jedinica {{unit}} se neće pokretati pri pokretanju sustava",
+      "enable-now": "Uključena jedinica {{unit}}",
+      "disable-now": "Isključena jedinica {{unit}}",
+      "mask": "Maskirano {{unit}}",
+      "unmask": "Otklonjena maska s {{unit}}",
+      "reset-failed": "Poništeno stanje neuspjeha za {{unit}}",
+      "revert": "Vraćeno na prethodno stanje za {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Obavijesti me kada ne uspije",
+    "stop": "Zaustavi obavijesti",
+    "badge": "Praćen",
+    "on": "Dobit ćete obavijest kada {{unit}} ne uspije",
+    "off": "Nema više obavijesti za {{unit}}",
+    "failed": "Nije moguće promijeniti obavijest."
+  },
+  "detail": {
+    "loadFailed": "Nije moguće pročitati ovu jedinicu.",
+    "editFile": "Uredi jedinicu",
+    "description": "Opis",
+    "since": "Pokreće se od",
+    "result": "Rezultat",
+    "pid": "Glavni PID",
+    "memory": "Memorija",
+    "peak": "vrhunac",
+    "cpu": "Vrijeme CPU-a",
+    "tasks": "Zadaci",
+    "restarts": "Ponovna pokretanja",
+    "type": "Vrsta",
+    "user": "Korisnik",
+    "file": "Datoteka jedinice",
+    "dropIns": "Drop-in datoteke",
+    "triggeredBy": "Pokrenuto od",
+    "triggers": "Pokreće",
+    "wantedBy": "Željeno od",
+    "requires": "Zahtijeva",
+    "after": "Nakon",
+    "statusText": "systemctl status",
+    "log": "Nedavni zapisnik"
+  },
+  "editor": {
+    "loadFailed": "Nije moguće pročitati datoteku jedinice.",
+    "override": "Prepisivanje",
+    "fullFile": "Cijela datoteka",
+    "overrideHint": "Prepisivanje je datoteka za ubacivanje koja mijenja samo retke koje ovdje unesete. Ažuriranja paketa i dalje rade. Ostavite prazno i spremite kako biste ga uklonili.",
+    "overrideTemplate": "Retci ovdje dodaju ili zamjenjuju vlastite postavke jedinice",
+    "localHint": "Ova datoteka jedinice nalazi se u /etc/systemd/system, pa je možete uređivati.",
+    "vendorHint": "Ova jedinica dolazi iz paketa ({{path}}). Spremanje cijele datoteke stvara kopiju u /etc/systemd/system koja ima prednost. Povrat uklanja kopiju.",
+    "notWritable": "Datoteke se ne mogu zapisivati za ovu vrstu jedinice.",
+    "check": "Provjeri",
+    "checking": "Provjera...",
+    "checkOk": "Provjera je prošla.",
+    "checkBad": "Provjera je otkrila probleme.",
+    "checkFailed": "Provjera se nije mogla izvršiti.",
+    "save": "Provjeri i spremi",
+    "saved": "Spremljeno {{unit}} i ponovno učitano systemd",
+    "saveFailed": "Nije spremljeno. Provjera nije prošla ili se datoteka nije mogla zapisati.",
+    "combined": "Sve što systemd čita za ovu jedinicu",
+    "delete": "Izbriši jedinicu",
+    "deleteTitle": "Izbrisati {{unit}}?",
+    "deleteDesc": "Jedinica se zaustavlja, neće se pokretati pri pokretanju sustava, a njezine datoteke i dodatne konfiguracije se uklanjaju.",
+    "deleted": "Jedinica {{unit}} je izbrisana",
+    "deleteFailed": "Nije moguće izbrisati jedinicu."
+  },
+  "create": {
+    "add": "Nova usluga",
+    "title": "Nova usluga",
+    "name": "Naziv",
+    "nameHint": "Spremljeno kao name.service u /etc/systemd/system.",
+    "description": "Opis",
+    "descriptionPlaceholder": "Što radi",
+    "command": "Naredba",
+    "commandHint": "Potpuna putanja do programa, a zatim njegovi argumenti.",
+    "user": "Pokreni kao korisnik",
+    "group": "Grupa",
+    "folder": "Radni direktorij",
+    "environment": "Okoliš",
+    "environmentHint": "Jedan NAME=vrijednost po retku.",
+    "timer": "Pokreni prema rasporedu",
+    "timerHint": "Postavite tajmer koji će pokrenuti naredbu u zadano vrijeme umjesto da je ostane pokrenuta.",
+    "schedule": "Raspored",
+    "scheduleHint": "Vrijednost OnCalendar, poput daily, hourly ili Mon *-*-* 03:00:00.",
+    "type": "Vrsta",
+    "types": {
+      "simple": "Jednostavna, ostaje pokrenuta",
+      "exec": "Exec, ostaje pokrenuta",
+      "forking": "Forking, pokreće se u pozadini",
+      "oneshot": "Jednokratna, pokreće se i završava",
+      "notify": "Obavijest, javlja systemd kada je spremna"
+    },
+    "restart": "Ponovno pokretanje",
+    "restarts": {
+      "on-failure": "Kada zakaže",
+      "always": "Uvijek",
+      "on-abnormal": "Kada se ruši",
+      "no": "Nikada"
+    },
+    "restartSec": "Čekaj prije ponovnog pokretanja (sekunde)",
+    "after": "Pokreni nakon",
+    "afterHint": "Jedinice za čekanje, odvojene razmacima.",
+    "enable": "Pokreni pri pokretanju sustava",
+    "enableHint": "Za raspored ovo uključuje tajmer.",
+    "start": "Pokreni sada",
+    "save": "Izradi",
+    "done": "Izrađeno {{unit}}",
+    "failed": "Nije moguće stvoriti uslugu."
+  },
+  "timers": {
+    "search": "Pretraži tajmere",
+    "empty": "Nema tajmera.",
+    "loadFailed": "Nije moguće izlistati tajmere.",
+    "next": "Sljedeće {{when}} (za {{left}})",
+    "noNext": "Ništa nije planirano",
+    "last": "posljednji {{when}} (prije {{ago}})",
+    "neverRan": "nikada nije pokrenut",
+    "runNow": "Pokreni sada",
+    "ran": "Pokrenuto {{unit}}",
+    "turnOn": "Uključi",
+    "turnOff": "Isključi"
+  },
+  "journal": {
+    "unit": "Jedinice",
+    "unitPlaceholder": "Sve jedinice ili nginx.service",
+    "search": "Pretraži",
+    "searchPlaceholder": "Tekst za pretraživanje",
+    "priority": "Prioritet",
+    "anyPriority": "Bilo koji prioritet",
+    "priorityUpTo": "{{name}} i gore",
+    "since": "Od",
+    "sinceOptions": {
+      "-15min": "Posljednjih 15 minuta",
+      "-1h": "Posljednji sat",
+      "-6h": "Posljednjih 6 sati",
+      "today": "Danas",
+      "-24h": "Posljednjih 24 sata",
+      "-7d": "Posljednjih 7 dana",
+      "any": "Bilo koje vrijeme"
+    },
+    "boot": "Pokretanje",
+    "anyBoot": "Bilo koje pokretanje",
+    "thisBoot": "Ovo pokretanje",
+    "lines": "Retci",
+    "lineCount_one": "{{count}} redak",
+    "lineCount_few": "{{count}} retka",
+    "lineCount_other": "{{count}} redaka",
+    "kernel": "Samo jezgra",
+    "follow": "Prati",
+    "following": "Praćenje",
+    "pause": "Pauziraj",
+    "resume": "Nastavi",
+    "clear": "Očisti",
+    "download": "Preuzmi",
+    "connecting": "Povezivanje...",
+    "ended": "Stream završen",
+    "shown_one": "{{count}} unos",
+    "shown_few": "{{count}} unosa",
+    "shown_other": "{{count}} unosa",
+    "usage": "Dnevnik koristi {{size}}",
+    "vacuum": "Oslobodi prostor",
+    "vacuumTitle": "Izbrisati stare datoteke dnevnika?",
+    "vacuumDesc": "Unosi dnevnika stariji od 4 tjedna bit će obrisani s poslužitelja.",
+    "vacuumDone": "Dnevnik sada koristi {{size}}",
+    "vacuumFailed": "Nije moguće osloboditi prostor.",
+    "empty": "Nema unosa.",
+    "loadFailed": "Nije moguće pročitati dnevnik."
+  },
+  "files": {
+    "filter": "Filtriraj datoteke",
+    "roots": "Iz {{roots}}. Promijeni mape u postavkama hosta.",
+    "showRotated": "Prikaži stare kopije",
+    "empty": "Nema pronađenih log datoteka.",
+    "loadFailed": "Nije moguće izlistati log datoteke.",
+    "search": "Pretraži",
+    "searchPlaceholder": "Pretraži tekst",
+    "download": "Preuzmi",
+    "downloadFailed": "Nije moguće preuzeti datoteku.",
+    "readFailed": "Nije moguće pročitati datoteku.",
+    "noLines": "Nema redaka."
+  },
+  "logs": {
+    "empty": "Ovdje još nema ništa."
+  },
+  "companion": {
+    "openTab": "Otvori karticu Usluge",
+    "toggle": "Panel usluga"
+  }
+}

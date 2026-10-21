@@ -1,0 +1,324 @@
+{
+  "plugin": {
+    "name": "Servicios",
+    "description": "Gestiona servicios, temporizadores y registros en tus hosts a través de SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Usar Servicios",
+      "description": "Abre la pestaña Servicios en los hosts a los que tengas acceso. Los cambios también requieren permiso de edición del host."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Servicios",
+        "description": "Muestra la pestaña Servicios para este host y gestiona servicios, temporizadores y registros de systemd."
+      },
+      "useSudo": {
+        "label": "Usar sudo",
+        "description": "Ejecuta cambios y lecturas protegidas con sudo sin contraseña cuando el inicio de sesión no sea root."
+      },
+      "readOnly": {
+        "label": "Solo lectura",
+        "description": "Permite leer servicios y registros, pero bloquea cualquier cambio desde Termix."
+      },
+      "logPaths": {
+        "label": "Carpetas de registros",
+        "description": "Carpetas que la vista de archivos de registro puede leer, separadas por comas.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel junto al terminal",
+        "description": "Muestra un panel de servicios junto al terminal SSH de este host."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Abrir el panel de servicios con un terminal",
+        "description": "Muestra el panel de servicios cuando se abre un terminal en un host que lo tenga disponible."
+      },
+      "companionSide": {
+        "label": "Lado del panel de servicios",
+        "description": "Dónde se sitúa el panel junto al terminal.",
+        "right": "Derecha",
+        "left": "Izquierda",
+        "bottom": "Abajo"
+      },
+      "companionSize": {
+        "label": "Tamaño del panel de servicios",
+        "description": "Ancho, o altura si está abajo, en píxeles."
+      },
+      "companionEdgeButton": {
+        "label": "Botón lateral del panel de servicios",
+        "description": "Muestra un botón pequeño en el borde del terminal para abrir el panel."
+      }
+    }
+  },
+  "common": {
+    "back": "Atrás"
+  },
+  "tab": {
+    "title": "Servicios",
+    "noHost": "Selecciona un host para gestionar sus servicios.",
+    "loading": "Cargando...",
+    "refresh": "Actualizar",
+    "error": "No se han podido leer los servicios en este host.",
+    "disabled": "Los Servicios no están activados para este host. Actívalos en la configuración del host.",
+    "sudo": "Los cambios requieren inicio de sesión como root o sudo sin contraseña. Ejecuta sudo -n true en el host para comprobarlo.",
+    "noInit": "No se ha encontrado sistema de inicialización",
+    "noInitHint": "Este host no tiene systemd ni OpenRC que Termix pueda usar. Los archivos de registro siguen funcionando.",
+    "readOnly": "Solo lectura",
+    "failedCount_one": "{{count}} fallido",
+    "failedCount_many": "{{count}} fallidos",
+    "failedCount_other": "{{count}} fallidos",
+    "viewServices": "Servicios",
+    "viewTimers": "Temporizadores",
+    "viewJournal": "Registro",
+    "viewFiles": "Archivos de registro"
+  },
+  "units": {
+    "search": "Buscar servicios",
+    "type": "Tipo de unidad",
+    "empty": "No hay unidades que coincidan.",
+    "loadFailed": "No se han podido listar las unidades.",
+    "confirmStop": "¿Detener {{unit}}?",
+    "confirmStopDesc": "Todo lo que dependa de él puede dejar de funcionar hasta que se reinicie.",
+    "filters": {
+      "all": "Todos",
+      "running": "En ejecución",
+      "failed": "Fallidos",
+      "stopped": "Detenidos",
+      "enabled": "Iniciar al arrancar"
+    },
+    "types": {
+      "service": "Servicios",
+      "socket": "Sockets",
+      "timer": "Temporizadores",
+      "target": "Objetivos",
+      "path": "Rutas",
+      "mount": "Montajes"
+    }
+  },
+  "actions": {
+    "start": "Iniciar",
+    "stop": "Detener",
+    "restart": "Reiniciar",
+    "reload": "Recargar",
+    "enable": "Iniciar al arrancar",
+    "disable": "No iniciar al arrancar",
+    "enable-now": "Activar",
+    "disable-now": "Desactivar",
+    "mask": "Enmascarar",
+    "unmask": "Desenmascarar",
+    "reset-failed": "Limpiar errores",
+    "revert": "Revertir",
+    "failed": "Eso no ha funcionado.",
+    "confirm": {
+      "stop": "¿Detener {{unit}}?",
+      "disable": "¿Dejar de iniciar {{unit}} al arrancar?",
+      "disable-now": "¿Desactivar {{unit}}?",
+      "mask": "¿Enmascarar {{unit}}?",
+      "revert": "¿Revertir {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Todo lo que dependa de él puede dejar de funcionar hasta que vuelva a iniciarse.",
+      "disable": "Sigue funcionando ahora, pero no se iniciará tras un reinicio.",
+      "disable-now": "Se detiene ahora y no se iniciará tras un reinicio.",
+      "mask": "Una unidad enmascarada no se puede iniciar en absoluto, ni manualmente ni por otras unidades, hasta que la desenmascare.",
+      "revert": "Esto elimina los archivos de configuración adicionales y las copias locales de la unidad, y restaura la versión del paquete."
+    },
+    "done": {
+      "start": "Se ha iniciado {{unit}}",
+      "stop": "Se ha detenido {{unit}}",
+      "restart": "Se ha reiniciado {{unit}}",
+      "reload": "Se ha recargado {{unit}}",
+      "enable": "{{unit}} se inicia al arrancar",
+      "disable": "{{unit}} no se iniciará al arrancar",
+      "enable-now": "Se ha activado {{unit}}",
+      "disable-now": "Se ha desactivado {{unit}}",
+      "mask": "Se ha enmascarado {{unit}}",
+      "unmask": "Se ha desenmascarado {{unit}}",
+      "reset-failed": "Se ha limpiado el estado de error de {{unit}}",
+      "revert": "Se ha revertido {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Avisarme si falla",
+    "stop": "Dejar de avisar",
+    "badge": "Vigilado",
+    "on": "Recibirás una alerta cuando {{unit}} falle",
+    "off": "Ya no recibirás alertas de {{unit}}",
+    "failed": "No se ha podido cambiar la alerta."
+  },
+  "detail": {
+    "loadFailed": "No se ha podido leer esta unidad.",
+    "editFile": "Editar unidad",
+    "description": "Descripción",
+    "since": "En ejecución desde",
+    "result": "Resultado",
+    "pid": "PID principal",
+    "memory": "Memoria",
+    "peak": "pico",
+    "cpu": "Tiempo de CPU",
+    "tasks": "Tareas",
+    "restarts": "Reinicios",
+    "type": "Tipo",
+    "user": "Usuario",
+    "file": "Archivo de unidad",
+    "dropIns": "Archivos de configuración adicionales",
+    "triggeredBy": "Iniciado por",
+    "triggers": "Inicia",
+    "wantedBy": "Requerido por",
+    "requires": "Requiere",
+    "after": "Después de",
+    "statusText": "systemctl status",
+    "log": "Registro reciente"
+  },
+  "editor": {
+    "loadFailed": "No se ha podido leer el archivo de unidad.",
+    "override": "Anular",
+    "fullFile": "Archivo completo",
+    "overrideHint": "Una anulación es un archivo de inserción que modifica solo las líneas que indiques aquí. Las actualizaciones del paquete seguirán funcionando. Déjalo vacío y guarda para eliminarlo.",
+    "overrideTemplate": "Las líneas aquí se añaden o reemplazan la configuración propia de la unidad",
+    "localHint": "Este archivo de unidad está en /etc/systemd/system, por lo que puedes editarlo.",
+    "vendorHint": "Esta unidad proviene de un paquete ({{path}}). Guardar el archivo completo crea una copia en /etc/systemd/system que tiene prioridad. Deshacer elimina la copia.",
+    "notWritable": "No se pueden escribir archivos para este tipo de unidad.",
+    "check": "Comprobar",
+    "checking": "Comprobando...",
+    "checkOk": "La comprobación se ha superado.",
+    "checkBad": "La comprobación ha detectado problemas.",
+    "checkFailed": "No se ha podido ejecutar la comprobación.",
+    "save": "Comprobar y guardar",
+    "saved": "Se ha guardado {{unit}} y se ha recargado systemd",
+    "saveFailed": "No se ha guardado. La comprobación ha fallado o no se ha podido escribir el archivo.",
+    "combined": "Todo lo que systemd lee para esta unidad",
+    "delete": "Eliminar unidad",
+    "deleteTitle": "¿Eliminar {{unit}}?",
+    "deleteDesc": "Se detendrá, no se iniciará en el arranque y se eliminarán su archivo y sus inserciones.",
+    "deleted": "Se ha eliminado {{unit}}",
+    "deleteFailed": "No se ha podido eliminar la unidad."
+  },
+  "create": {
+    "add": "Nuevo servicio",
+    "title": "Nuevo servicio",
+    "name": "Nombre",
+    "nameHint": "Se guardará como name.service en /etc/systemd/system.",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Qué hace",
+    "command": "Comando",
+    "commandHint": "La ruta completa al programa, seguida de sus argumentos.",
+    "user": "Ejecutar como usuario",
+    "group": "Grupo",
+    "folder": "Carpeta de trabajo",
+    "environment": "Entorno",
+    "environmentHint": "Una línea por cada NOMBRE=valor.",
+    "timer": "Ejecutar según horario",
+    "timerHint": "Crear un temporizador que ejecute el comando en horarios establecidos en lugar de mantenerlo en ejecución.",
+    "schedule": "Horario",
+    "scheduleHint": "Un valor OnCalendar, como daily, hourly o Mon *-*-* 03:00:00.",
+    "type": "Tipo",
+    "types": {
+      "simple": "Simple, se mantiene en ejecución",
+      "exec": "Exec, se mantiene en ejecución",
+      "forking": "Forking, se inicia en segundo plano",
+      "oneshot": "One shot, se ejecuta y termina",
+      "notify": "Notify, informa a systemd cuando está listo"
+    },
+    "restart": "Reiniciar",
+    "restarts": {
+      "on-failure": "Cuando falle",
+      "always": "Siempre",
+      "on-abnormal": "Cuando se bloquee",
+      "no": "Nunca"
+    },
+    "restartSec": "Esperar antes de reiniciar (segundos)",
+    "after": "Iniciar después de",
+    "afterHint": "Unidades a esperar, separadas por espacios.",
+    "enable": "Iniciar en el arranque",
+    "enableHint": "Para un horario, esto activa el temporizador.",
+    "start": "Iniciar ahora",
+    "save": "Crear",
+    "done": "Se ha creado {{unit}}",
+    "failed": "No se ha podido crear el servicio."
+  },
+  "timers": {
+    "search": "Buscar temporizadores",
+    "empty": "No hay temporizadores.",
+    "loadFailed": "No se ha podido listar los temporizadores.",
+    "next": "Próximo {{when}} (en {{left}})",
+    "noNext": "Nada programado",
+    "last": "último {{when}} (hace {{ago}})",
+    "neverRan": "nunca se ejecutó",
+    "runNow": "Ejecutar ahora",
+    "ran": "Se inició {{unit}}",
+    "turnOn": "Activar",
+    "turnOff": "Desactivar"
+  },
+  "journal": {
+    "unit": "Unidades",
+    "unitPlaceholder": "Todas las unidades, o nginx.service",
+    "search": "Buscar",
+    "searchPlaceholder": "Buscar texto",
+    "priority": "Prioridad",
+    "anyPriority": "Cualquier prioridad",
+    "priorityUpTo": "{{name}} y peores",
+    "since": "Desde",
+    "sinceOptions": {
+      "-15min": "Últimos 15 minutos",
+      "-1h": "Última hora",
+      "-6h": "Últimas 6 horas",
+      "today": "Hoy",
+      "-24h": "Últimas 24 horas",
+      "-7d": "Últimos 7 días",
+      "any": "Cualquier momento"
+    },
+    "boot": "Arranque",
+    "anyBoot": "Cualquier arranque",
+    "thisBoot": "Este arranque",
+    "lines": "Líneas",
+    "lineCount_one": "{{count}} línea",
+    "lineCount_many": "{{count}} líneas",
+    "lineCount_other": "{{count}} líneas",
+    "kernel": "Solo kernel",
+    "follow": "Seguir",
+    "following": "Siguiendo",
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "clear": "Limpiar",
+    "download": "Descargar",
+    "connecting": "Conectando...",
+    "ended": "Transmisión finalizada",
+    "shown_one": "{{count}} entrada",
+    "shown_many": "{{count}} entradas",
+    "shown_other": "{{count}} entradas",
+    "usage": "El registro usa {{size}}",
+    "vacuum": "Liberar espacio",
+    "vacuumTitle": "¿Eliminar archivos antiguos del registro?",
+    "vacuumDesc": "Las entradas del registro con más de 4 semanas se eliminarán del host.",
+    "vacuumDone": "El registro ahora usa {{size}}",
+    "vacuumFailed": "No se ha podido liberar espacio.",
+    "empty": "No hay entradas.",
+    "loadFailed": "No se ha podido leer el registro."
+  },
+  "files": {
+    "filter": "Filtrar archivos",
+    "roots": "Desde {{roots}}. Cambia las carpetas en la configuración del host.",
+    "showRotated": "Mostrar copias antiguas",
+    "empty": "No se han encontrado archivos de registro.",
+    "loadFailed": "No se ha podido listar los archivos de registro.",
+    "search": "Buscar",
+    "searchPlaceholder": "Buscar texto",
+    "download": "Descargar",
+    "downloadFailed": "No se ha podido descargar el archivo.",
+    "readFailed": "No se ha podido leer el archivo.",
+    "noLines": "Sin líneas."
+  },
+  "logs": {
+    "empty": "Aún no hay nada aquí."
+  },
+  "companion": {
+    "openTab": "Abrir la pestaña Servicios",
+    "toggle": "Panel de servicios"
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "plugin": {
+    "name": "Paslaugos",
+    "description": "Valdykite paslaugas, laiko valdiklius ir žurnalus savo serveriuose per SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Naudoti paslaugas",
+      "description": "Atidarykite „Paslaugų“ skirtuką pasiekiamuose serveriuose. Pakeitimams taip pat reikia rašymo teisių į serverį."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Paslaugos",
+        "description": "Rodyti šio serverio „Paslaugų“ skirtuką, kad galėtumėte valdyti systemd paslaugas, laiko valdiklius ir žurnalus."
+      },
+      "useSudo": {
+        "label": "Naudoti sudo",
+        "description": "Vykdyti pakeitimus ir saugomus skaitymo veiksmus naudojant slaptažodžio nereikalaujantį sudo, kai prisijungta ne kaip root."
+      },
+      "readOnly": {
+        "label": "Tik skaitymui",
+        "description": "Leisti skaityti paslaugas ir žurnalus, bet blokuoti bet kokius pakeitimus iš Termix."
+      },
+      "logPaths": {
+        "label": "Žurnalų aplankai",
+        "description": "Aplankai, kuriuos gali skaityti „Žurnalų failai“ rodinys, atskirti kableliais.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Skydelis šalia terminalo",
+        "description": "Pateikti paslaugų skydelį šalia šio kompiuterio SSH terminalo."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Atidaryti paslaugų skydelį kartu su terminalu",
+        "description": "Rodyti paslaugų skydelį, kai atidaromas terminalas kompiuteryje, kuriame jis yra."
+      },
+      "companionSide": {
+        "label": "Paslaugų skydelio pusė",
+        "description": "Kur skydelis yra šalia terminalo.",
+        "right": "Dešinėje",
+        "left": "Kairėje",
+        "bottom": "Apačioje"
+      },
+      "companionSize": {
+        "label": "Paslaugų skydelio dydis",
+        "description": "Plotis arba aukštis, kai skydelis apačioje, pikseliais."
+      },
+      "companionEdgeButton": {
+        "label": "Paslaugų skydelio krašto mygtukas",
+        "description": "Rodyti mažą mygtuką terminalo krašte, skirtą skydeliui atidaryti."
+      }
+    }
+  },
+  "common": {
+    "back": "Atgal"
+  },
+  "tab": {
+    "title": "Paslaugos",
+    "noHost": "Pasirinkite serverį, kad valdytumėte jo paslaugas.",
+    "loading": "Kraunama...",
+    "refresh": "Atnaujinti",
+    "error": "Nepavyko perskaityti šio kompiuterio paslaugų.",
+    "disabled": "Šiam kompiuteriui paslaugos nėra įjungtos. Įjunkite jas kompiuterio nustatymuose.",
+    "sudo": "Pakeitimams reikia root prisijungimo arba slaptažodžio nereikalaujančio sudo. Paleiskite kompiuteryje komandą sudo -n true, kad patikrintumėte.",
+    "noInit": "Nerasta inicializacijos sistemos",
+    "noInitHint": "Šis kompiuteris neturi systemd arba OpenRC, kuriuos Termix galėtų naudoti. Dienoraščių failai vis tiek veikia.",
+    "readOnly": "Tik skaitymui",
+    "failedCount_one": "{{count}} nepavyko",
+    "failedCount_few": "{{count}} nepavyko",
+    "failedCount_many": "{{count}} nepavyko",
+    "failedCount_other": "{{count}} nepavyko",
+    "viewServices": "Paslaugos",
+    "viewTimers": "Laikmačiai",
+    "viewJournal": "Žurnalas",
+    "viewFiles": "Žurnalo failai"
+  },
+  "units": {
+    "search": "Ieškoti paslaugų",
+    "type": "Vieneto tipas",
+    "empty": "Atitinkančių vienetų nerasta.",
+    "loadFailed": "Nepavyko išvardinti vienetų.",
+    "confirmStop": "Sustabdyti {{unit}}?",
+    "confirmStopDesc": "Viskas, kas jo priklauso, gali nustoti veikti, kol jis vėl bus paleistas.",
+    "filters": {
+      "all": "Visi",
+      "running": "Veikiantys",
+      "failed": "Nepavyko",
+      "stopped": "Sustabdyta",
+      "enabled": "Paleisti paleidus"
+    },
+    "types": {
+      "service": "Paslaugos",
+      "socket": "Lizdai",
+      "timer": "Laikmačiai",
+      "target": "Tikslai",
+      "path": "Keliai",
+      "mount": "Prijungimai"
+    }
+  },
+  "actions": {
+    "start": "Paleisti",
+    "stop": "Sustabdyti",
+    "restart": "Perkrauti",
+    "reload": "Įkelti iš naujo",
+    "enable": "Paleisti paleidus sistemą",
+    "disable": "Nepaleisti paleidus sistemą",
+    "enable-now": "Įjungti",
+    "disable-now": "Išjungti",
+    "mask": "Uždengti",
+    "unmask": "Atidengti",
+    "reset-failed": "Išvalyti klaidas",
+    "revert": "Atšaukti",
+    "failed": "Tai nepavyko.",
+    "confirm": {
+      "stop": "Sustabdyti {{unit}}?",
+      "disable": "Nebepaleisti {{unit}} paleidimo metu?",
+      "disable-now": "Išjungti {{unit}}?",
+      "mask": "Uždengti {{unit}}?",
+      "revert": "Atšaukti {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Viskas, kas jo priklauso, gali nustoti veikti, kol jis vėl bus paleistas.",
+      "disable": "Jis veikia dabar, bet nepaleis po perkrovimo.",
+      "disable-now": "Jis sustos dabar ir nepaleis po perkrovimo.",
+      "mask": "Uždengtas vienetas negali būti paleistas nei rankiniu būdu, nei kitų vienetų, kol jį neuždengsite.",
+      "revert": "Tai pašalina papildomus konfigūracijos failus ir vietines vienetų kopijas, bei atstato versiją iš paketo."
+    },
+    "done": {
+      "start": "Paleistas {{unit}}",
+      "stop": "Sustabdytas {{unit}}",
+      "restart": "Perkrautas {{unit}}",
+      "reload": "Perkrauta {{unit}} konfigūracija",
+      "enable": "{{unit}} bus paleidžiamas paleidus sistemą",
+      "disable": "{{unit}} nebus paleidžiamas paleidus sistemą",
+      "enable-now": "Įjungtas {{unit}}",
+      "disable-now": "Išjungtas {{unit}}",
+      "mask": "Paslėpta {{unit}}",
+      "unmask": "Atskleista {{unit}}",
+      "reset-failed": "Išvalyta {{unit}} klaidos būsena",
+      "revert": "Atstatyta {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Pranešk man, kai nepavyks",
+    "stop": "Sustabdyti pranešimus",
+    "badge": "Stebima",
+    "on": "Gausite pranešimą, kai {{unit}} nepavyks",
+    "off": "Daugiau pranešimų apie {{unit}} nebus",
+    "failed": "Nepavyko pakeisti pranešimo."
+  },
+  "detail": {
+    "loadFailed": "Nepavyko perskaityti šio vieneto.",
+    "editFile": "Redaguoti vienetą",
+    "description": "Aprašymas",
+    "since": "Veikia nuo",
+    "result": "Rezultatas",
+    "pid": "Pagrindinis PID",
+    "memory": "Atmintis",
+    "peak": "pikas",
+    "cpu": "CPU laikas",
+    "tasks": "Užduotys",
+    "restarts": "Paleidimai iš naujo",
+    "type": "Tipas",
+    "user": "Naudotojas",
+    "file": "Vieneto failas",
+    "dropIns": "Papildomi failai",
+    "triggeredBy": "Paleista pagal",
+    "triggers": "Paleidžia",
+    "wantedBy": "Reikalaujama",
+    "requires": "Reikalauja",
+    "after": "Po",
+    "statusText": "systemctl status",
+    "log": "Naujausi žurnalai"
+  },
+  "editor": {
+    "loadFailed": "Nepavyko perskaityti vieneto failo.",
+    "override": "Perrašymas",
+    "fullFile": "Visas failas",
+    "overrideHint": "Perrašymas yra papildomas failas, kuris keičia tik čia nurodytas eilutes. Paketo atnaujinimai veiks toliau. Palikite tuščią ir išsaugokite, kad jį pašalintumėte.",
+    "overrideTemplate": "Čia esančios eilutės prideda arba pakeičia vieneto nustatymus",
+    "localHint": "Šis vieneto failas yra /etc/systemd/system, todėl jį galite laisvai redaguoti.",
+    "vendorHint": "Šis vienetas kilęs iš paketo ({{path}}). Išsaugojus visą failą, jo kopija bus sukurta /etc/systemd/system ir turės prioritetą. Atšaukus pakeitimus, kopija bus pašalinta.",
+    "notWritable": "Šio tipo vieneto failų rašyti negalima.",
+    "check": "Patikrinti",
+    "checking": "Tikrinama...",
+    "checkOk": "Patikrinimas sėkmingas.",
+    "checkBad": "Patikrinimas rado problemų.",
+    "checkFailed": "Nepavyko atlikti patikrinimo.",
+    "save": "Patikrinti ir išsaugoti",
+    "saved": "Išsaugota {{unit}} ir perkrautas systemd",
+    "saveFailed": "Neišsaugota. Patikrinimas nepavyko arba nepavyko įrašyti failo.",
+    "combined": "Viskas, ką systemd skaito šiam vienetui",
+    "delete": "Pašalinti vienetą",
+    "deleteTitle": "Ištrinti {{unit}}?",
+    "deleteDesc": "Jis bus sustabdytas, nebebus paleidžiamas paleidimo metu, o jo failai ir papildomi konfigūracijos failai bus pašalinti.",
+    "deleted": "Ištrinta {{unit}}",
+    "deleteFailed": "Nepavyko ištrinti vieneto."
+  },
+  "create": {
+    "add": "Nauja paslauga",
+    "title": "Nauja paslauga",
+    "name": "Pavadinimas",
+    "nameHint": "Išsaugoma kaip name.service aplanke /etc/systemd/system.",
+    "description": "Aprašymas",
+    "descriptionPlaceholder": "Ką ji daro",
+    "command": "Komanda",
+    "commandHint": "Visas programos kelias, tada jos argumentai.",
+    "user": "Vykdyti kaip vartotojui",
+    "group": "Grupė",
+    "folder": "Darbo aplankas",
+    "environment": "Aplinka",
+    "environmentHint": "Vienas NAME=reikšmė eilutėje.",
+    "timer": "Vykdyti pagal grafiką",
+    "timerHint": "Sukurkite laikmatį, kuris vykdytų komandą nustatytais laikais, vietoj to, kad ji būtų vykdoma nuolat.",
+    "schedule": "Grafikas",
+    "scheduleHint": "OnCalendar reikšmė, pvz., daily, hourly arba Mon *-*-* 03:00:00.",
+    "type": "Tipas",
+    "types": {
+      "simple": "Simple, veikia nuolat",
+      "exec": "Exec, veikia nuolat",
+      "forking": "Forking, paleidžiama fone",
+      "oneshot": "One shot, paleidžiama ir baigia darbą",
+      "notify": "Notify, praneša systemd, kai paruošta"
+    },
+    "restart": "Perkrauti",
+    "restarts": {
+      "on-failure": "Kai nepavyksta",
+      "always": "Visada",
+      "on-abnormal": "Kai nutraukiamas veikimas",
+      "no": "Niekada"
+    },
+    "restartSec": "Pauzė prieš paleidimą iš naujo (sekundės)",
+    "after": "Paleisti po",
+    "afterHint": "Laiko vienetai, atskirti tarpais.",
+    "enable": "Paleisti paleidus sistemą",
+    "enableHint": "Jei nustatytas grafikas, tai įjungia laikmatį.",
+    "start": "Paleisti dabar",
+    "save": "Sukurti",
+    "done": "Sukurtas {{unit}}",
+    "failed": "Nepavyko sukurti paslaugos."
+  },
+  "timers": {
+    "search": "Ieškoti laikmačių",
+    "empty": "Laikmačių nėra.",
+    "loadFailed": "Nepavyko išvardinti laikmačių.",
+    "next": "Kitas {{when}} (po {{left}})",
+    "noNext": "Nieko suplanuota",
+    "last": "paskutinį kartą {{when}} (prieš {{ago}})",
+    "neverRan": "niekada nevyko",
+    "runNow": "Vykdyti dabar",
+    "ran": "Paleista {{unit}}",
+    "turnOn": "Įjungti",
+    "turnOff": "Išjungti"
+  },
+  "journal": {
+    "unit": "Vienetai",
+    "unitPlaceholder": "Visi vienetai arba nginx.service",
+    "search": "Ieškoti",
+    "searchPlaceholder": "Ieškomo teksto",
+    "priority": "Prioritetas",
+    "anyPriority": "Bet koks prioritetas",
+    "priorityUpTo": "{{name}} ir prastesni",
+    "since": "Nuo",
+    "sinceOptions": {
+      "-15min": "Paskutines 15 minučių",
+      "-1h": "Paskutinę valandą",
+      "-6h": "Paskutines 6 valandas",
+      "today": "Šiandien",
+      "-24h": "Paskutines 24 valandas",
+      "-7d": "Paskutines 7 dienas",
+      "any": "Bet kada"
+    },
+    "boot": "Paleidimas",
+    "anyBoot": "Bet kuris paleidimas",
+    "thisBoot": "Šis paleidimas",
+    "lines": "Eilutės",
+    "lineCount_one": "{{count}} eilutė",
+    "lineCount_few": "{{count}} eilutės",
+    "lineCount_many": "{{count}} eilučių",
+    "lineCount_other": "{{count}} eilutės",
+    "kernel": "Tik branduolys",
+    "follow": "Sekti",
+    "following": "Sekama",
+    "pause": "Pristabdyti",
+    "resume": "Tęsti",
+    "clear": "Išvalyti",
+    "download": "Atsisiųsti",
+    "connecting": "Jungiamasi...",
+    "ended": "Srautas baigtas",
+    "shown_one": "{{count}} įrašas",
+    "shown_few": "{{count}} įrašai",
+    "shown_many": "{{count}} įrašų",
+    "shown_other": "{{count}} įrašų",
+    "usage": "Žurnalas užima {{size}}",
+    "vacuum": "Laisva vieta",
+    "vacuumTitle": "Pašalinti senus žurnalo failus?",
+    "vacuumDesc": "Žurnalo įrašai, senesni nei 4 savaitės, bus ištrinti iš serverio.",
+    "vacuumDone": "Žurnalas dabar užima {{size}}",
+    "vacuumFailed": "Nepavyko išlaisvinti vietos.",
+    "empty": "Nėra įrašų.",
+    "loadFailed": "Nepavyko perskaityti žurnalo."
+  },
+  "files": {
+    "filter": "Filtruoti failus",
+    "roots": "Iš {{roots}}. Pakeiskite aplankus serverio nustatymuose.",
+    "showRotated": "Rodyti senas kopijas",
+    "empty": "Nerasta jokių žurnalų failų.",
+    "loadFailed": "Nepavyko išvardinti žurnalų failų.",
+    "search": "Ieškoti",
+    "searchPlaceholder": "Ieškoti teksto",
+    "download": "Atsisiųsti",
+    "downloadFailed": "Nepavyko atsisiųsti failo.",
+    "readFailed": "Nepavyko perskaityti failo.",
+    "noLines": "Nėra eilučių."
+  },
+  "logs": {
+    "empty": "Čia dar nieko nėra."
+  },
+  "companion": {
+    "openTab": "Atidaryti skirtuką „Paslaugos“",
+    "toggle": "Paslaugų skydelis"
+  }
+}

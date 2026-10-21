@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Dienste",
+    "description": "Bestuur dienste, tydsakkers en logboeke op jou gasheerbedieners oor SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Gebruik Dienste",
+      "description": "Maak die Dienste-oortjie oop op gasheerbedieners wat jy kan bereik. Veranderinge benodig ook redigeertoegang tot die gasheerbediener."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Dienste",
+        "description": "Wys die Dienste-oortjie vir hierdie gasheerbediener om systemd-dienste, tydsakkers en logboeke te bestuur."
+      },
+      "useSudo": {
+        "label": "Gebruik sudo",
+        "description": "Voer veranderinge en beskermde leesoperasies uit met wagwoordlose sudo wanneer die aanmelding nie root is nie."
+      },
+      "readOnly": {
+        "label": "Slegs lees",
+        "description": "Laat toe om dienste en logboeke te lees, maar blokkeer elke verandering vanaf Termix."
+      },
+      "logPaths": {
+        "label": "Loggiskoppies",
+        "description": "Koppies wat die Log-lêers-aansig kan lees, geskei deur kommas.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Paneel langs die terminaal",
+        "description": "Bied 'n dienste-paneel langs hierdie gasheer se SSH-terminaal."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Maak die dienste-paneel oop met 'n terminaal",
+        "description": "Wys die dienste-paneel wanneer 'n terminaal oopmaak op 'n gasheer wat dit het."
+      },
+      "companionSide": {
+        "label": "Dienste-paneel kant",
+        "description": "Waar die paneel langs die terminaal sit.",
+        "right": "Regs",
+        "left": "Links",
+        "bottom": "Onder"
+      },
+      "companionSize": {
+        "label": "Grootte van dienste-paneel",
+        "description": "Wydte, of hoogte onderaan, in pixels."
+      },
+      "companionEdgeButton": {
+        "label": "Kantknoppie vir dienste-paneel",
+        "description": "Wys 'n klein knoppie aan die rand van die terminaal om die paneel oop te maak."
+      }
+    }
+  },
+  "common": {
+    "back": "Terug"
+  },
+  "tab": {
+    "title": "Dienste",
+    "noHost": "Kies 'n gasheer om sy dienste te bestuur.",
+    "loading": "Laai tans...",
+    "refresh": "Verfris",
+    "error": "Kon nie dienste op hierdie gasheer lees nie.",
+    "disabled": "Dienste is nie vir hierdie gasheer ingeskakel nie. Skakel dit aan in die gasheerinstellings.",
+    "sudo": "Veranderinge vereis 'n root-aanmelding of wagwoordlose sudo. Voer sudo -n true op die gasheer uit om te kontroleer.",
+    "noInit": "Geen initsisteem gevind nie",
+    "noInitHint": "Hierdie gasheer het geen systemd of OpenRC wat Termix kan gebruik nie. Loglêers werk steeds.",
+    "readOnly": "Slegs-lees",
+    "failedCount_one": "{{count}} misluk",
+    "failedCount_other": "{{count}} misluk",
+    "viewServices": "Dienste",
+    "viewTimers": "Tydsstellers",
+    "viewJournal": "Joernaal",
+    "viewFiles": "Loglêers"
+  },
+  "units": {
+    "search": "Soek dienste",
+    "type": "Eenheidstipe",
+    "empty": "Geen eenhede pas by nie.",
+    "loadFailed": "Kon nie die eenhede lys nie.",
+    "confirmStop": "Stop {{unit}}?",
+    "confirmStopDesc": "Enige dinge wat dit benodig, mag ophou werk totdat dit weer begin.",
+    "filters": {
+      "all": "Almal",
+      "running": "Hardloop",
+      "failed": "Misluk",
+      "stopped": "Gestop",
+      "enabled": "Begin by opstart"
+    },
+    "types": {
+      "service": "Dienste",
+      "socket": "Sokkels",
+      "timer": "Tydsstellers",
+      "target": "Teikens",
+      "path": "Paaie",
+      "mount": "Monteerpunte"
+    }
+  },
+  "actions": {
+    "start": "Begin",
+    "stop": "Stop",
+    "restart": "Herbegin",
+    "reload": "Herlaai",
+    "enable": "Begin by opstart",
+    "disable": "Begin nie by opstart nie",
+    "enable-now": "Skakel aan",
+    "disable-now": "Skakel af",
+    "mask": "Masker",
+    "unmask": "Ontmasker",
+    "reset-failed": "Wis mislukte",
+    "revert": "Herstel",
+    "failed": "Dit het nie gewerk nie.",
+    "confirm": {
+      "stop": "Stop {{unit}}?",
+      "disable": "Moenie {{unit}} by opstart begin nie?",
+      "disable-now": "Skakel {{unit}} af?",
+      "mask": "Masker {{unit}}?",
+      "revert": "Herstel {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Enige dinge wat dit benodig, mag ophou werk totdat dit weer begin.",
+      "disable": "Dit loop steeds nou, maar sal nie na 'n herbegin begin nie.",
+      "disable-now": "Dit stop nou en sal nie na 'n herbegin begin nie.",
+      "mask": "’n Gemaskeerde eenheid kan glad nie begin word nie, nie handmatig nie of deur ander eenhede, totdat jy dit onmaskeer.",
+      "revert": "Dit verwyder drop-ins en plaaslike kopieë van die eenheid, en herstel die weergawe uit die pakket."
+    },
+    "done": {
+      "start": "{{unit}} begin",
+      "stop": "{{unit}} gestop",
+      "restart": "{{unit}} herbegin",
+      "reload": "{{unit}} herlaai",
+      "enable": "{{unit}} begin by opstart",
+      "disable": "{{unit}} sal nie by opstart begin nie",
+      "enable-now": "{{unit}} aangeskakel",
+      "disable-now": "{{unit}} afgeskakel",
+      "mask": "Masker {{unit}}",
+      "unmask": "Ontmasker {{unit}}",
+      "reset-failed": "Het die mislukte status van {{unit}} skoongemaak",
+      "revert": "Herstel {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Stuur my 'n waarskuwing wanneer dit misluk",
+    "stop": "Stop waarskuwings",
+    "badge": "Waargeneem",
+    "on": "Jy sal 'n waarskuwing kry wanneer {{unit}} misluk",
+    "off": "Geen verdere waarskuwings vir {{unit}} nie",
+    "failed": "Kon nie die waarskuwing verander nie."
+  },
+  "detail": {
+    "loadFailed": "Kon nie hierdie eenheid lees nie.",
+    "editFile": "Redigeer eenheid",
+    "description": "Beskrywing",
+    "since": "Hardloop sedert",
+    "result": "Resultaat",
+    "pid": "Hoof-PID",
+    "memory": "Geheue",
+    "peak": "piek",
+    "cpu": "CPU-tyd",
+    "tasks": "Take",
+    "restarts": "Herstarts",
+    "type": "Tipe",
+    "user": "Gebruiker",
+    "file": "Eenheidslêer",
+    "dropIns": "Afdrae",
+    "triggeredBy": "Begin deur",
+    "triggers": "Begin",
+    "wantedBy": "Gewens deur",
+    "requires": "Vereis",
+    "after": "Na",
+    "statusText": "systemctl status",
+    "log": "Onlangse logboek"
+  },
+  "editor": {
+    "loadFailed": "Kon nie die eenheidslêer lees nie.",
+    "override": "Oorskryf",
+    "fullFile": "Volledige lêer",
+    "overrideHint": "'n Oorskrywing is 'n drop-in-lêer wat slegs die reëls verander wat jy hier plaas. Pakketaanbiedings gaan voort om te werk. Laat dit leeg en stoor om dit te verwyder.",
+    "overrideTemplate": "Reëls hier voeg by of vervang die eenheid se eie instellings",
+    "localHint": "Hierdie eenheidslêer is in /etc/systemd/system, so jy kan dit redigeer.",
+    "vendorHint": "Hierdie eenheid kom van 'n pakkie ({{path}}). As jy die volledige lêer stoor, word 'n kopie in /etc/systemd/system geplaas wat voorrang kry. Herstel verwyder die kopie weer.",
+    "notWritable": "Lêers kan nie vir hierdie tipe eenheid geskryf word nie.",
+    "check": "Kontroleer",
+    "checking": "Bezig met kontroleer...",
+    "checkOk": "Die kontrole is suksesvol.",
+    "checkBad": "Die kontrole het probleme gevind.",
+    "checkFailed": "Kon nie die kontrole uitvoer nie.",
+    "save": "Kontroleer en stoor",
+    "saved": "Het {{unit}} gestoor en systemd herlaai",
+    "saveFailed": "Nie gestoor nie. Die kontrole het misluk of die lêer kon nie geskryf word nie.",
+    "combined": "Alles wat systemd vir hierdie eenheid lees",
+    "delete": "Verwyder eenheid",
+    "deleteTitle": "Verwyder {{unit}}?",
+    "deleteDesc": "Dit word gestop, begin nie by opstart nie, en sy lêer en drop-ins word verwyder.",
+    "deleted": "{{unit}} verwyder",
+    "deleteFailed": "Kon nie die eenheid verwyder nie."
+  },
+  "create": {
+    "add": "Nuwe diens",
+    "title": "Nuwe diens",
+    "name": "Naam",
+    "nameHint": "Word gestoor as name.service in /etc/systemd/system.",
+    "description": "Beskrywing",
+    "descriptionPlaceholder": "Wat dit doen",
+    "command": "Opdrag",
+    "commandHint": "Die volledige pad na die program, gevolg deur sy argumente.",
+    "user": "Voer uit as gebruiker",
+    "group": "Groep",
+    "folder": "Werkmap",
+    "environment": "Omgewing",
+    "environmentHint": "Een NAAM=waarde per lyn.",
+    "timer": "Voer uit volgens 'n skedule",
+    "timerHint": "Maak 'n timer wat die opdrag op vasgestelde tye uitvoer, in plaas daarvan om dit voortdurend hardloop te hou.",
+    "schedule": "Skedule",
+    "scheduleHint": "An OnCalendar value, like daily, hourly or Mon *-*-* 03:00:00.",
+    "type": "Tipe",
+    "types": {
+      "simple": "Eenvoudig, bly loop",
+      "exec": "Uitvoer, bly loop",
+      "forking": "Vorking, begin in die agtergrond",
+      "oneshot": "Eenmalig, loop en sluit af",
+      "notify": "Stel in kennis, vertel systemd wanneer gereed"
+    },
+    "restart": "Herbegin",
+    "restarts": {
+      "on-failure": "Wanneer dit misluk",
+      "always": "Altyd",
+      "on-abnormal": "Wanneer dit crash",
+      "no": "Nooit"
+    },
+    "restartSec": "Wag voor herbegin (sekondes)",
+    "after": "Begin na",
+    "afterHint": "Eenhede om te wag, geskei deur spasies.",
+    "enable": "Begin by opstart",
+    "enableHint": "Vir 'n skedule skakel dit die tydsinstelling aan.",
+    "start": "Begin nou",
+    "save": "Skep",
+    "done": "{{unit}} geskep",
+    "failed": "Kon die diens nie skep nie."
+  },
+  "timers": {
+    "search": "Soek tydsakkers",
+    "empty": "Geen tydsakkers nie.",
+    "loadFailed": "Kon die tydsakkers nie lys nie.",
+    "next": "Volgende {{when}} (in {{left}})",
+    "noNext": "Niks beplan nie",
+    "last": "laaste {{when}} ({{ago}} gelede)",
+    "neverRan": "nooit uitgevoer nie",
+    "runNow": "Voer nou uit",
+    "ran": "Het {{unit}} begin",
+    "turnOn": "Skakel aan",
+    "turnOff": "Skakel af"
+  },
+  "journal": {
+    "unit": "Eenhede",
+    "unitPlaceholder": "Alle eenhede, of nginx.service",
+    "search": "Soek",
+    "searchPlaceholder": "Soekteks",
+    "priority": "Prioriteit",
+    "anyPriority": "Enige prioriteit",
+    "priorityUpTo": "{{name}} en erger",
+    "since": "Sedert",
+    "sinceOptions": {
+      "-15min": "Laaste 15 minute",
+      "-1h": "Laaste uur",
+      "-6h": "Laaste 6 uur",
+      "today": "Vandag",
+      "-24h": "Laaste 24 uur",
+      "-7d": "Laaste 7 dae",
+      "any": "Enige tyd"
+    },
+    "boot": "Opstart",
+    "anyBoot": "Enige opstart",
+    "thisBoot": "Hierdie opstart",
+    "lines": "Rye",
+    "lineCount_one": "{{count}} ry",
+    "lineCount_other": "{{count}} rye",
+    "kernel": "Slegs kern",
+    "follow": "Volg",
+    "following": "Volg tans",
+    "pause": "Pouseer",
+    "resume": "Hervat",
+    "clear": "Vee uit",
+    "download": "Laai af",
+    "connecting": "Maak verbinding...",
+    "ended": "Stroom het geëindig",
+    "shown_one": "{{count}} inskrywing",
+    "shown_other": "{{count}} inskrywings",
+    "usage": "Joernaal gebruik {{size}}",
+    "vacuum": "Vrye spasie",
+    "vacuumTitle": "Verwyder ou joernaal lêers?",
+    "vacuumDesc": "Joernaal inskrywings ouer as 4 weke word van die gasheer verwyder.",
+    "vacuumDone": "Joernaal gebruik nou {{size}}",
+    "vacuumFailed": "Kon nie spasie vrymaak nie.",
+    "empty": "Geen inskrywings nie.",
+    "loadFailed": "Kon nie die joernaal lees nie."
+  },
+  "files": {
+    "filter": "Filter lêers",
+    "roots": "Van {{roots}}. Verander die vouers in die gasheer-instellings.",
+    "showRotated": "Wys ou kopieë",
+    "empty": "Geen loglêers gevind nie.",
+    "loadFailed": "Kon nie die loglêers lys nie.",
+    "search": "Soek",
+    "searchPlaceholder": "Soek teks",
+    "download": "Laai af",
+    "downloadFailed": "Kon nie die lêer aflaai nie.",
+    "readFailed": "Kon nie die lêer lees nie.",
+    "noLines": "Geen reëls nie."
+  },
+  "logs": {
+    "empty": "Nog niks hier nie."
+  },
+  "companion": {
+    "openTab": "Open die Diens-oortjie",
+    "toggle": "Dienspaneel"
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "plugin": {
+    "name": "Storitve",
+    "description": "Upravljajte storitve, časovnike in dnevnike na svojih gostiteljih prek SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Uporaba storitev",
+      "description": "Odprite zavihek Storitve na gostiteljih, do katerih lahko dostopate. Za spremembe je potreben tudi dostop za urejanje gostitelja."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Storitve",
+        "description": "Prikažite zavihek Storitve za ta gostitelj za upravljanje storitev systemd, časovnikov in dnevnikov."
+      },
+      "useSudo": {
+        "label": "Uporaba sudo",
+        "description": "Zažene spremembe in zaščitena branja z sudo brez gesla, ko prijava ni root."
+      },
+      "readOnly": {
+        "label": "Samo za branje",
+        "description": "Dovoli branje storitev in dnevnikov, a blokira vse spremembe iz Termixa."
+      },
+      "logPaths": {
+        "label": "Mape za dnevnike",
+        "description": "Mape, ki jih lahko bere pogled datotek dnevnika, ločene z vejicami.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Plošča ob terminalu",
+        "description": "Ponudi ploščo storitev ob SSH terminalu tega gostitelja."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Odpri ploščo storitev s terminalom",
+        "description": "Prikaži ploščo storitev, ko se terminal odpre na gostitelju, ki jo ima."
+      },
+      "companionSide": {
+        "label": "Stran plošče storitev",
+        "description": "Kje se plošča nahaja ob terminalu.",
+        "right": "Desno",
+        "left": "Levo",
+        "bottom": "Spodaj"
+      },
+      "companionSize": {
+        "label": "Velikost plošče storitev",
+        "description": "Širina ali višina, če je na dnu, v slikovnih točkah."
+      },
+      "companionEdgeButton": {
+        "label": "Gumb na robu plošče storitev",
+        "description": "Prikaži majhen gumb na robu terminala za odpiranje plošče."
+      }
+    }
+  },
+  "common": {
+    "back": "Nazaj"
+  },
+  "tab": {
+    "title": "Storitve",
+    "noHost": "Izberite gostitelja za upravljanje njegovih storitev.",
+    "loading": "Nalaganje...",
+    "refresh": "Osveži",
+    "error": "Storitev na tem gostitelju ni mogoče prebrati.",
+    "disabled": "Storitve niso omogočene za tega gostitelja. Omogočite jih v nastavitvah gostitelja.",
+    "sudo": "Spremembe zahtevajo prijavo kot root ali sudo brez gesla. Za preverjanje na gostitelju izvedite ukaz sudo -n true.",
+    "noInit": "Sistem inicializacije ni bil najden",
+    "noInitHint": "Ta gostitelj nima systemd ali OpenRC, ki bi jih lahko uporabil Termix. Dnevniki dogodkov še vedno delujejo.",
+    "readOnly": "Samo za branje",
+    "failedCount_one": "{{count}} neuspešno",
+    "failedCount_two": "{{count}} neuspešno",
+    "failedCount_few": "{{count}} neuspešno",
+    "failedCount_other": "{{count}} neuspešno",
+    "viewServices": "Storitve",
+    "viewTimers": "Časovniki",
+    "viewJournal": "Dnevnik",
+    "viewFiles": "Dnevniki dogodkov"
+  },
+  "units": {
+    "search": "Išči storitve",
+    "type": "Vrsta enote",
+    "empty": "Ni ujemajočih se enot.",
+    "loadFailed": "Enot ni bilo mogoče navedeti.",
+    "confirmStop": "Ustaviti {{unit}}?",
+    "confirmStopDesc": "Vse, kar je odvisno od nje, lahko preneha delovati, dokler se ne ponovno zažene.",
+    "filters": {
+      "all": "Vse",
+      "running": "Zažene",
+      "failed": "Neuspešno",
+      "stopped": "Ustavljeno",
+      "enabled": "Zaženi ob zagonu"
+    },
+    "types": {
+      "service": "Storitve",
+      "socket": "Vtičnice",
+      "timer": "Časovniki",
+      "target": "Cilji",
+      "path": "Poti",
+      "mount": "Priklopi"
+    }
+  },
+  "actions": {
+    "start": "Zaženi",
+    "stop": "Ustavi",
+    "restart": "Ponovno zaženi",
+    "reload": "Osveži",
+    "enable": "Zaženi ob zagonu",
+    "disable": "Ne zaženi ob zagonu",
+    "enable-now": "Vklopi",
+    "disable-now": "Izklopi",
+    "mask": "Zakrij",
+    "unmask": "Odkrij",
+    "reset-failed": "Počisti napake",
+    "revert": "Razveljavi",
+    "failed": "To ni delovalo.",
+    "confirm": {
+      "stop": "Ustaviti {{unit}}?",
+      "disable": "Preprečiti zagon {{unit}} ob zagonu sistema?",
+      "disable-now": "Izklopiti {{unit}}?",
+      "mask": "Maskirati {{unit}}?",
+      "revert": "Razveljaviti {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Vse, kar je odvisno od njega, lahko preneha delovati, dokler se ne ponovno zažene.",
+      "disable": "Sedaj še naprej deluje, vendar se ne bo zagnal po ponovnem zagonu.",
+      "disable-now": "Sedaj se ustavi in se ne bo zagnal po ponovnem zagonu.",
+      "mask": "Maskirana enota se ne more zagnati, ne ročno ne s strani drugih enot, dokler je ne demaskirate.",
+      "revert": "To odstrani drop-in datoteke in lokalne kopije enote ter ponovno namesti različico iz paketa."
+    },
+    "done": {
+      "start": "Zagnana enota {{unit}}",
+      "stop": "Ustavljena enota {{unit}}",
+      "restart": "Ponovno zagnana enota {{unit}}",
+      "reload": "Osvežena enota {{unit}}",
+      "enable": "{{unit}} se zažene ob zagonu",
+      "disable": "{{unit}} se ne bo zagnal ob zagonu",
+      "enable-now": "Vklopljena enota {{unit}}",
+      "disable-now": "Izklopljena enota {{unit}}",
+      "mask": "Skrito {{unit}}",
+      "unmask": "Odkrito {{unit}}",
+      "reset-failed": "Ponastavljeno stanje napake za {{unit}}",
+      "revert": "Povrnjeno {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Obvesti me ob napaki",
+    "stop": "Ustavi obvestila",
+    "badge": "Spremljano",
+    "on": "Prejeli boste obvestilo, ko {{unit}} ne uspe",
+    "off": "Za {{unit}} ne boste več prejemali obvestil",
+    "failed": "Obvestila ni bilo mogoče spremeniti."
+  },
+  "detail": {
+    "loadFailed": "Te enote ni bilo mogoče prebrati.",
+    "editFile": "Uredi enoto",
+    "description": "Opis",
+    "since": "Zažeta od",
+    "result": "Rezultat",
+    "pid": "Glavni PID",
+    "memory": "Pomnilnik",
+    "peak": "vrh",
+    "cpu": "Čas CPU",
+    "tasks": "Naloge",
+    "restarts": "Ponovni zagoni",
+    "type": "Vrsta",
+    "user": "Uporabnik",
+    "file": "Datotota enote",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Zaženo s strani",
+    "triggers": "Zagoni",
+    "wantedBy": "Želeno s strani",
+    "requires": "Zahteva",
+    "after": "Po",
+    "statusText": "systemctl status",
+    "log": "Nedavni dnevnik"
+  },
+  "editor": {
+    "loadFailed": "Datoteke enote ni bilo mogoče prebrati.",
+    "override": "Ponastavi",
+    "fullFile": "Celotna datoteka",
+    "overrideHint": "Ponastavitev je datoteka za vstavljanje, ki spremeni le vrstice, ki jih vnesete tukaj. Posodobitve paketa še naprej delujejo. Pustite prazno in shranite, da jo odstranite.",
+    "overrideTemplate": "Vrstice tukaj dodajo ali nadomestijo nastavitve same enote",
+    "localHint": "Ta datoteka enote je v /etc/systemd/system, zato jo lahko urejate.",
+    "vendorHint": "Ta enota izvira iz paketa ({{path}}). Shranjevanje celotne datoteke shrani kopijo v /etc/systemd/system, ki ima prednost. Razveljavitev ponovno odstrani kopijo.",
+    "notWritable": "Datotek za to vrsto enote ni mogoče zapisati.",
+    "check": "Preveri",
+    "checking": "Preverjanje...",
+    "checkOk": "Preverjanje je bilo uspešno.",
+    "checkBad": "Preverjanje je zaznalo težave.",
+    "checkFailed": "Preverjanja ni bilo mogoče izvesti.",
+    "save": "Preveri in shrani",
+    "saved": "Shranjeno {{unit}} in ponovno naložen systemd",
+    "saveFailed": "Ni shranjeno. Preverjanje ni bilo uspešno ali datoteke ni bilo mogoče zapisati.",
+    "combined": "Vse, kar systemd prebere za to enoto",
+    "delete": "Izbriši enoto",
+    "deleteTitle": "Izbrišem {{unit}}?",
+    "deleteDesc": "Enota se ustavi, ne bo se zagnala ob zagonu sistema, njena datoteka in dodatki pa bodo odstranjeni.",
+    "deleted": "Enota {{unit}} je izbrisana",
+    "deleteFailed": "Enote ni bilo mogoče izbrisati."
+  },
+  "create": {
+    "add": "Nova storitev",
+    "title": "Nova storitev",
+    "name": "Ime",
+    "nameHint": "Shranjeno kot name.service v /etc/systemd/system.",
+    "description": "Opis",
+    "descriptionPlaceholder": "Kaj storitev počne",
+    "command": "Ukaz",
+    "commandHint": "Polna pot do programa in njegovi argumenti.",
+    "user": "Izvedi kot uporabnik",
+    "group": "Skupina",
+    "folder": "Delovna mapa",
+    "environment": "Okolje",
+    "environmentHint": "Po en NAME=vrednost na vrstico.",
+    "timer": "Zaženi po urniku",
+    "timerHint": "Ustvarite časovnik, ki bo ukaz izvajal ob določenih časih, namesto da bi ga pustil teči neprekinjeno.",
+    "schedule": "Urnik",
+    "scheduleHint": "Vrednost OnCalendar, na primer daily, hourly ali Mon *-*-* 03:00:00.",
+    "type": "Vrsta",
+    "types": {
+      "simple": "Preprosta, teče neprekinjeno",
+      "exec": "Exec, teče neprekinjeno",
+      "forking": "Forking, zažene se v ozadju",
+      "oneshot": "Enkratna, zažene se in konča",
+      "notify": "Obvestilo, obvesti systemd, ko je pripravljeno"
+    },
+    "restart": "Ponovni zagon",
+    "restarts": {
+      "on-failure": "Ob napaki",
+      "always": "Vedno",
+      "on-abnormal": "Ob napaki",
+      "no": "Nikoli"
+    },
+    "restartSec": "Počakaj pred ponovnim zagonom (sekunde)",
+    "after": "Zaženi po",
+    "afterHint": "Enote za čakanje, ločene s presledki.",
+    "enable": "Zaženi ob zagonu",
+    "enableHint": "Za urnik to vklopi časovnik.",
+    "start": "Zaženi zdaj",
+    "save": "Ustvari",
+    "done": "Ustvarjen {{unit}}",
+    "failed": "Storitve ni bilo mogoče ustvariti."
+  },
+  "timers": {
+    "search": "Išči časovnike",
+    "empty": "Ni časovnikov.",
+    "loadFailed": "Časovnikov ni bilo mogoče navedeti.",
+    "next": "Naslednji {{when}} (čez {{left}})",
+    "noNext": "Nič načrtovanega",
+    "last": "zadnji {{when}} (pred {{ago}})",
+    "neverRan": "nikoli ni zagnano",
+    "runNow": "Zaženi zdaj",
+    "ran": "Zagnano {{unit}}",
+    "turnOn": "Vklopi",
+    "turnOff": "Izklopi"
+  },
+  "journal": {
+    "unit": "Enote",
+    "unitPlaceholder": "Vse enote ali nginx.service",
+    "search": "Išči",
+    "searchPlaceholder": "Išči besedilo",
+    "priority": "Prioriteta",
+    "anyPriority": "Poljubna prioriteta",
+    "priorityUpTo": "{{name}} in slabše",
+    "since": "Od",
+    "sinceOptions": {
+      "-15min": "Zadnjih 15 minut",
+      "-1h": "Zadnja ura",
+      "-6h": "Zadnjih 6 ur",
+      "today": "Danes",
+      "-24h": "Zadnjih 24 ur",
+      "-7d": "Zadnjih 7 dni",
+      "any": "Poljuben čas"
+    },
+    "boot": "Zagon",
+    "anyBoot": "Poljuben zagon",
+    "thisBoot": "Trenutni zagon",
+    "lines": "Vrstice",
+    "lineCount_one": "{{count}} vrstica",
+    "lineCount_two": "{{count}} vrstici",
+    "lineCount_few": "{{count}} vrstice",
+    "lineCount_other": "{{count}} vrstic",
+    "kernel": "Samo jedro",
+    "follow": "Sledi",
+    "following": "Sledenje",
+    "pause": "Premor",
+    "resume": "Nadaljuj",
+    "clear": "Počisti",
+    "download": "Prenesi",
+    "connecting": "Povezovanje...",
+    "ended": "Pretok je končan",
+    "shown_one": "{{count}} vnos",
+    "shown_two": "{{count}} vnosa",
+    "shown_few": "{{count}} vnosi",
+    "shown_other": "{{count}} vnosov",
+    "usage": "Dnevnik uporablja {{size}}",
+    "vacuum": "Sprosti prostor",
+    "vacuumTitle": "Ali želite odstraniti stare datoteke dnevnika?",
+    "vacuumDesc": "Vnosi dnevnika, starejši od 4 tednov, bodo izbrisani s strežnika.",
+    "vacuumDone": "Dnevnik zdaj uporablja {{size}}",
+    "vacuumFailed": "Prostora ni bilo mogoče sprostiti.",
+    "empty": "Ni vnosov.",
+    "loadFailed": "Dnevnika ni bilo mogoče prebrati."
+  },
+  "files": {
+    "filter": "Filtriraj datoteke",
+    "roots": "Iz {{roots}}. Spremenite mape v nastavitvah strežnika.",
+    "showRotated": "Prikaži stare kopije",
+    "empty": "Ni najdenih datotek dnevnika.",
+    "loadFailed": "Datotek dnevnika ni bilo mogoče navedeti.",
+    "search": "Išči",
+    "searchPlaceholder": "Išči besedilo",
+    "download": "Prenesi",
+    "downloadFailed": "Datoteke ni bilo mogoče prenesti.",
+    "readFailed": "Datoteke ni bilo mogoče prebrati.",
+    "noLines": "Brez vrstic."
+  },
+  "logs": {
+    "empty": "Tukaj še ni ničesar."
+  },
+  "companion": {
+    "openTab": "Odpri zavihek Storitve",
+    "toggle": "Plošča Storitev"
+  }
+}

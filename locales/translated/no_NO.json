@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Tjenester",
+    "description": "Administrer tjenester, tidsstyringer og logger på vertene dine via SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Bruk Tjenester",
+      "description": "Åpne fanen Tjenester på vertene du kan nå. Endringer krever også skriveadgang til verten."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Tjenester",
+        "description": "Vis fanen Tjenester for denne verten for å administrere systemd-tjenester, tidsstyringer og logger."
+      },
+      "useSudo": {
+        "label": "Bruk sudo",
+        "description": "Kjør endringer og beskyttede lesinger med passordløs sudo når innloggingen ikke er root."
+      },
+      "readOnly": {
+        "label": "Skrivebeskyttet",
+        "description": "Tillat lesing av tjenester og logger, men blokker alle endringer fra Termix."
+      },
+      "logPaths": {
+        "label": "Logmapper",
+        "description": "Mapper som Logg-filen-visningen kan lese, atskilt med komma.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel ved siden av terminalen",
+        "description": "Vis et tjenestepanel ved siden av SSH-terminalen for denne verten."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Åpne tjenestepanelet med en terminal",
+        "description": "Vis tjenestepanelet når en terminal åpnes på en vert som har det."
+      },
+      "companionSide": {
+        "label": "Plassering av tjenestepanelet",
+        "description": "Hvor panelet vises i forhold til terminalen.",
+        "right": "Høyre",
+        "left": "Venstre",
+        "bottom": "Bunn"
+      },
+      "companionSize": {
+        "label": "Størrelse på tjenestepanel",
+        "description": "Bredde, eller høyde i bunnen, i piksler."
+      },
+      "companionEdgeButton": {
+        "label": "Kantknapp for tjenestepanel",
+        "description": "Vis en liten knapp på terminalkanten for å åpne panelet."
+      }
+    }
+  },
+  "common": {
+    "back": "Tilbake"
+  },
+  "tab": {
+    "title": "Tjenester",
+    "noHost": "Velg en vert for å administrere tjenestene.",
+    "loading": "Laster...",
+    "refresh": "Oppdater",
+    "error": "Kunne ikke lese tjenester på denne verten.",
+    "disabled": "Tjenester er ikke aktivert for denne verten. Aktiver det i vertsinnstillingene.",
+    "sudo": "Endringer krever root-innlogging eller passordløs sudo. Kjør sudo -n true på verten for å sjekke.",
+    "noInit": "Fant ingen init-system",
+    "noInitHint": "Denne verten har verken systemd eller OpenRC som Termix kan bruke. Loggfiler fungerer fortsatt.",
+    "readOnly": "Skrivebeskyttet",
+    "failedCount_one": "{{count}} mislyktes",
+    "failedCount_other": "{{count}} mislyktes",
+    "viewServices": "Tjenester",
+    "viewTimers": "Tidsstyringer",
+    "viewJournal": "Journal",
+    "viewFiles": "Loggfiler"
+  },
+  "units": {
+    "search": "Søk etter tjenester",
+    "type": "Enhetstype",
+    "empty": "Ingen enheter matcher.",
+    "loadFailed": "Kunne ikke liste opp enhetene.",
+    "confirmStop": "Stopp {{unit}}?",
+    "confirmStopDesc": "Noe som er avhengig av den, kan slutte å fungere til den startes på nytt.",
+    "filters": {
+      "all": "Alle",
+      "running": "Kjører",
+      "failed": "Mislyktes",
+      "stopped": "Stoppet",
+      "enabled": "Start ved oppstart"
+    },
+    "types": {
+      "service": "Tjenester",
+      "socket": "Sokkeler",
+      "timer": "Tidsstyringer",
+      "target": "Mål",
+      "path": "Stier",
+      "mount": "Monteringer"
+    }
+  },
+  "actions": {
+    "start": "Start",
+    "stop": "Stopp",
+    "restart": "Start på nytt",
+    "reload": "Last inn på nytt",
+    "enable": "Start ved oppstart",
+    "disable": "Ikke start ved oppstart",
+    "enable-now": "Slå på",
+    "disable-now": "Slå av",
+    "mask": "Masker",
+    "unmask": "Fjern maske",
+    "reset-failed": "Tøm feil",
+    "revert": "Angre",
+    "failed": "Det fungerte ikke.",
+    "confirm": {
+      "stop": "Stopp {{unit}}?",
+      "disable": "Slå av automatisk start av {{unit}} ved oppstart?",
+      "disable-now": "Slå av {{unit}}?",
+      "mask": "Masker {{unit}}?",
+      "revert": "Angre endringer for {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Tjenester som er avhengig av dette, kan slutte å fungere til den starter igjen.",
+      "disable": "Den kjører fortsatt nå, men starter ikke automatisk etter omstart.",
+      "disable-now": "Den stoppes nå og starter ikke automatisk etter omstart.",
+      "mask": "En maskert enhet kan ikke startes i det hele tatt, verken manuelt eller av andre enheter, før du fjerner maskeringen.",
+      "revert": "Dette fjerner drop-in-filer og lokale kopier av enheten, og gjenoppretter versjonen fra pakken."
+    },
+    "done": {
+      "start": "Startet {{unit}}",
+      "stop": "Stoppet {{unit}}",
+      "restart": "Omstartet {{unit}}",
+      "reload": "Lastet inn {{unit}} på nytt",
+      "enable": "{{unit}} starter ved oppstart",
+      "disable": "{{unit}} starter ikke ved oppstart",
+      "enable-now": "Skrudd på {{unit}}",
+      "disable-now": "Skrudd av {{unit}}",
+      "mask": "Masket {{unit}}",
+      "unmask": "Avmasket {{unit}}",
+      "reset-failed": "Nullstilt feiltilstanden for {{unit}}",
+      "revert": "Angret {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Varsle meg når det mislykkes",
+    "stop": "Stopp varsler",
+    "badge": "Overvåket",
+    "on": "Du får et varsel når {{unit}} mislykkes",
+    "off": "Ingen flere varsler for {{unit}}",
+    "failed": "Kunne ikke endre varselet."
+  },
+  "detail": {
+    "loadFailed": "Kunne ikke lese denne enheten.",
+    "editFile": "Rediger enhet",
+    "description": "Beskrivelse",
+    "since": "Kjører siden",
+    "result": "Resultat",
+    "pid": "Hoved-PID",
+    "memory": "Minne",
+    "peak": "topp",
+    "cpu": "CPU-tid",
+    "tasks": "Oppgaver",
+    "restarts": "Omstarter",
+    "type": "Type",
+    "user": "Bruker",
+    "file": "Enhetsfil",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Startet av",
+    "triggers": "Starter",
+    "wantedBy": "Ønsket av",
+    "requires": "Krever",
+    "after": "Etter",
+    "statusText": "systemctl status",
+    "log": "Siste loggføring"
+  },
+  "editor": {
+    "loadFailed": "Kunne ikke lese enhetsfilen.",
+    "override": "Overskriv",
+    "fullFile": "Hele filen",
+    "overrideHint": "En overskrivelse er en drop-in-fil som bare endrer linjene du legger inn her. Oppdateringer av pakken fungerer fortsatt. La den være tom og lagre for å fjerne den.",
+    "overrideTemplate": "Linjer her legges til eller erstatter enhetens egne innstillinger",
+    "localHint": "Denne enhetsfilen befinner seg i /etc/systemd/system, så den kan du redigere fritt.",
+    "vendorHint": "Denne enheten kommer fra en pakke ({{path}}). Hvis du lagrer hele filen, plasseres en kopi i /etc/systemd/system som har forrang. Ved tilbakestilling fjernes kopien igjen.",
+    "notWritable": "Filer kan ikke skrives for denne typen enhet.",
+    "check": "Sjekk",
+    "checking": "Sjekker...",
+    "checkOk": "Sjekken bestod.",
+    "checkBad": "Sjekken fant problemer.",
+    "checkFailed": "Kunne ikke kjøre sjekken.",
+    "save": "Sjekk og lagre",
+    "saved": "Lagret {{unit}} og lastet inn systemd på nytt",
+    "saveFailed": "Ikke lagret. Sjekken mislyktes eller filen kunne ikke skrives.",
+    "combined": "Alt systemd leser for denne enheten",
+    "delete": "Slett enhet",
+    "deleteTitle": "Slett {{unit}}?",
+    "deleteDesc": "Den stoppes, starter ikke ved oppstart, og filene og drop-ins blir fjernet.",
+    "deleted": "Slettet {{unit}}",
+    "deleteFailed": "Kunne ikke slette enheten."
+  },
+  "create": {
+    "add": "Ny tjeneste",
+    "title": "Ny tjeneste",
+    "name": "Navn",
+    "nameHint": "Lagres som name.service i /etc/systemd/system.",
+    "description": "Beskrivelse",
+    "descriptionPlaceholder": "Hva den gjør",
+    "command": "Kommando",
+    "commandHint": "Den fulle stien til programmet, etterfulgt av argumentene.",
+    "user": "Kjør som bruker",
+    "group": "Gruppe",
+    "folder": "Arbeidsmappe",
+    "environment": "Miljø",
+    "environmentHint": "Én NAVN=verdi per linje.",
+    "timer": "Kjør etter tidsplan",
+    "timerHint": "Opprett en tidsplan som kjører kommandoen på bestemte tidspunkter i stedet for å holde den kørende.",
+    "schedule": "Tidsplan",
+    "scheduleHint": "En OnCalendar-verdi, som daily, hourly eller Mon *-*-* 03:00:00.",
+    "type": "Type",
+    "types": {
+      "simple": "Enkel, kjører kontinuerlig",
+      "exec": "Exec, kjører kontinuerlig",
+      "forking": "Forking, starter i bakgrunnen",
+      "oneshot": "Engangs, kjører og avslutter",
+      "notify": "Varsel, varsler systemd når den er klar"
+    },
+    "restart": "Omstart",
+    "restarts": {
+      "on-failure": "Når den feiler",
+      "always": "Alltid",
+      "on-abnormal": "Når den krasjer",
+      "no": "Aldri"
+    },
+    "restartSec": "Vent før omstart (sekunder)",
+    "after": "Start etter",
+    "afterHint": "Enheter å vente på, atskilt med mellomrom.",
+    "enable": "Start ved oppstart",
+    "enableHint": "For en tidsplan aktiverer dette tidsavtrekkeren.",
+    "start": "Start nå",
+    "save": "Opprett",
+    "done": "Opprettet {{unit}}",
+    "failed": "Kunne ikke opprette tjenesten."
+  },
+  "timers": {
+    "search": "Søk i tidtagere",
+    "empty": "Ingen tidtagere.",
+    "loadFailed": "Kunne ikke liste opp tidtagere.",
+    "next": "Neste {{when}} (om {{left}})",
+    "noNext": "Ingenting planlagt",
+    "last": "sist {{when}} ({{ago}} siden)",
+    "neverRan": "har aldri kjørt",
+    "runNow": "Kjør nå",
+    "ran": "Startet {{unit}}",
+    "turnOn": "Slå på",
+    "turnOff": "Slå av"
+  },
+  "journal": {
+    "unit": "Enheter",
+    "unitPlaceholder": "Alle enheter, eller nginx.service",
+    "search": "Søk",
+    "searchPlaceholder": "Søketekst",
+    "priority": "Prioritet",
+    "anyPriority": "Alle prioriteringer",
+    "priorityUpTo": "{{name}} og verre",
+    "since": "Siden",
+    "sinceOptions": {
+      "-15min": "Siste 15 minutter",
+      "-1h": "Siste time",
+      "-6h": "Siste 6 timer",
+      "today": "I dag",
+      "-24h": "Siste 24 timer",
+      "-7d": "Siste 7 dager",
+      "any": "Alle tider"
+    },
+    "boot": "Oppstart",
+    "anyBoot": "Alle oppstarter",
+    "thisBoot": "Denne oppstarten",
+    "lines": "Linjer",
+    "lineCount_one": "{{count}} linje",
+    "lineCount_other": "{{count}} linjer",
+    "kernel": "Kjerne bare",
+    "follow": "Følg",
+    "following": "Følger",
+    "pause": "Pause",
+    "resume": "Fortsett",
+    "clear": "Tøm",
+    "download": "Last ned",
+    "connecting": "Kobler til...",
+    "ended": "Strømmen er avsluttet",
+    "shown_one": "{{count}} oppføring",
+    "shown_other": "{{count}} oppføringer",
+    "usage": "Journalen bruker {{size}}",
+    "vacuum": "Frigjør plass",
+    "vacuumTitle": "Vil du fjerne gamle journalfiler?",
+    "vacuumDesc": "Journaloppføringer eldre enn 4 uker slettes fra verten.",
+    "vacuumDone": "Journalen bruker nå {{size}}",
+    "vacuumFailed": "Kunne ikke frigjøre plass.",
+    "empty": "Ingen oppføringer.",
+    "loadFailed": "Kunne ikke lese journalen."
+  },
+  "files": {
+    "filter": "Filtrer filer",
+    "roots": "Fra {{roots}}. Endre mapper i vertsinnstillingene.",
+    "showRotated": "Vis gamle kopier",
+    "empty": "Ingen loggfiler funnet.",
+    "loadFailed": "Kunne ikke liste opp loggfiler.",
+    "search": "Søk",
+    "searchPlaceholder": "Søketekst",
+    "download": "Last ned",
+    "downloadFailed": "Kunne ikke laste ned filen.",
+    "readFailed": "Kunne ikke lese filen.",
+    "noLines": "Ingen linjer."
+  },
+  "logs": {
+    "empty": "Ingenting her ennå."
+  },
+  "companion": {
+    "openTab": "Åpne fanen Tjenester",
+    "toggle": "Tjenester-panel"
+  }
+}

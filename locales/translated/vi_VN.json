@@ -1,0 +1,318 @@
+{
+  "plugin": {
+    "name": "Dịch vụ",
+    "description": "Quản lý dịch vụ, bộ hẹn giờ và nhật ký trên các máy chủ của bạn qua SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Sử dụng Dịch vụ",
+      "description": "Mở tab Dịch vụ trên các máy chủ bạn có thể truy cập. Các thay đổi cũng cần quyền chỉnh sửa máy chủ."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Dịch vụ",
+        "description": "Hiển thị tab Dịch vụ cho máy chủ này để quản lý dịch vụ systemd, bộ hẹn giờ và nhật ký."
+      },
+      "useSudo": {
+        "label": "Sử dụng sudo",
+        "description": "Chạy các thay đổi và lệnh đọc được bảo vệ bằng sudo không mật khẩu khi đăng nhập không phải là root."
+      },
+      "readOnly": {
+        "label": "Chỉ đọc",
+        "description": "Cho phép đọc dịch vụ và nhật ký, nhưng chặn mọi thay đổi từ Termix."
+      },
+      "logPaths": {
+        "label": "Thư mục nhật ký",
+        "description": "Các thư mục mà chế độ xem Tệp nhật ký có thể đọc, phân tách bằng dấu phẩy.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Bảng điều khiển bên cạnh terminal",
+        "description": "Hiển thị bảng điều khiển dịch vụ bên cạnh terminal SSH của máy chủ này."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Mở bảng điều khiển dịch vụ cùng với terminal",
+        "description": "Hiển thị bảng điều khiển dịch vụ khi terminal mở trên máy chủ có tính năng này."
+      },
+      "companionSide": {
+        "label": "Vị trí bảng điều khiển dịch vụ",
+        "description": "Vị trí của bảng điều khiển bên cạnh terminal.",
+        "right": "Phải",
+        "left": "Trái",
+        "bottom": "Dưới"
+      },
+      "companionSize": {
+        "label": "Kích thước bảng điều khiển dịch vụ",
+        "description": "Chiều rộng, hoặc chiều cao nếu ở dưới cùng, tính bằng pixel."
+      },
+      "companionEdgeButton": {
+        "label": "Nút cạnh bảng điều khiển dịch vụ",
+        "description": "Hiển thị một nút nhỏ trên cạnh terminal để mở bảng điều khiển."
+      }
+    }
+  },
+  "common": {
+    "back": "Quay lại"
+  },
+  "tab": {
+    "title": "Dịch vụ",
+    "noHost": "Chọn một máy chủ để quản lý dịch vụ của nó.",
+    "loading": "Đang tải...",
+    "refresh": "Làm mới",
+    "error": "Không thể đọc dịch vụ trên máy chủ này.",
+    "disabled": "Tính năng Dịch vụ chưa được bật cho máy chủ này. Hãy bật nó trong cài đặt máy chủ.",
+    "sudo": "Các thay đổi cần đăng nhập root hoặc sudo không mật khẩu. Chạy lệnh sudo -n true trên máy chủ để kiểm tra.",
+    "noInit": "Không tìm thấy hệ thống khởi tạo",
+    "noInitHint": "Máy chủ này không có systemd hoặc OpenRC mà Termix có thể sử dụng. Tệp nhật ký vẫn hoạt động.",
+    "readOnly": "Chỉ đọc",
+    "failedCount_other": "{{count}} lỗi",
+    "viewServices": "Dịch vụ",
+    "viewTimers": "Bộ hẹn giờ",
+    "viewJournal": "Nhật ký hệ thống",
+    "viewFiles": "Tệp nhật ký"
+  },
+  "units": {
+    "search": "Tìm kiếm dịch vụ",
+    "type": "Loại đơn vị",
+    "empty": "Không có đơn vị nào khớp.",
+    "loadFailed": "Không thể liệt kê các đơn vị.",
+    "confirmStop": "Dừng {{unit}}?",
+    "confirmStopDesc": "Mọi thứ phụ thuộc vào nó có thể ngừng hoạt động cho đến khi nó khởi động lại.",
+    "filters": {
+      "all": "Tất cả",
+      "running": "Đang chạy",
+      "failed": "Lỗi",
+      "stopped": "Đã dừng",
+      "enabled": "Khởi động cùng hệ thống"
+    },
+    "types": {
+      "service": "Dịch vụ",
+      "socket": "Socket",
+      "timer": "Bộ hẹn giờ",
+      "target": "Mục tiêu",
+      "path": "Đường dẫn",
+      "mount": "Điểm gắn kết"
+    }
+  },
+  "actions": {
+    "start": "Khởi động",
+    "stop": "Dừng",
+    "restart": "Khởi động lại",
+    "reload": "Tải lại",
+    "enable": "Khởi động cùng hệ thống",
+    "disable": "Không khởi động cùng hệ thống",
+    "enable-now": "Bật",
+    "disable-now": "Tắt",
+    "mask": "Ẩn",
+    "unmask": "Hiện",
+    "reset-failed": "Xóa trạng thái lỗi",
+    "revert": "Hoàn tác",
+    "failed": "Thao tác không thành công.",
+    "confirm": {
+      "stop": "Dừng {{unit}}?",
+      "disable": "Ngừng khởi động {{unit}} cùng hệ thống?",
+      "disable-now": "Tắt {{unit}}?",
+      "mask": "Ẩn {{unit}}?",
+      "revert": "Hoàn tác {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Các thành phần phụ thuộc vào nó có thể ngừng hoạt động cho đến khi nó được khởi động lại.",
+      "disable": "Nó vẫn đang chạy, nhưng sẽ không tự khởi động sau khi khởi động lại hệ thống.",
+      "disable-now": "Nó sẽ dừng ngay lập tức và không tự khởi động sau khi khởi động lại hệ thống.",
+      "mask": "Một đơn vị bị ẩn không thể được khởi động, dù là thủ công hay bởi các đơn vị khác, cho đến khi bạn hiện nó lại.",
+      "revert": "Thao tác này sẽ xóa các tệp drop-in và bản sao cục bộ của đơn vị, đồng thời khôi phục phiên bản từ gói cài đặt."
+    },
+    "done": {
+      "start": "Đã khởi động {{unit}}",
+      "stop": "Đã dừng {{unit}}",
+      "restart": "Đã khởi động lại {{unit}}",
+      "reload": "Đã tải lại {{unit}}",
+      "enable": "{{unit}} sẽ khởi động cùng hệ thống",
+      "disable": "{{unit}} sẽ không khởi động cùng hệ thống",
+      "enable-now": "Đã bật {{unit}}",
+      "disable-now": "Đã tắt {{unit}}",
+      "mask": "Đã ẩn {{unit}}",
+      "unmask": "Đã hiện {{unit}}",
+      "reset-failed": "Đã xóa trạng thái lỗi của {{unit}}",
+      "revert": "Đã hoàn tác {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Báo cho tôi khi nó gặp lỗi",
+    "stop": "Dừng cảnh báo",
+    "badge": "Đang theo dõi",
+    "on": "Bạn sẽ nhận được cảnh báo khi {{unit}} gặp lỗi",
+    "off": "Không còn cảnh báo cho {{unit}}",
+    "failed": "Không thể thay đổi cài đặt cảnh báo."
+  },
+  "detail": {
+    "loadFailed": "Không thể đọc đơn vị này.",
+    "editFile": "Chỉnh sửa đơn vị",
+    "description": "Mô tả",
+    "since": "Đang chạy từ",
+    "result": "Kết quả",
+    "pid": "PID chính",
+    "memory": "Bộ nhớ",
+    "peak": "cao nhất",
+    "cpu": "Thời gian CPU",
+    "tasks": "Tác vụ",
+    "restarts": "Số lần khởi động lại",
+    "type": "Loại",
+    "user": "Người dùng",
+    "file": "Tệp đơn vị",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Được khởi động bởi",
+    "triggers": "Khởi động",
+    "wantedBy": "Được yêu cầu bởi",
+    "requires": "Yêu cầu",
+    "after": "Sau",
+    "statusText": "systemctl status",
+    "log": "Nhật ký gần đây"
+  },
+  "editor": {
+    "loadFailed": "Không thể đọc tệp đơn vị.",
+    "override": "Ghi đè",
+    "fullFile": "Tệp đầy đủ",
+    "overrideHint": "Ghi đè là một tệp drop-in chỉ thay đổi các dòng bạn nhập ở đây. Các bản cập nhật gói vẫn hoạt động bình thường. Để trống và lưu để xóa nó.",
+    "overrideTemplate": "Các dòng ở đây sẽ bổ sung hoặc thay thế cài đặt của chính đơn vị",
+    "localHint": "Tệp đơn vị này nằm trong /etc/systemd/system, nên bạn có thể chỉnh sửa nó.",
+    "vendorHint": "Đơn vị này đến từ một gói ({{path}}). Lưu tệp đầy đủ sẽ đặt một bản sao vào /etc/systemd/system, ưu tiên hơn bản gốc. Hoàn tác sẽ xóa bản sao đó.",
+    "notWritable": "Không thể ghi tệp cho loại đơn vị này.",
+    "check": "Kiểm tra",
+    "checking": "Đang kiểm tra...",
+    "checkOk": "Kiểm tra thành công.",
+    "checkBad": "Kiểm tra phát hiện lỗi.",
+    "checkFailed": "Không thể chạy kiểm tra.",
+    "save": "Kiểm tra và lưu",
+    "saved": "Đã lưu {{unit}} và tải lại systemd",
+    "saveFailed": "Chưa lưu. Kiểm tra thất bại hoặc không thể ghi tệp.",
+    "combined": "Tất cả những gì systemd đọc cho đơn vị này",
+    "delete": "Xóa đơn vị",
+    "deleteTitle": "Xóa {{unit}}?",
+    "deleteDesc": "Nó sẽ dừng, không khởi động khi bật máy, và tệp cùng các drop-in của nó sẽ bị xóa.",
+    "deleted": "Đã xóa {{unit}}",
+    "deleteFailed": "Không thể xóa đơn vị."
+  },
+  "create": {
+    "add": "Dịch vụ mới",
+    "title": "Dịch vụ mới",
+    "name": "Tên",
+    "nameHint": "Được lưu dưới dạng name.service trong /etc/systemd/system.",
+    "description": "Mô tả",
+    "descriptionPlaceholder": "Nó làm gì",
+    "command": "Lệnh",
+    "commandHint": "Đường dẫn đầy đủ đến chương trình, sau đó là các đối số của nó.",
+    "user": "Chạy với người dùng",
+    "group": "Nhóm",
+    "folder": "Thư mục làm việc",
+    "environment": "Môi trường",
+    "environmentHint": "Một dòng NAME=value cho mỗi dòng.",
+    "timer": "Chạy theo lịch trình",
+    "timerHint": "Tạo một bộ hẹn giờ chạy lệnh vào các thời điểm đặt sẵn thay vì giữ nó chạy liên tục.",
+    "schedule": "Lịch trình",
+    "scheduleHint": "Giá trị OnCalendar, như daily, hourly hoặc Mon *-*-* 03:00:00.",
+    "type": "Loại",
+    "types": {
+      "simple": "Đơn giản, chạy liên tục",
+      "exec": "Thực thi, chạy liên tục",
+      "forking": "Phân nhánh, khởi động ở nền",
+      "oneshot": "Một lần, chạy và thoát",
+      "notify": "Thông báo, báo systemd khi sẵn sàng"
+    },
+    "restart": "Khởi động lại",
+    "restarts": {
+      "on-failure": "Khi thất bại",
+      "always": "Luôn luôn",
+      "on-abnormal": "Khi bị lỗi nghiêm trọng",
+      "no": "Không bao giờ"
+    },
+    "restartSec": "Chờ trước khi khởi động lại (giây)",
+    "after": "Khởi động sau",
+    "afterHint": "Các đơn vị cần chờ, cách nhau bằng dấu cách.",
+    "enable": "Khởi động khi bật máy",
+    "enableHint": "Đối với lịch trình, điều này sẽ bật bộ hẹn giờ.",
+    "start": "Khởi động ngay",
+    "save": "Tạo",
+    "done": "Đã tạo {{unit}}",
+    "failed": "Không thể tạo dịch vụ."
+  },
+  "timers": {
+    "search": "Tìm bộ hẹn giờ",
+    "empty": "Không có bộ hẹn giờ nào.",
+    "loadFailed": "Không thể liệt kê các bộ hẹn giờ.",
+    "next": "Tiếp theo {{when}} (còn {{left}})",
+    "noNext": "Không có gì được lên lịch",
+    "last": "lần cuối {{when}} (cách đây {{ago}})",
+    "neverRan": "chưa bao giờ chạy",
+    "runNow": "Chạy ngay",
+    "ran": "Đã khởi động {{unit}}",
+    "turnOn": "Bật",
+    "turnOff": "Tắt"
+  },
+  "journal": {
+    "unit": "Đơn vị",
+    "unitPlaceholder": "Tất cả đơn vị, hoặc nginx.service",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm kiếm văn bản",
+    "priority": "Độ ưu tiên",
+    "anyPriority": "Mọi độ ưu tiên",
+    "priorityUpTo": "{{name}} và thấp hơn",
+    "since": "Từ",
+    "sinceOptions": {
+      "-15min": "15 phút qua",
+      "-1h": "1 giờ qua",
+      "-6h": "6 giờ qua",
+      "today": "Hôm nay",
+      "-24h": "24 giờ qua",
+      "-7d": "7 ngày qua",
+      "any": "Mọi thời điểm"
+    },
+    "boot": "Khởi động",
+    "anyBoot": "Mọi lần khởi động",
+    "thisBoot": "Lần khởi động này",
+    "lines": "Dòng",
+    "lineCount_other": "{{count}} dòng",
+    "kernel": "Chỉ nhân",
+    "follow": "Theo dõi",
+    "following": "Đang theo dõi",
+    "pause": "Tạm dừng",
+    "resume": "Tiếp tục",
+    "clear": "Xóa",
+    "download": "Tải xuống",
+    "connecting": "Đang kết nối...",
+    "ended": "Luồng đã kết thúc",
+    "shown_other": "{{count}} mục",
+    "usage": "Nhật ký sử dụng {{size}}",
+    "vacuum": "Giải phóng dung lượng",
+    "vacuumTitle": "Xóa các tệp nhật ký cũ?",
+    "vacuumDesc": "Các mục nhật ký cũ hơn 4 tuần sẽ bị xóa khỏi máy chủ.",
+    "vacuumDone": "Nhật ký hiện sử dụng {{size}}",
+    "vacuumFailed": "Không thể giải phóng dung lượng.",
+    "empty": "Không có mục nào.",
+    "loadFailed": "Không thể đọc nhật ký."
+  },
+  "files": {
+    "filter": "Lọc tệp",
+    "roots": "Từ {{roots}}. Thay đổi thư mục trong cài đặt máy chủ.",
+    "showRotated": "Hiển thị bản sao cũ",
+    "empty": "Không tìm thấy tệp nhật ký nào.",
+    "loadFailed": "Không thể liệt kê các tệp nhật ký.",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm kiếm văn bản",
+    "download": "Tải xuống",
+    "downloadFailed": "Không thể tải xuống tệp.",
+    "readFailed": "Không thể đọc tệp.",
+    "noLines": "Không có dòng nào."
+  },
+  "logs": {
+    "empty": "Chưa có gì ở đây."
+  },
+  "companion": {
+    "openTab": "Mở tab Dịch vụ",
+    "toggle": "Bảng Dịch vụ"
+  }
+}

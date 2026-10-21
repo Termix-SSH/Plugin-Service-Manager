@@ -1,0 +1,321 @@
+{
+  "plugin": {
+    "name": "Tjänster",
+    "description": "Hantera tjänster, tidtagare och loggar på dina värdar via SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Använd Tjänster",
+      "description": "Öppna fliken Tjänster på värdar du kan nå. Ändringar kräver också redigeringsåtkomst till värden."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Tjänster",
+        "description": "Visa fliken Tjänster för denna värd för att hantera systemd-tjänster, tidtagare och loggar."
+      },
+      "useSudo": {
+        "label": "Använd sudo",
+        "description": "Kör ändringar och skyddade läsningar med lösenordsfritt sudo när inloggningen inte är root."
+      },
+      "readOnly": {
+        "label": "Skrivskyddad",
+        "description": "Tillåt läsning av tjänster och loggar, men blockera alla ändringar från Termix."
+      },
+      "logPaths": {
+        "label": "Loggmappar",
+        "description": "Mappar som vyn Loggfiler får läsa, separerade med kommatecken.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel bredvid terminalen",
+        "description": "Erbjud en tjänstepanel bredvid SSH-terminalen för denna värd."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Öppna tjänstepanelen med en terminal",
+        "description": "Visa tjänstepanelen när en terminal öppnas på en värd som har den."
+      },
+      "companionSide": {
+        "label": "Placering av tjänstepanelen",
+        "description": "Var panelen placeras bredvid terminalen.",
+        "right": "Höger",
+        "left": "Vänster",
+        "bottom": "Botten"
+      },
+      "companionSize": {
+        "label": "Storlek på tjänstepanelen",
+        "description": "Bredd, eller höjd vid botten, i pixlar."
+      },
+      "companionEdgeButton": {
+        "label": "Knapp på kanten för tjänstepanelen",
+        "description": "Visa en liten knapp på terminalens kant för att öppna panelen."
+      }
+    }
+  },
+  "common": {
+    "back": "Tillbaka"
+  },
+  "tab": {
+    "title": "Tjänster",
+    "noHost": "Välj en värd för att hantera dess tjänster.",
+    "loading": "Laddar...",
+    "refresh": "Uppdatera",
+    "error": "Kunde inte läsa tjänster på denna värd.",
+    "disabled": "Tjänster är inte aktiverat för denna värd. Aktivera det i värdinställningarna.",
+    "sudo": "Ändringar kräver root-inloggning eller lösenordsfritt sudo. Kör sudo -n true på värden för att kontrollera.",
+    "noInit": "Inget init-system hittades",
+    "noInitHint": "Denna värd har inget systemd eller OpenRC som Termix kan använda. Loggfiler fungerar fortfarande.",
+    "readOnly": "Skrivskyddad",
+    "failedCount_one": "{{count}} misslyckad",
+    "failedCount_other": "{{count}} misslyckade",
+    "viewServices": "Tjänster",
+    "viewTimers": "Tidtagare",
+    "viewJournal": "Journal",
+    "viewFiles": "Loggfiler"
+  },
+  "units": {
+    "search": "Sök tjänster",
+    "type": "Enhetstyp",
+    "empty": "Inga enheter matchar.",
+    "loadFailed": "Kunde inte lista enheterna.",
+    "confirmStop": "Stoppa {{unit}}?",
+    "confirmStopDesc": "Allt som behöver den kan sluta fungera tills den startas igen.",
+    "filters": {
+      "all": "Alla",
+      "running": "Körande",
+      "failed": "Misslyckade",
+      "stopped": "Stoppade",
+      "enabled": "Starta vid uppstart"
+    },
+    "types": {
+      "service": "Tjänster",
+      "socket": "Soket",
+      "timer": "Tidtagare",
+      "target": "Mål",
+      "path": "Sökvägar",
+      "mount": "Monteringar"
+    }
+  },
+  "actions": {
+    "start": "Starta",
+    "stop": "Stoppa",
+    "restart": "Starta om",
+    "reload": "Ladda om",
+    "enable": "Starta vid uppstart",
+    "disable": "Starta inte vid uppstart",
+    "enable-now": "Slå på",
+    "disable-now": "Slå av",
+    "mask": "Maskera",
+    "unmask": "Avmaskera",
+    "reset-failed": "Rensa fel",
+    "revert": "Ångra",
+    "failed": "Det fungerade inte.",
+    "confirm": {
+      "stop": "Stoppa {{unit}}?",
+      "disable": "Sluta starta {{unit}} vid uppstart?",
+      "disable-now": "Slå av {{unit}}?",
+      "mask": "Maskera {{unit}}?",
+      "revert": "Ångra {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Allt som är beroende av det kan sluta fungera tills det startas igen.",
+      "disable": "Det fortsätter att köras nu, men startas inte efter en omstart.",
+      "disable-now": "Det stoppas nu och startas inte efter en omstart.",
+      "mask": "En maskerad enhet kan inte startas alls, varken manuellt eller av andra enheter, förrän du avmaskerar den.",
+      "revert": "Detta tar bort drop-ins och lokala kopior av enheten och återställer versionen från paketet."
+    },
+    "done": {
+      "start": "Startade {{unit}}",
+      "stop": "Stoppade {{unit}}",
+      "restart": "Startade om {{unit}}",
+      "reload": "Laddade om {{unit}}",
+      "enable": "{{unit}} startar vid uppstart",
+      "disable": "{{unit}} startar inte vid uppstart",
+      "enable-now": "Slått på {{unit}}",
+      "disable-now": "Slått av {{unit}}",
+      "mask": "Maskerade {{unit}}",
+      "unmask": "Avmaskerade {{unit}}",
+      "reset-failed": "Rensade felstatusen för {{unit}}",
+      "revert": "Ångrade {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Alertera mig när det misslyckas",
+    "stop": "Stoppa aviseringar",
+    "badge": "Övervakad",
+    "on": "Du får en avisering när {{unit}} misslyckas",
+    "off": "Inga fler aviseringar för {{unit}}",
+    "failed": "Kunde inte ändra aviseringen."
+  },
+  "detail": {
+    "loadFailed": "Kunde inte läsa denna enhet.",
+    "editFile": "Redigera enhet",
+    "description": "Beskrivning",
+    "since": "Kört sedan",
+    "result": "Resultat",
+    "pid": "Huvud-PID",
+    "memory": "Minne",
+    "peak": "topp",
+    "cpu": "CPU-tid",
+    "tasks": "Uppgifter",
+    "restarts": "Omrstartningar",
+    "type": "Typ",
+    "user": "Användare",
+    "file": "Enhetsfil",
+    "dropIns": "Drop-ins",
+    "triggeredBy": "Startad av",
+    "triggers": "Startar",
+    "wantedBy": "Önskad av",
+    "requires": "Kräver",
+    "after": "Efter",
+    "statusText": "systemctl status",
+    "log": "Senaste loggen"
+  },
+  "editor": {
+    "loadFailed": "Kunde inte läsa enhetsfilen.",
+    "override": "Överskriv",
+    "fullFile": "Hela filen",
+    "overrideHint": "En överskrivning är en drop-in-fil som endast ändrar de rader du anger här. Paketuppdateringar fortsätter att fungera. Lämna den tom och spara för att ta bort den.",
+    "overrideTemplate": "Rader här lägger till eller ersätter enhets egna inställningar",
+    "localHint": "Denna enhetsfil finns i /etc/systemd/system, så den är din att redigera.",
+    "vendorHint": "Denna enhet kommer från ett paket ({{path}}). Om du sparar hela filen placeras en kopia i /etc/systemd/system som har företräde. Återställ tar bort kopian igen.",
+    "notWritable": "Filer kan inte skrivas för denna typ av enhet.",
+    "check": "Kontrollera",
+    "checking": "Kontrollerar...",
+    "checkOk": "Kontrollen lyckades.",
+    "checkBad": "Kontrollen hittade problem.",
+    "checkFailed": "Kunde inte köra kontrollen.",
+    "save": "Kontrollera och spara",
+    "saved": "Sparade {{unit}} och laddade om systemd",
+    "saveFailed": "Inte sparad. Kontrollen misslyckades eller filen kunde inte skrivas.",
+    "combined": "Allt som systemd läser för denna enhet",
+    "delete": "Ta bort enhet",
+    "deleteTitle": "Ta bort {{unit}}?",
+    "deleteDesc": "Den stoppas, startar inte vid uppstart, och dess fil samt drop-ins tas bort.",
+    "deleted": "Tog bort {{unit}}",
+    "deleteFailed": "Kunde inte ta bort enheten."
+  },
+  "create": {
+    "add": "Ny tjänst",
+    "title": "Ny tjänst",
+    "name": "Namn",
+    "nameHint": "Sparas som name.service i /etc/systemd/system.",
+    "description": "Beskrivning",
+    "descriptionPlaceholder": "Vad den gör",
+    "command": "Kommando",
+    "commandHint": "Den fullständiga sökvägen till programmet, följt av dess argument.",
+    "user": "Kör som användare",
+    "group": "Grupp",
+    "folder": "Arbetskatalog",
+    "environment": "Miljö",
+    "environmentHint": "En NAME=värde per rad.",
+    "timer": "Kör enligt schema",
+    "timerHint": "Skapa en timer som kör kommandot vid angivna tidpunkter istället för att hålla det igång.",
+    "schedule": "Schema",
+    "scheduleHint": "Ett OnCalendar-värde, som daily, hourly eller Mon *-*-* 03:00:00.",
+    "type": "Typ",
+    "types": {
+      "simple": "Enkel, håller igång",
+      "exec": "Exec, håller igång",
+      "forking": "Forking, startar i bakgrunden",
+      "oneshot": "Engång, kör och avslutar",
+      "notify": "Notify, meddelar systemd när den är redo"
+    },
+    "restart": "Starta om",
+    "restarts": {
+      "on-failure": "När den misslyckas",
+      "always": "Alltid",
+      "on-abnormal": "När den kraschar",
+      "no": "Aldrig"
+    },
+    "restartSec": "Vänta innan omstart (sekunder)",
+    "after": "Starta efter",
+    "afterHint": "Enheter att vänta på, separerade med mellanslag.",
+    "enable": "Starta vid uppstart",
+    "enableHint": "För ett schema aktiverar detta timern.",
+    "start": "Starta nu",
+    "save": "Skapa",
+    "done": "Skapade {{unit}}",
+    "failed": "Kunde inte skapa tjänsten."
+  },
+  "timers": {
+    "search": "Sök bland tidtagare",
+    "empty": "Inga tidtagare.",
+    "loadFailed": "Kunde inte lista tidtagarna.",
+    "next": "Nästa {{when}} (om {{left}})",
+    "noNext": "Inget planerat",
+    "last": "senast {{when}} ({{ago}} sedan)",
+    "neverRan": "har aldrig körts",
+    "runNow": "Kör nu",
+    "ran": "Startade {{unit}}",
+    "turnOn": "Slå på",
+    "turnOff": "Slå av"
+  },
+  "journal": {
+    "unit": "Enheter",
+    "unitPlaceholder": "Alla enheter, eller nginx.service",
+    "search": "Sök",
+    "searchPlaceholder": "Söktext",
+    "priority": "Prioritet",
+    "anyPriority": "Alla prioriteringar",
+    "priorityUpTo": "{{name}} och sämre",
+    "since": "Sedan",
+    "sinceOptions": {
+      "-15min": "Senaste 15 minuterna",
+      "-1h": "Senaste timmen",
+      "-6h": "Senaste 6 timmarna",
+      "today": "Idag",
+      "-24h": "Senaste 24 timmarna",
+      "-7d": "Senaste 7 dagarna",
+      "any": "Alla tider"
+    },
+    "boot": "Start",
+    "anyBoot": "Alla startar",
+    "thisBoot": "Denna start",
+    "lines": "Rader",
+    "lineCount_one": "{{count}} rad",
+    "lineCount_other": "{{count}} rader",
+    "kernel": "Endast kärna",
+    "follow": "Följ",
+    "following": "Följer",
+    "pause": "Pausa",
+    "resume": "Återuppta",
+    "clear": "Rensa",
+    "download": "Ladda ner",
+    "connecting": "Ansluter...",
+    "ended": "Strömmen har avslutats",
+    "shown_one": "{{count}} post",
+    "shown_other": "{{count}} poster",
+    "usage": "Journalen använder {{size}}",
+    "vacuum": "Frigör utrymme",
+    "vacuumTitle": "Ta bort gamla journalfiler?",
+    "vacuumDesc": "Journalposter äldre än 4 veckor raderas från värdservern.",
+    "vacuumDone": "Journalen använder nu {{size}}",
+    "vacuumFailed": "Kunde inte frigöra utrymme.",
+    "empty": "Inga poster.",
+    "loadFailed": "Kunde inte läsa journalen."
+  },
+  "files": {
+    "filter": "Filtrera filer",
+    "roots": "Från {{roots}}. Ändra mapparna i värdserverns inställningar.",
+    "showRotated": "Visa gamla kopior",
+    "empty": "Inga loggfiler hittades.",
+    "loadFailed": "Kunde inte lista loggfilerna.",
+    "search": "Sök",
+    "searchPlaceholder": "Söktext",
+    "download": "Ladda ner",
+    "downloadFailed": "Kunde inte ladda ner filen.",
+    "readFailed": "Kunde inte läsa filen.",
+    "noLines": "Inga rader."
+  },
+  "logs": {
+    "empty": "Ingenting här ännu."
+  },
+  "companion": {
+    "openTab": "Öppna fliken Tjänster",
+    "toggle": "Tjänsterpanel"
+  }
+}

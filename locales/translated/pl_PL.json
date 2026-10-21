@@ -1,0 +1,327 @@
+{
+  "plugin": {
+    "name": "Usługi",
+    "description": "Zarządzaj usługami, timerami i logami na swoich hostach przez SSH."
+  },
+  "permissions": {
+    "use": {
+      "title": "Używanie usług",
+      "description": "Otwórz kartę Usługi na hostach, do których masz dostęp. Wprowadzanie zmian wymaga również uprawnień edycji hosta."
+    }
+  },
+  "settings": {
+    "host": {
+      "enable": {
+        "label": "Usługi",
+        "description": "Pokaż kartę Usługi dla tego hosta, aby zarządzać usługami systemd, timerami i logami."
+      },
+      "useSudo": {
+        "label": "Używaj sudo",
+        "description": "Wykonuj zmiany i chronione odczyty za pomocą sudo bez hasła, gdy zalogowany użytkownik nie jest rootem."
+      },
+      "readOnly": {
+        "label": "Tylko do odczytu",
+        "description": "Zezwól na odczyt usług i logów, ale zablokuj wszystkie zmiany z Termix."
+      },
+      "logPaths": {
+        "label": "Katalogi dzienników",
+        "description": "Katalogi, z których widok plików dziennika może czytać, oddzielone przecinkami.",
+        "placeholder": "/var/log"
+      },
+      "showPanel": {
+        "label": "Panel obok terminala",
+        "description": "Wyświetl panel usług obok terminala SSH tego hosta."
+      }
+    },
+    "user": {
+      "companionAutoOpen": {
+        "label": "Otwieraj panel usług razem z terminalem",
+        "description": "Wyświetlaj panel usług, gdy terminal otwiera się na hoście, który go obsługuje."
+      },
+      "companionSide": {
+        "label": "Położenie panelu usług",
+        "description": "Gdzie panel znajduje się obok terminala.",
+        "right": "Prawa",
+        "left": "Lewa",
+        "bottom": "Dolna"
+      },
+      "companionSize": {
+        "label": "Rozmiar panelu usług",
+        "description": "Szerokość lub wysokość (gdy panel jest u dołu) w pikselach."
+      },
+      "companionEdgeButton": {
+        "label": "Przycisk krawędziowy panelu usług",
+        "description": "Wyświetl mały przycisk na krawędzi terminala, aby otworzyć panel."
+      }
+    }
+  },
+  "common": {
+    "back": "Wstecz"
+  },
+  "tab": {
+    "title": "Usługi",
+    "noHost": "Wybierz hosta, aby zarządzać jego usługami.",
+    "loading": "Ładowanie...",
+    "refresh": "Odśwież",
+    "error": "Nie udało się odczytać usług na tym hoście.",
+    "disabled": "Usługi nie są włączone dla tego hosta. Włącz je w ustawieniach hosta.",
+    "sudo": "Zmiany wymagają logowania jako root lub sudo bez hasła. Uruchom sudo -n true na hoście, aby to sprawdzić.",
+    "noInit": "Nie znaleziono systemu init",
+    "noInitHint": "Ten host nie ma systemd ani OpenRC, których mógłby użyć Termix. Pliki dzienników nadal działają.",
+    "readOnly": "Tylko do odczytu",
+    "failedCount_one": "{{count}} nieudana",
+    "failedCount_few": "{{count}} nieudane",
+    "failedCount_many": "{{count}} nieudanych",
+    "failedCount_other": "{{count}} nieudanych",
+    "viewServices": "Usługi",
+    "viewTimers": "Timery",
+    "viewJournal": "Dziennik",
+    "viewFiles": "Pliki dziennika"
+  },
+  "units": {
+    "search": "Szukaj usług",
+    "type": "Typ jednostki",
+    "empty": "Brak pasujących jednostek.",
+    "loadFailed": "Nie udało się wyświetlić listy jednostek.",
+    "confirmStop": "Zatrzymać {{unit}}?",
+    "confirmStopDesc": "Wszystko, co z niej korzysta, może przestać działać do momentu jej ponownego uruchomienia.",
+    "filters": {
+      "all": "Wszystkie",
+      "running": "Uruchomione",
+      "failed": "Nieudane",
+      "stopped": "Zatrzymane",
+      "enabled": "Uruchom przy starcie"
+    },
+    "types": {
+      "service": "Usługi",
+      "socket": "Gniazda",
+      "timer": "Timery",
+      "target": "Cele",
+      "path": "Ścieżki",
+      "mount": "Punkty montowania"
+    }
+  },
+  "actions": {
+    "start": "Uruchom",
+    "stop": "Zatrzymaj",
+    "restart": "Uruchom ponownie",
+    "reload": "Przeładuj",
+    "enable": "Uruchamiaj przy starcie",
+    "disable": "Nie uruchamiaj przy starcie",
+    "enable-now": "Włącz",
+    "disable-now": "Wyłącz",
+    "mask": "Zamaskuj",
+    "unmask": "Odmaskuj",
+    "reset-failed": "Wyczyść stan niepowodzenia",
+    "revert": "Cofnij",
+    "failed": "To nie zadziałało.",
+    "confirm": {
+      "stop": "Zatrzymać {{unit}}?",
+      "disable": "Nie uruchamiać {{unit}} przy starcie systemu?",
+      "disable-now": "Wyłączyć {{unit}}?",
+      "mask": "Zamaskować {{unit}}?",
+      "revert": "Cofnąć zmiany w {{unit}}?"
+    },
+    "confirmDesc": {
+      "stop": "Wszystko, co z niego korzysta, może przestać działać do momentu jego ponownego uruchomienia.",
+      "disable": "Działa nadal, ale nie uruchomi się po ponownym uruchomieniu systemu.",
+      "disable-now": "Zatrzyma się teraz i nie uruchomi po ponownym uruchomieniu systemu.",
+      "mask": "Zamaskowana jednostka nie może zostać uruchomiona w żaden sposób, ręcznie ani przez inne jednostki, dopóki nie zostanie odmaskowana.",
+      "revert": "Ta operacja usuwa pliki drop-in i lokalne kopie jednostki, przywracając wersję z pakietu."
+    },
+    "done": {
+      "start": "Uruchomiono {{unit}}",
+      "stop": "Zatrzymano {{unit}}",
+      "restart": "Uruchomiono ponownie {{unit}}",
+      "reload": "Przeładowano {{unit}}",
+      "enable": "{{unit}} uruchamia się przy starcie systemu",
+      "disable": "{{unit}} nie uruchomi się przy starcie systemu",
+      "enable-now": "Włączono {{unit}}",
+      "disable-now": "Wyłączono {{unit}}",
+      "mask": "Zamaskowano {{unit}}",
+      "unmask": "Odmaskowano {{unit}}",
+      "reset-failed": "Wyczyszczono stan niepowodzenia dla {{unit}}",
+      "revert": "Przywrócono {{unit}}"
+    }
+  },
+  "watch": {
+    "start": "Powiadom mnie o awarii",
+    "stop": "Zatrzymaj powiadomienia",
+    "badge": "Obserwowane",
+    "on": "Otrzymasz powiadomienie, gdy {{unit}} zawiedzie",
+    "off": "Brak dalszych powiadomień dla {{unit}}",
+    "failed": "Nie udało się zmienić powiadomienia."
+  },
+  "detail": {
+    "loadFailed": "Nie udało się odczytać tej jednostki.",
+    "editFile": "Edytuj jednostkę",
+    "description": "Opis",
+    "since": "Uruchomiona od",
+    "result": "Wynik",
+    "pid": "Główny PID",
+    "memory": "Pamięć",
+    "peak": "szczytowa",
+    "cpu": "Czas CPU",
+    "tasks": "Zadania",
+    "restarts": "Restarty",
+    "type": "Typ",
+    "user": "Użytkownik",
+    "file": "Plik jednostki",
+    "dropIns": "Drop-iny",
+    "triggeredBy": "Uruchomione przez",
+    "triggers": "Uruchamia",
+    "wantedBy": "Wymagane przez",
+    "requires": "Wymaga",
+    "after": "Po",
+    "statusText": "systemctl status",
+    "log": "Ostatnie logi"
+  },
+  "editor": {
+    "loadFailed": "Nie udało się odczytać pliku jednostki.",
+    "override": "Nadpisz",
+    "fullFile": "Pełny plik",
+    "overrideHint": "Nadpisanie to plik „drop-in”, który zmienia tylko linie, które tutaj wpiszesz. Aktualizacje pakietu nadal będą działać. Zostaw puste i zapisz, aby je usunąć.",
+    "overrideTemplate": "Linie tutaj dodają lub zastępują ustawienia samej jednostki",
+    "localHint": "Ten plik jednostki znajduje się w /etc/systemd/system, więc możesz go edytować.",
+    "vendorHint": "Ta jednostka pochodzi z pakietu ({{path}}). Zapisanie pełnego pliku tworzy kopię w /etc/systemd/system, która ma pierwszeństwo. Cofnięcie usuwa tę kopię.",
+    "notWritable": "Nie można zapisywać plików dla tego typu jednostki.",
+    "check": "Sprawdź",
+    "checking": "Sprawdzanie...",
+    "checkOk": "Sprawdzenie zakończone pomyślnie.",
+    "checkBad": "Sprawdzenie wykryło problemy.",
+    "checkFailed": "Nie udało się uruchomić sprawdzania.",
+    "save": "Sprawdź i zapisz",
+    "saved": "Zapisano {{unit}} i przeładowano systemd",
+    "saveFailed": "Nie zapisano. Sprawdzenie nie powiodło się lub nie udało się zapisać pliku.",
+    "combined": "Wszystko, co systemd odczytuje dla tej jednostki",
+    "delete": "Usuń jednostkę",
+    "deleteTitle": "Usunąć {{unit}}?",
+    "deleteDesc": "Zatrzymuje działanie, nie uruchamia się przy starcie systemu, a jego pliki oraz pliki rozszerzeń są usuwane.",
+    "deleted": "Usunięto {{unit}}",
+    "deleteFailed": "Nie udało się usunąć jednostki."
+  },
+  "create": {
+    "add": "Nowa usługa",
+    "title": "Nowa usługa",
+    "name": "Nazwa",
+    "nameHint": "Zapisane jako name.service w /etc/systemd/system.",
+    "description": "Opis",
+    "descriptionPlaceholder": "Co robi",
+    "command": "Polecenie",
+    "commandHint": "Pełna ścieżka do programu, a następnie jego argumenty.",
+    "user": "Uruchom jako użytkownik",
+    "group": "Grupa",
+    "folder": "Katalog roboczy",
+    "environment": "Środowisko",
+    "environmentHint": "Jedna para NAZWA=wartość na wiersz.",
+    "timer": "Uruchamiaj według harmonogramu",
+    "timerHint": "Utwórz timer, który uruchamia polecenie o określonych godzinach, zamiast utrzymywać je w ciągłym działaniu.",
+    "schedule": "Harmonogram",
+    "scheduleHint": "Wartość OnCalendar, np. daily, hourly lub Mon *-*-* 03:00:00.",
+    "type": "Typ",
+    "types": {
+      "simple": "Simple, działa ciągle",
+      "exec": "Exec, działa ciągle",
+      "forking": "Forking, uruchamia się w tle",
+      "oneshot": "One shot, uruchamia się i kończy działanie",
+      "notify": "Notify, informuje systemd o gotowości"
+    },
+    "restart": "Restart",
+    "restarts": {
+      "on-failure": "Po awarii",
+      "always": "Zawsze",
+      "on-abnormal": "Po awarii",
+      "no": "Nigdy"
+    },
+    "restartSec": "Czas oczekiwania przed restartem (sekundy)",
+    "after": "Uruchom po",
+    "afterHint": "Jednostki czasu oczekiwania, oddzielone spacjami.",
+    "enable": "Uruchom przy starcie",
+    "enableHint": "W przypadku harmonogramu włącza to timer.",
+    "start": "Uruchom teraz",
+    "save": "Utwórz",
+    "done": "Utworzono {{unit}}",
+    "failed": "Nie udało się utworzyć usługi."
+  },
+  "timers": {
+    "search": "Szukaj timerów",
+    "empty": "Brak timerów.",
+    "loadFailed": "Nie udało się wyświetlić listy timerów.",
+    "next": "Następnie {{when}} (za {{left}})",
+    "noNext": "Nic nie zaplanowano",
+    "last": "ostatnio {{when}} ({{ago}} temu)",
+    "neverRan": "nigdy nie uruchomiony",
+    "runNow": "Uruchom teraz",
+    "ran": "Uruchomiono {{unit}}",
+    "turnOn": "Włącz",
+    "turnOff": "Wyłącz"
+  },
+  "journal": {
+    "unit": "Jednostki",
+    "unitPlaceholder": "Wszystkie jednostki lub nginx.service",
+    "search": "Szukaj",
+    "searchPlaceholder": "Tekst do wyszukania",
+    "priority": "Priorytet",
+    "anyPriority": "Każdy priorytet",
+    "priorityUpTo": "{{name}} i gorsze",
+    "since": "Od",
+    "sinceOptions": {
+      "-15min": "Ostatnie 15 minut",
+      "-1h": "Ostatnia godzina",
+      "-6h": "Ostatnie 6 godzin",
+      "today": "Dzisiaj",
+      "-24h": "Ostatnie 24 godziny",
+      "-7d": "Ostatnie 7 dni",
+      "any": "Każdy czas"
+    },
+    "boot": "Uruchomienie",
+    "anyBoot": "Każde uruchomienie",
+    "thisBoot": "To uruchomienie",
+    "lines": "Wiersze",
+    "lineCount_one": "{{count}} wiersz",
+    "lineCount_few": "{{count}} wiersze",
+    "lineCount_many": "{{count}} wierszy",
+    "lineCount_other": "{{count}} wierszy",
+    "kernel": "Tylko jądro",
+    "follow": "Śledź",
+    "following": "Śledzenie",
+    "pause": "Wstrzymaj",
+    "resume": "Wznów",
+    "clear": "Wyczyść",
+    "download": "Pobierz",
+    "connecting": "Łączenie...",
+    "ended": "Transmisja zakończona",
+    "shown_one": "{{count}} wpis",
+    "shown_few": "{{count}} wpisy",
+    "shown_many": "{{count}} wpisów",
+    "shown_other": "{{count}} wpisów",
+    "usage": "Dziennik zajmuje {{size}}",
+    "vacuum": "Uwolnij miejsce",
+    "vacuumTitle": "Usunąć stare pliki dziennika?",
+    "vacuumDesc": "Wpisy dziennika starsze niż 4 tygodnie zostaną usunięte z hosta.",
+    "vacuumDone": "Dziennik teraz zajmuje {{size}}",
+    "vacuumFailed": "Nie udało się uwolnić miejsca.",
+    "empty": "Brak wpisów.",
+    "loadFailed": "Nie udało się odczytać dziennika."
+  },
+  "files": {
+    "filter": "Filtruj pliki",
+    "roots": "Z {{roots}}. Zmień foldery w ustawieniach hosta.",
+    "showRotated": "Pokaż stare kopie",
+    "empty": "Nie znaleziono plików dziennika.",
+    "loadFailed": "Nie udało się wyświetlić listy plików dziennika.",
+    "search": "Szukaj",
+    "searchPlaceholder": "Szukaj tekstu",
+    "download": "Pobierz",
+    "downloadFailed": "Nie udało się pobrać pliku.",
+    "readFailed": "Nie udało się odczytać pliku.",
+    "noLines": "Brak wierszy."
+  },
+  "logs": {
+    "empty": "Tutaj jeszcze nic nie ma."
+  },
+  "companion": {
+    "openTab": "Otwórz kartę Usługi",
+    "toggle": "Panel usług"
+  }
+}
