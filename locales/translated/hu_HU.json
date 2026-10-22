@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Nyisd meg a Szolgáltatások fület",
     "toggle": "Szolgáltatások panel"
+  },
+  "card": {
+    "title": "Figyelt szolgáltatások",
+    "empty": "Nincsenek figyelt szolgáltatások. Használd a szolgáltatás melletti harang ikont a figyeléshez.",
+    "unknown": "ismeretlen"
   }
 }

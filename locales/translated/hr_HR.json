@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Otvori karticu Usluge",
     "toggle": "Panel usluga"
+  },
+  "card": {
+    "title": "Praćene usluge",
+    "empty": "Nema praćenih usluga. Koristite zvono uz uslugu da biste je počeli pratiti.",
+    "unknown": "nepoznato"
   }
 }

@@ -314,5 +314,10 @@
   "companion": {
     "openTab": "Mở tab Dịch vụ",
     "toggle": "Bảng Dịch vụ"
+  },
+  "card": {
+    "title": "Dịch vụ đang theo dõi",
+    "empty": "Không có dịch vụ nào đang được theo dõi. Nhấn vào biểu tượng chuông bên cạnh một dịch vụ để theo dõi nó.",
+    "unknown": "không xác định"
   }
 }

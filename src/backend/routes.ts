@@ -815,6 +815,45 @@ export function registerRoutes(
 
   /**
    * @openapi
+   * /plugin-api/service-manager/watches:
+   *   get:
+   *     summary: Every watched unit
+   *     description: The units the signed in user watches on every host they can still reach with Services on, with the last state seen. Feeds the dashboard card.
+   *     tags:
+   *       - Services
+   *     responses:
+   *       200:
+   *         description: The watched units with their host.
+   */
+  router.get("/watches", async (_req: Request, res: Response) => {
+    try {
+      const user = actor();
+      const rows = await watches.listForUser(user);
+      const allowed = new Map<number, boolean>();
+      const out: Array<{ hostId: number; unit: string; state: string }> = [];
+      for (const row of rows) {
+        if (!allowed.has(row.hostId)) {
+          const access = await ctx.hosts.checkAccess(row.hostId, "connect");
+          const on =
+            access.hasAccess &&
+            (await readHostSettings(ctx, row.hostId)).enabled;
+          allowed.set(row.hostId, on);
+        }
+        if (!allowed.get(row.hostId)) continue;
+        out.push({
+          hostId: row.hostId,
+          unit: row.unit,
+          state: checker.stateOf(user, row.hostId, row.unit),
+        });
+      }
+      res.json(out);
+    } catch (error) {
+      fail(ctx, res, error);
+    }
+  });
+
+  /**
+   * @openapi
    * /plugin-api/service-manager/{hostId}/watches:
    *   get:
    *     summary: Watched units

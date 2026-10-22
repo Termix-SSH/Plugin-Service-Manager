@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Atvērt cilni Pakalpojumi",
     "toggle": "Pakalpojumu panelis"
+  },
+  "card": {
+    "title": "Pārraugāmās pakalpojumi",
+    "empty": "Nav pārraugāmu pakalpojumu. Lai sāktu pārraugīt pakalpojumu, noklikšķiniet uz zvaniņa tā blakus.",
+    "unknown": "nezināms"
   }
 }

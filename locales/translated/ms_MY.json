@@ -314,5 +314,10 @@
   "companion": {
     "openTab": "Buka tab Perkhidmatan",
     "toggle": "Panel Perkhidmatan"
+  },
+  "card": {
+    "title": "Perkhidmatan dipantau",
+    "empty": "Tiada perkhidmatan dipantau. Gunakan loceng di sebelah perkhidmatan untuk memandangnya.",
+    "unknown": "tidak diketahui"
   }
 }

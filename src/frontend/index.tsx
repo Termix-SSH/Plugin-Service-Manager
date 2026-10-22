@@ -6,6 +6,7 @@ import {
   useServicesCompanionDefaults,
 } from "./ServicesCompanion";
 import { ServicesTab } from "./ServicesTab";
+import { WatchesCard } from "./WatchesCard";
 
 const TAB_ID = "service-manager";
 
@@ -47,6 +48,15 @@ export function activate(app: TermixApp): void {
     order: 47,
     tabType: TAB_ID,
     when: (host) => canUse && !!host.enableSsh && servicesEnabled(host),
+  });
+
+  app.registerDashboardCard({
+    id: "service-watches",
+    titleKey: "card.title",
+    defaultPanel: "side",
+    defaultHeight: 220,
+    frame: "framed",
+    component: WatchesCard,
   });
 
   app.registerCompanion("service-manager", ServicesCompanion, {

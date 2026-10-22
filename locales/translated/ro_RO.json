@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Deschideți fila Servicii",
     "toggle": "Panoul de servicii"
+  },
+  "card": {
+    "title": "Servicii monitorizate",
+    "empty": "Niciun serviciu monitorizat. Folosește clopoțelul de lângă un serviciu pentru a-l monitoriza.",
+    "unknown": "necunoscut"
   }
 }

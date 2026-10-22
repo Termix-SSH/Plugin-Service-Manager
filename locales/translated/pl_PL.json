@@ -323,5 +323,10 @@
   "companion": {
     "openTab": "Otwórz kartę Usługi",
     "toggle": "Panel usług"
+  },
+  "card": {
+    "title": "Obserwowane usługi",
+    "empty": "Brak obserwowanych usług. Użyj ikony dzwonka obok usługi, aby ją obserwować.",
+    "unknown": "nieznana"
   }
 }

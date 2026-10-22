@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Added
+
+- Watched services dashboard card: every service you watch, on every host, with whether it is up
+
 ## 1.0.0
 
 ### Added

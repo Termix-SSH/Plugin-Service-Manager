@@ -190,6 +190,14 @@ export async function downloadLogFile(
   ).data;
 }
 
+/** Every unit the user watches, on every host. */
+export async function listAllWatches(): Promise<
+  Array<WatchView & { hostId: number }>
+> {
+  return (await api().get<Array<WatchView & { hostId: number }>>("/watches"))
+    .data;
+}
+
 export async function listWatches(host: number): Promise<WatchView[]> {
   return (await api().get<WatchView[]>(`/${host}/watches`)).data;
 }

@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Open die Diens-oortjie",
     "toggle": "Dienspaneel"
+  },
+  "card": {
+    "title": "Opgedienste dienste",
+    "empty": "Geen opgedienste dienste nie. Gebruik die klokjie langs ’n diens om dit op te dien.",
+    "unknown": "onbekend"
   }
 }

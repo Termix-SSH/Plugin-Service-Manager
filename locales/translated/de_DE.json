@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Den Tab „Dienste“ öffnen",
     "toggle": "Dienste-Panel"
+  },
+  "card": {
+    "title": "Beobachtete Dienste",
+    "empty": "Keine beobachteten Dienste. Verwenden Sie das Glockensymbol neben einem Dienst, um ihn zu beobachten.",
+    "unknown": "unbekannt"
   }
 }

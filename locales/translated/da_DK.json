@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Åbn fanen Tjenester",
     "toggle": "Tjenestepanel"
+  },
+  "card": {
+    "title": "Overvågede tjenester",
+    "empty": "Ingen overvågede tjenester. Brug klokken ved siden af en tjeneste for at overvåge den.",
+    "unknown": "ukendt"
   }
 }

@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Avaa Palvelut-välilehti",
     "toggle": "Palvelupaneeli"
+  },
+  "card": {
+    "title": "Seurattavat palvelut",
+    "empty": "Ei seurattavia palveluita. Voit seurata palvelua painamalla sen vieressä olevaa kelloa.",
+    "unknown": "tuntematon"
   }
 }

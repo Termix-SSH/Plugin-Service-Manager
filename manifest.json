@@ -1,7 +1,7 @@
 {
   "id": "service-manager",
   "name": "Services",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Manage services, timers and logs on your hosts over SSH.",
   "author": {
     "name": "Termix"
@@ -23,6 +23,7 @@
     "Browse, search, follow and download log files in /var/log",
     "Get an alert when a watched service fails, and when it is back",
     "A services panel beside any SSH terminal",
+    "A dashboard card with every watched service and whether it is up",
     "Basic OpenRC support for list, start, stop and boot"
   ],
   "env": [],
@@ -146,7 +147,14 @@
           "default": true
         }
       ]
-    }
+    },
+    "dashboardCards": [
+      {
+        "id": "service-watches",
+        "titleKey": "card.title",
+        "icon": "ServerCog"
+      }
+    ]
   },
   "locales": "locales",
   "platforms": ["linux", "win32", "darwin"]

@@ -183,6 +183,19 @@ describe("services routes", () => {
   });
 });
 
+describe("every watched unit", () => {
+  it("lists the user's watches on every host with their state", async () => {
+    const s = await start();
+    await s.request("POST", "/1/watches", { unit: "cron.service" });
+    await s.mock.runScheduled();
+    expect((await s.request("GET", "/watches")).body).toEqual([
+      { hostId: 1, unit: "cron.service", state: "active" },
+    ]);
+    s.mock.setActor("user-2");
+    expect((await s.request("GET", "/watches")).body).toEqual([]);
+  });
+});
+
 describe("watch alerts", () => {
   it("alerts once when a unit goes down and once when it is back", async () => {
     const s = await start();

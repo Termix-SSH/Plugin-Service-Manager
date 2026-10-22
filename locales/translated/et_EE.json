@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Ava Teenused-vaheleht",
     "toggle": "Teenuste paneel"
+  },
+  "card": {
+    "title": "Jälgitavad teenused",
+    "empty": "Ühtegi jälgitavat teenust pole. Lisa teenus jälgimisele, vajutades selle kõrval olevale kellikale.",
+    "unknown": "tundmatu"
   }
 }

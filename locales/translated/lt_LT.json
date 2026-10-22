@@ -323,5 +323,10 @@
   "companion": {
     "openTab": "Atidaryti skirtuką „Paslaugos“",
     "toggle": "Paslaugų skydelis"
+  },
+  "card": {
+    "title": "Stebimi paslaugos",
+    "empty": "Nėra stebimų paslaugų. Norėdami stebėti paslaugą, spustelėkite varpelį šalia jos.",
+    "unknown": "nežinoma"
   }
 }

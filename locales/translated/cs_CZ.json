@@ -323,5 +323,10 @@
   "companion": {
     "openTab": "Otevřít kartu Služby",
     "toggle": "Panel Služby"
+  },
+  "card": {
+    "title": "Sledované služby",
+    "empty": "Žádné sledované služby. Použijte zvoněk vedle služby pro sledování.",
+    "unknown": "neznámý"
   }
 }

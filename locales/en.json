@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Open the Services tab",
     "toggle": "Services panel"
+  },
+  "card": {
+    "title": "Watched services",
+    "empty": "No watched services. Use the bell next to a service to watch it.",
+    "unknown": "unknown"
   }
 }

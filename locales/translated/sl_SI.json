@@ -323,5 +323,10 @@
   "companion": {
     "openTab": "Odpri zavihek Storitve",
     "toggle": "Plošča Storitev"
+  },
+  "card": {
+    "title": "Spremljane storitve",
+    "empty": "Ni spremljanih storitev. Za spremljanje storitve uporabite ikono zvonca ob njej.",
+    "unknown": "neznano"
   }
 }

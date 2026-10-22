@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Abrir a separação Serviços",
     "toggle": "Painel de serviços"
+  },
+  "card": {
+    "title": "Serviços monitorizados",
+    "empty": "Nenhum serviço monitorizado. Utilize o ícone de sino junto a um serviço para o monitorizar.",
+    "unknown": "desconhecido"
   }
 }

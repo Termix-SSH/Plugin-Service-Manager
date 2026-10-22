@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Apri la scheda Servizi",
     "toggle": "Pannello Servizi"
+  },
+  "card": {
+    "title": "Servizi monitorati",
+    "empty": "Nessun servizio monitorato. Usa la campanella accanto a un servizio per monitorarlo.",
+    "unknown": "sconosciuto"
   }
 }

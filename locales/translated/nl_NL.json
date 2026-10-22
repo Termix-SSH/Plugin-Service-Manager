@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Open het tabblad Diensten",
     "toggle": "Dienstenpaneel"
+  },
+  "card": {
+    "title": "Gemonitorde diensten",
+    "empty": "Geen gemonitorde diensten. Gebruik het belletje naast een dienst om deze te volgen.",
+    "unknown": "onbekend"
   }
 }

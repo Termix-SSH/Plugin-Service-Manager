@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Ouvrir l'onglet Services",
     "toggle": "Panneau Services"
+  },
+  "card": {
+    "title": "Services surveillés",
+    "empty": "Aucun service surveillé. Utilisez la cloche à côté d’un service pour le surveiller.",
+    "unknown": "inconnu"
   }
 }

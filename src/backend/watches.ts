@@ -22,6 +22,7 @@ export interface WatchRow {
 
 export interface WatchStore {
   list: (userId: string, hostId: number) => Promise<string[]>;
+  listForUser: (userId: string) => Promise<WatchRow[]>;
   listAll: () => Promise<WatchRow[]>;
   add: (userId: string, hostId: number, unit: string) => Promise<void>;
   remove: (userId: string, hostId: number, unit: string) => Promise<void>;
@@ -38,6 +39,17 @@ export function createWatchStore(ctx: PluginContext, table: Table): WatchStore {
         .from(table)
         .where(and(eq(table.userId, userId), eq(table.hostId, hostId)));
       return (rows as WatchRow[]).map((row) => row.unit).sort();
+    },
+    async listForUser(userId) {
+      const rows = (await (
+        await db()
+      )
+        .select()
+        .from(table)
+        .where(eq(table.userId, userId))) as WatchRow[];
+      return rows.sort(
+        (a, b) => a.hostId - b.hostId || a.unit.localeCompare(b.unit),
+      );
     },
     async listAll() {
       return (await (await db()).select().from(table)) as WatchRow[];

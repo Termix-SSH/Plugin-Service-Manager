@@ -314,5 +314,10 @@
   "companion": {
     "openTab": "Buka tab Layanan",
     "toggle": "Panel Layanan"
+  },
+  "card": {
+    "title": "Layanan yang dipantau",
+    "empty": "Tidak ada layanan yang dipantau. Gunakan ikon lonceng di sebelah layanan untuk memantaunya.",
+    "unknown": "tidak diketahui"
   }
 }

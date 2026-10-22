@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Obre la pestanya Serveis",
     "toggle": "Panell de serveis"
+  },
+  "card": {
+    "title": "Serveis vigilats",
+    "empty": "No hi ha serveis vigilats. Utilitza la campana al costat d'un servei per vigilar-lo.",
+    "unknown": "desconegut"
   }
 }

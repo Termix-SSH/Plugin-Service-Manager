@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Hizmetler sekmesini aç",
     "toggle": "Hizmetler paneli"
+  },
+  "card": {
+    "title": "İzlenen hizmetler",
+    "empty": "İzlenen hizmet yok. Bir hizmeti izlemek için yanındaki zil simgesini kullanın.",
+    "unknown": "bilinmiyor"
   }
 }

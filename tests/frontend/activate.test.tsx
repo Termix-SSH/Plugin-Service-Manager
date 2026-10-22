@@ -198,3 +198,24 @@ describe(`${manifest.id} frontend`, () => {
     expect(await screen.findByText(locales.tab.disabled)).toBeTruthy();
   });
 });
+
+describe("watched services card", () => {
+  it("lists watched units with their host and state", async () => {
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      permissions: ["service-manager.use"],
+      hosts: [{ id: "1", name: "box", ip: "10.0.0.1", port: 22 }],
+      api: {
+        get: vi.fn(async () => ({
+          data: [{ hostId: 1, unit: "nginx.service", state: "failed" }],
+        })),
+      } as never,
+    });
+    expect(rendered.registered.dashboardCards()).toEqual(["service-watches"]);
+    rendered.renderDashboardCard("service-watches");
+    expect(await screen.findByText("nginx.service")).toBeTruthy();
+    expect(screen.getByText("box")).toBeTruthy();
+    expect(screen.getByText("failed")).toBeTruthy();
+  });
+});

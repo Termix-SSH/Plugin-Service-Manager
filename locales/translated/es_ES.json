@@ -320,5 +320,10 @@
   "companion": {
     "openTab": "Abrir la pestaña Servicios",
     "toggle": "Panel de servicios"
+  },
+  "card": {
+    "title": "Servicios vigilados",
+    "empty": "No hay servicios vigilados. Usa el icono de campana junto a un servicio para vigilarlo.",
+    "unknown": "desconocido"
   }
 }

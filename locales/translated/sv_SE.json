@@ -317,5 +317,10 @@
   "companion": {
     "openTab": "Öppna fliken Tjänster",
     "toggle": "Tjänsterpanel"
+  },
+  "card": {
+    "title": "Övervakade tjänster",
+    "empty": "Inga övervakade tjänster. Använd klockan bredvid en tjänst för att övervaka den.",
+    "unknown": "okänd"
   }
 }
