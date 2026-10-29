@@ -40,7 +40,14 @@ import {
   openRcStatusScript,
   parseOpenRcList,
 } from "./openrc.js";
-import { parseKeys, type Remote } from "./remote.js";
+import { type Remote } from "./remote.js";
+import {
+  DETECT_SCRIPT,
+  parseDetect,
+  type Detected,
+} from "@termix-ssh/plugin-sdk/host-scripts";
+
+export { DETECT_SCRIPT, parseDetect, type Detected };
 import {
   TIMERS_SCRIPT,
   actionScript,
@@ -63,47 +70,6 @@ import {
   timerText,
   verifyScript,
 } from "./unit-files.js";
-
-export const DETECT_SCRIPT = `
-INIT=none
-if command -v systemctl >/dev/null 2>&1 && [ -d /run/systemd/system ]; then INIT=systemd
-elif command -v rc-service >/dev/null 2>&1; then INIT=openrc; fi
-echo "init=$INIT"
-if [ "$INIT" = systemd ]; then echo "version=$(systemctl --version 2>/dev/null | head -n1 | awk '{print $2}')"; fi
-if [ "$INIT" = openrc ]; then echo "version=$(openrc --version 2>/dev/null | head -n1 | awk '{print $NF}')"; fi
-echo "os=$( . /etc/os-release 2>/dev/null; echo "$PRETTY_NAME")"
-echo "hostname=$(hostname 2>/dev/null || cat /etc/hostname 2>/dev/null)"
-echo "uid=$(id -u)"
-if command -v journalctl >/dev/null 2>&1; then echo "journal=1"; fi
-if [ "$INIT" = systemd ]; then echo "failed=$(systemctl list-units --state=failed --plain --no-legend --no-pager 2>/dev/null | wc -l)"; fi
-if [ "$INIT" = openrc ]; then echo "failed=$(rc-status --crashed 2>/dev/null | wc -l)"; fi
-exit 0
-`;
-
-export interface Detected {
-  init: InitSystem;
-  version: string;
-  os: string;
-  hostname: string;
-  root: boolean;
-  journal: boolean;
-  failed: number;
-}
-
-export function parseDetect(output: string): Detected {
-  const keys = parseKeys(output);
-  const init =
-    keys.init === "systemd" || keys.init === "openrc" ? keys.init : "none";
-  return {
-    init,
-    version: keys.version ?? "",
-    os: keys.os ?? "",
-    hostname: keys.hostname ?? "",
-    root: keys.uid === "0",
-    journal: keys.journal === "1",
-    failed: Number(keys.failed) || 0,
-  };
-}
 
 /** Everything the routes do on a host, for one host's settings. */
 export function createManager(remote: Remote) {

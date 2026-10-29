@@ -1,10 +1,2 @@
-export class ServicesError extends Error {
-  constructor(
-    message: string,
-    readonly status = 400,
-    readonly extra: Record<string, unknown> = {},
-  ) {
-    super(message);
-    this.name = "ServicesError";
-  }
-}
+// The SDK's script error has the same status and extra fields.
+export { HostScriptError as ServicesError } from "@termix-ssh/plugin-sdk/host-scripts";

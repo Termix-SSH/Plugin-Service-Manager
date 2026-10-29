@@ -1,69 +1,16 @@
 import { ServicesError } from "./errors.js";
 
-/** Wraps a value in single quotes for bash. */
-export function q(value: string): string {
-  return `'${value.replace(/'/g, `'\\''`)}'`;
-}
-
-export const UNIT_TYPES = [
-  "service",
-  "socket",
-  "timer",
-  "target",
-  "mount",
-  "automount",
-  "path",
-  "swap",
-  "slice",
-  "scope",
-  "device",
-] as const;
-export type UnitType = (typeof UNIT_TYPES)[number];
-
-// Backslash is allowed for escaped names like dev-disk-by\x2duuid.
-const UNIT_RE = new RegExp(
-  `^[A-Za-z0-9_][A-Za-z0-9:_.@\\\\-]{0,250}\\.(${UNIT_TYPES.join("|")})$`,
-);
-const OPENRC_RE = /^[A-Za-z0-9_][A-Za-z0-9_.@-]{0,127}$/;
-
-export function isUnit(name: unknown): name is string {
-  return typeof name === "string" && UNIT_RE.test(name);
-}
-
-export function unitType(name: string): UnitType {
-  return name.slice(name.lastIndexOf(".") + 1) as UnitType;
-}
-
-/** Units we may write a file for. Templates and device style names are out. */
-export function isWritableUnitName(name: string): boolean {
-  return (
-    isUnit(name) &&
-    !name.includes("\\") &&
-    ["service", "socket", "timer", "target", "path", "mount"].includes(
-      unitType(name),
-    )
-  );
-}
-
-export function isOpenRcName(name: unknown): name is string {
-  return typeof name === "string" && OPENRC_RE.test(name);
-}
-
-export function requireUnit(name: unknown): string {
-  if (!isUnit(name)) throw new ServicesError("That is not a valid unit name");
-  return name;
-}
-
-/** A unit name or, on OpenRC, a service name. */
-export function requireService(name: unknown, init: string): string {
-  if (init === "openrc") {
-    if (!isOpenRcName(name)) {
-      throw new ServicesError("That is not a valid service name");
-    }
-    return name;
-  }
-  return requireUnit(name);
-}
+export {
+  UNIT_TYPES,
+  isOpenRcName,
+  isUnit,
+  isWritableUnitName,
+  requireService,
+  requireUnit,
+  shellQuote as q,
+  unitType,
+  type UnitType,
+} from "@termix-ssh/plugin-sdk/host-scripts";
 
 /** The log folders a host allows, from its logPaths setting. */
 export function logRoots(setting: unknown): string[] {

@@ -1,4 +1,22 @@
-export type InitSystem = "systemd" | "openrc" | "none";
+import type {
+  InitSystem,
+  JournalEntry,
+  UnitAction,
+} from "@termix-ssh/plugin-sdk/host-scripts";
+
+export {
+  OPENRC_ACTIONS,
+  UNIT_ACTIONS,
+} from "@termix-ssh/plugin-sdk/host-scripts";
+export type {
+  BootView,
+  InitSystem,
+  JournalEntry,
+  TimerView,
+  UnitAction,
+  UnitDetail,
+  UnitSummary,
+} from "@termix-ssh/plugin-sdk/host-scripts";
 
 export interface ServicesStatus {
   init: InitSystem;
@@ -13,24 +31,6 @@ export interface ServicesStatus {
   canEdit: boolean;
   readOnly: boolean;
   logRoots: string[];
-}
-
-export interface UnitSummary {
-  name: string;
-  type: string;
-  load: string;
-  active: string;
-  sub: string;
-  description: string;
-  /** enabled, disabled, static, masked and so on. Empty when unknown. */
-  fileState: string;
-  preset: string;
-}
-
-export interface UnitDetail {
-  name: string;
-  props: Record<string, string>;
-  status: string;
 }
 
 export interface UnitFileView {
@@ -55,38 +55,9 @@ export interface VerifyResult {
   output: string;
 }
 
-export interface TimerView {
-  name: string;
-  description: string;
-  active: string;
-  fileState: string;
-  /** Unix ms, or null when not set. */
-  next: number | null;
-  last: number | null;
-  activates: string;
-  schedule: string[];
-}
-
-export interface JournalEntry {
-  /** Unix ms. */
-  time: number;
-  priority: number;
-  unit: string;
-  ident: string;
-  pid: string;
-  message: string;
-}
-
 export interface JournalResult {
   entries: JournalEntry[];
   truncated: boolean;
-}
-
-export interface BootView {
-  offset: number;
-  id: string;
-  first: string;
-  last: string;
 }
 
 export interface LogFileView {
@@ -126,31 +97,6 @@ export interface WatchView {
   /** The last state the checker saw, or empty before the first check. */
   state: string;
 }
-
-export const UNIT_ACTIONS = [
-  "start",
-  "stop",
-  "restart",
-  "reload",
-  "enable",
-  "disable",
-  "enable-now",
-  "disable-now",
-  "mask",
-  "unmask",
-  "reset-failed",
-  "revert",
-] as const;
-export type UnitAction = (typeof UNIT_ACTIONS)[number];
-
-/** Actions OpenRC can do. */
-export const OPENRC_ACTIONS: readonly UnitAction[] = [
-  "start",
-  "stop",
-  "restart",
-  "enable",
-  "disable",
-];
 
 /** Follow socket messages from the browser. */
 export interface FollowConnect {
