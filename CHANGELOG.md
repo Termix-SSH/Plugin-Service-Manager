@@ -5,6 +5,8 @@
 ### Added
 
 - Services, Timers and Logs cards in Host Metrics, which replace the cards it used to ship
+- Start, stop, restart and the other service actions work from Automations, Fleets, the CLI, the phone app and the command palette through Termix actions
+- Failed services show as a status tile on the dashboard and host page
 
 ### Fixed
 

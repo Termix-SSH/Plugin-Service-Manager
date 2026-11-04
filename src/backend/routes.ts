@@ -281,7 +281,15 @@ export function registerRoutes(
         }
         const init = await manager.initOf(hostId, s);
         const unit = requireService(param(req, "unit"), init);
-        return manager.action(hostId, s, unit, action as UnitAction);
+        // Through the same gate as every surface, so it lands in history.
+        const outcome = await ctx.operations.run(
+          `service-manager.${action as UnitAction}`,
+          { hostId, resourceKey: unit, confirmed: true },
+        );
+        if (outcome.status !== "success") {
+          throw new ServicesError(outcome.error ?? outcome.status);
+        }
+        return outcome.data;
       },
       (req) => `${param(req, "unit")} ${param(req, "action")}`,
     ),
