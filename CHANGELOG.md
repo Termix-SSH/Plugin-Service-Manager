@@ -5,6 +5,7 @@
 ### Fixed
 
 - Notes at the top of the tab no longer squeeze their text to one word per line
+- The services list scrolls with the whole tab, so a note above it no longer shrinks the list on short windows
 
 ## 1.1.1
 

@@ -159,7 +159,7 @@ export function UnitsView({
   );
 
   return (
-    <div className="flex min-h-0 flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-2">
         <PanelSearch
           value={search}

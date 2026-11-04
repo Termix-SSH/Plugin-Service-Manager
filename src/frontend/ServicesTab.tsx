@@ -208,7 +208,9 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
         scroll
         className="gap-2 p-2.5"
       >
-        <div className="flex min-h-0 flex-col gap-2">
+        <div
+          className={`flex flex-col gap-2 ${current === "units" ? "shrink-0" : "min-h-0"}`}
+        >
           {status.canEdit && !status.root && (
             <Alert className="rounded-none">
               <AlertDescription className="text-xs">
