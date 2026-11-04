@@ -1,7 +1,7 @@
 {
   "id": "service-manager",
   "name": "Services",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Manage services, timers and logs on your hosts over SSH.",
   "author": {
     "name": "Termix"

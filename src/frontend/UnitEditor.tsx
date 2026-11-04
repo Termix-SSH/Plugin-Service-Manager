@@ -3,6 +3,7 @@ import { ArrowLeft, FileCode } from "lucide-react";
 import { useToast, useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import {
   Alert,
+  AlertDescription,
   Button,
   FormFooter,
   PanelShell,
@@ -196,8 +197,10 @@ export function UnitEditor({
                   : t("editor.vendorHint", { path: view.fragmentPath })}
             </p>
             {!view.writable && (
-              <Alert className="rounded-none text-xs">
-                {t("editor.notWritable")}
+              <Alert className="rounded-none">
+                <AlertDescription className="text-xs">
+                  {t("editor.notWritable")}
+                </AlertDescription>
               </Alert>
             )}
             <TextAreaField

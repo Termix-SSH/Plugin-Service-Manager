@@ -4,6 +4,7 @@ import { useTranslation, type TabProps } from "@termix-ssh/plugin-sdk/frontend";
 import {
   AddButton,
   Alert,
+  AlertDescription,
   Button,
   PanelShell,
   Segmented,
@@ -209,7 +210,11 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
       >
         <div className="flex min-h-0 flex-col gap-2">
           {status.canEdit && !status.root && (
-            <Alert className="rounded-none text-xs">{t("tab.sudo")}</Alert>
+            <Alert className="rounded-none">
+              <AlertDescription className="text-xs">
+                {t("tab.sudo")}
+              </AlertDescription>
+            </Alert>
           )}
           {status.init === "none" && current === "units" ? (
             <p className="p-2 text-sm text-muted-foreground">
