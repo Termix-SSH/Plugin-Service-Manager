@@ -1,6 +1,9 @@
+import type { ComponentType } from "react";
 import { ServerCog } from "lucide-react";
 import type { TermixApp } from "@termix-ssh/plugin-sdk/frontend";
 import { initApi } from "./api";
+import { servicesEnabled, servicesPanelEnabled } from "./enabled";
+import { LogsCard, ServicesCard, TimersCard } from "./ManagerCards";
 import {
   ServicesCompanion,
   useServicesCompanionDefaults,
@@ -8,22 +11,16 @@ import {
 import { ServicesTab } from "./ServicesTab";
 import { WatchesCard } from "./WatchesCard";
 
+export { servicesEnabled, servicesPanelEnabled };
+
 const TAB_ID = "service-manager";
 
-function settingsOf(host: object | null | undefined) {
-  const all = (host as { pluginSettings?: unknown } | null | undefined)
-    ?.pluginSettings as
-    Record<string, Record<string, unknown> | undefined> | undefined;
-  return all?.[TAB_ID];
-}
-
-export function servicesEnabled(host: object | null | undefined): boolean {
-  return settingsOf(host)?.enableServices === true;
-}
-
-export function servicesPanelEnabled(host: object | null | undefined): boolean {
-  return servicesEnabled(host) && settingsOf(host)?.showPanel !== false;
-}
+// Fills these cards in Host Metrics, when that plugin runs.
+const METRICS_CARDS: Array<[string, string, unknown]> = [
+  ["service_manager", "manager.services", ServicesCard],
+  ["log_viewer", "manager.logs", LogsCard],
+  ["systemd_timers", "manager.timers", TimersCard],
+];
 
 export function activate(app: TermixApp): void {
   initApi(app.api);
@@ -91,4 +88,13 @@ export function activate(app: TermixApp): void {
       );
     },
   });
+
+  for (const [actionId, titleKey, component] of METRICS_CARDS) {
+    app.registerSlotContribution("host-metrics.managers", {
+      actionId,
+      titleKey,
+      kind: "component",
+      component: component as ComponentType<Record<string, unknown>>,
+    });
+  }
 }

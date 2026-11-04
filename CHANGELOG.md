@@ -2,6 +2,10 @@
 
 ## 1.1.2
 
+### Added
+
+- Services, Timers and Logs cards in Host Metrics, which replace the cards it used to ship
+
 ### Fixed
 
 - Notes at the top of the tab no longer squeeze their text to one word per line

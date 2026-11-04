@@ -34,7 +34,11 @@ export function useServicesCompanionDefaults(): CompanionDefaults {
 }
 
 /** A compact services list beside a terminal, with the picked unit's log. */
-export function ServicesCompanion({ host, isVisible }: CompanionProps) {
+export function ServicesCompanion({
+  host,
+  isVisible,
+  showRefresh = true,
+}: Pick<CompanionProps, "host" | "isVisible"> & { showRefresh?: boolean }) {
   const { t } = useTranslation();
   const toast = useToast();
   const tabs = useTabs();
@@ -101,15 +105,17 @@ export function ServicesCompanion({ host, isVisible }: CompanionProps) {
           placeholder={t("units.search")}
           className="flex-1"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => void load()}
-          title={t("tab.refresh")}
-          className="text-accent-brand"
-        >
-          <RefreshCw className="size-4" />
-        </Button>
+        {showRefresh && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => void load()}
+            title={t("tab.refresh")}
+            className="text-accent-brand"
+          >
+            <RefreshCw className="size-4" />
+          </Button>
+        )}
         <Button
           variant="ghost"
           size="icon"

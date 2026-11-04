@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Nothing here yet."
   },
+  "manager": {
+    "services": "Services",
+    "timers": "Timers",
+    "logs": "Logs",
+    "disabled": "Turn on Services in this host's settings to use this card.",
+    "needsSystemd": "Timers need systemd on this host."
+  },
   "companion": {
     "openTab": "Open the Services tab",
     "toggle": "Services panel"

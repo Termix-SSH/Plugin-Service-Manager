@@ -24,6 +24,7 @@
     "Get an alert when a watched service fails, and when it is back",
     "A services panel beside any SSH terminal",
     "A dashboard card with every watched service and whether it is up",
+    "Services, Timers and Logs cards in Host Metrics",
     "Basic OpenRC support for list, start, stop and boot"
   ],
   "env": [],
