@@ -268,9 +268,8 @@ export function UnitDetail({
         </>
       }
       scroll
-      className="gap-2 p-2.5"
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 p-3">
         {failed && <p className="text-sm text-destructive">{failed}</p>}
         {status.canEdit && (
           <div className="flex flex-wrap gap-1.5">

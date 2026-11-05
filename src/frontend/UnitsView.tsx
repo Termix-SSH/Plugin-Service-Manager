@@ -159,8 +159,8 @@ export function UnitsView({
   );
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-col">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border px-3 py-2">
         <PanelSearch
           value={search}
           onChange={setSearch}
@@ -202,7 +202,7 @@ export function UnitsView({
       ) : !units ? (
         <p className="p-2 text-xs text-muted-foreground">{t("tab.loading")}</p>
       ) : visible.length === 0 ? (
-        <p className="px-1 py-6 text-center text-xs text-muted-foreground/60">
+        <p className="px-3 py-6 text-center text-xs text-muted-foreground/60">
           {t("units.empty")}
         </p>
       ) : (

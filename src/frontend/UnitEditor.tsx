@@ -183,9 +183,8 @@ export function UnitEditor({
         ) : undefined
       }
       scroll
-      className="gap-2 p-2.5"
     >
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 pb-6">
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 p-3 pb-6">
         {failed && <p className="text-sm text-destructive">{failed}</p>}
         {view && (
           <>
@@ -197,7 +196,7 @@ export function UnitEditor({
                   : t("editor.vendorHint", { path: view.fragmentPath })}
             </p>
             {!view.writable && (
-              <Alert className="rounded-none">
+              <Alert>
                 <AlertDescription className="text-xs">
                   {t("editor.notWritable")}
                 </AlertDescription>

@@ -97,8 +97,8 @@ function FileViewer({
     : (text ?? []);
 
   return (
-    <div className="flex min-h-0 flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex min-h-0 flex-col">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border px-3 py-2">
         <Button
           variant="ghost"
           size="icon"
@@ -244,8 +244,8 @@ export function LogFilesView({
   );
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-col">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border px-3 py-2">
         <PanelSearch
           value={search}
           onChange={setSearch}
@@ -264,7 +264,7 @@ export function LogFilesView({
         {t("files.roots", { roots: roots.join(", ") })}
       </p>
       {visible.length === 0 ? (
-        <p className="px-1 py-6 text-center text-xs text-muted-foreground/60">
+        <p className="px-3 py-6 text-center text-xs text-muted-foreground/60">
           {t("files.empty")}
         </p>
       ) : (

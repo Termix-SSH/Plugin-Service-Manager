@@ -8,6 +8,10 @@
 - Start, stop, restart and the other service actions work from Automations, Fleets, the CLI, the phone app and the command palette through Termix actions
 - Failed services show as a status tile on the dashboard and host page
 
+### Changed
+
+- Pages use the Termix tile look, with lines between sections instead of separate boxes
+
 ### Fixed
 
 - Notes at the top of the tab no longer squeeze their text to one word per line

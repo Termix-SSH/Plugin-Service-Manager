@@ -106,9 +106,8 @@ export function NewServiceForm({
         />
       }
       scroll
-      className="gap-2 p-2.5"
     >
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 pb-6">
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 p-3 pb-6">
         <FieldPair>
           <TextField
             label={t("create.name")}
