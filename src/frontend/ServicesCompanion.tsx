@@ -128,7 +128,7 @@ export function ServicesCompanion({
       {failed ? (
         <p className="p-2 text-xs text-destructive">{failed}</p>
       ) : !units ? (
-        <p className="p-2 text-xs text-muted-foreground">{t("tab.loading")}</p>
+        <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
       ) : (
         <PanelList className={picked ? "max-h-[45%]" : ""}>
           {visible.map((unit, index) => {

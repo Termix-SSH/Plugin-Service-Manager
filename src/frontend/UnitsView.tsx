@@ -167,6 +167,17 @@ export function UnitsView({
           placeholder={t("units.search")}
           className="min-w-48 flex-1"
         />
+        <Segmented<Filter>
+          value={filter}
+          onChange={setFilter}
+          options={(
+            ["all", "running", "failed", "stopped", "enabled"] as Filter[]
+          ).map((value) => ({
+            value,
+            label: t(`units.filters.${value}`),
+            count: units ? counts[value] : undefined,
+          }))}
+        />
         {systemd && (
           <Select value={type} onValueChange={(v) => setType(v as UnitType)}>
             <SelectTrigger
@@ -186,21 +197,10 @@ export function UnitsView({
           </Select>
         )}
       </div>
-      <Segmented<Filter>
-        value={filter}
-        onChange={setFilter}
-        options={(
-          ["all", "running", "failed", "stopped", "enabled"] as Filter[]
-        ).map((value) => ({
-          value,
-          label: t(`units.filters.${value}`),
-          count: units ? counts[value] : undefined,
-        }))}
-      />
       {failed ? (
-        <p className="p-2 text-sm text-destructive">{failed}</p>
+        <p className="px-3 py-2 text-xs text-destructive">{failed}</p>
       ) : !units ? (
-        <p className="p-2 text-xs text-muted-foreground">{t("tab.loading")}</p>
+        <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
       ) : visible.length === 0 ? (
         <p className="px-3 py-6 text-center text-xs text-muted-foreground/60">
           {t("units.empty")}

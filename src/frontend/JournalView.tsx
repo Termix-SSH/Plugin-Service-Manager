@@ -179,7 +179,7 @@ export function JournalView({
   };
 
   return (
-    <div className="flex min-h-0 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <form
         className="flex flex-wrap items-center gap-2 border-b border-border px-3 py-2"
         onSubmit={(e) => {
@@ -255,7 +255,6 @@ export function JournalView({
         />
         <Button
           type="button"
-          size="sm"
           variant={kernel ? "default" : "outline"}
           onClick={() => setKernel((v) => !v)}
         >
@@ -263,7 +262,7 @@ export function JournalView({
         </Button>
         <button type="submit" hidden />
       </form>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2">
         <Button
           size="sm"
           variant={follow ? "default" : "outline"}
@@ -329,7 +328,7 @@ export function JournalView({
         )}
       </div>
       {(failed || (follow && live.error)) && (
-        <p className="text-sm text-destructive">
+        <p className="shrink-0 border-b border-border px-3 py-2 text-xs text-destructive">
           {follow ? live.error : failed}
         </p>
       )}
@@ -338,7 +337,7 @@ export function JournalView({
         empty={
           entries === null && !follow ? t("tab.loading") : t("journal.empty")
         }
-        className="h-[calc(100vh-260px)] min-h-64"
+        className="min-h-0 flex-1"
       />
     </div>
   );

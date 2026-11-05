@@ -76,7 +76,7 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
       <PanelFrame>
         <PanelShell icon={icon} title={title}>
           {error ? (
-            <p className="p-2 text-sm text-destructive">{error}</p>
+            <p className="px-3 py-2 text-xs text-destructive">{error}</p>
           ) : (
             <p className="p-2 text-xs text-muted-foreground">
               {t("tab.loading")}
@@ -199,10 +199,10 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
             onTabChange={(id) => setView(id as View)}
           />
         }
-        scroll
+        scroll={current !== "journal" && current !== "files"}
       >
         <div
-          className={`flex flex-col gap-2 ${current === "units" ? "shrink-0" : "min-h-0"}`}
+          className={`flex flex-col ${current === "journal" || current === "files" ? "min-h-0 flex-1" : "shrink-0"}`}
         >
           {status.canEdit && !status.root && (
             <Alert className="border-x-0 border-t-0">
@@ -212,7 +212,7 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
             </Alert>
           )}
           {status.init === "none" && current === "units" ? (
-            <p className="p-2 text-sm text-muted-foreground">
+            <p className="p-3 text-xs text-muted-foreground">
               {t("tab.noInitHint")}
             </p>
           ) : current === "units" ? (

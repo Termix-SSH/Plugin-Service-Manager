@@ -56,10 +56,11 @@ export function TimersView({
     }
   };
 
-  if (failed) return <p className="p-2 text-sm text-destructive">{failed}</p>;
+  if (failed)
+    return <p className="px-3 py-2 text-xs text-destructive">{failed}</p>;
   if (!timers) {
     return (
-      <p className="p-2 text-xs text-muted-foreground">{t("tab.loading")}</p>
+      <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
     );
   }
 
