@@ -10,6 +10,7 @@ import {
 } from "./ServicesCompanion";
 import { ServicesTab } from "./ServicesTab";
 import { WatchesCard } from "./WatchesCard";
+import { servicesWidget } from "./ServicesWidget";
 
 export { servicesEnabled, servicesPanelEnabled };
 
@@ -97,4 +98,5 @@ export function activate(app: TermixApp): void {
       component: component as ComponentType<Record<string, unknown>>,
     });
   }
+  app.registerExtension("homepage.widgets", servicesWidget);
 }
