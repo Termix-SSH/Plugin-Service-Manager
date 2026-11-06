@@ -14,6 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
   useConfirm,
+  LoadingState,
+  ToolbarBand,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { ServicesStatus, UnitAction, UnitSummary } from "../shared/types";
 import {
@@ -160,7 +162,7 @@ export function UnitsView({
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-wrap items-center gap-2 border-b border-border px-3 py-2">
+      <ToolbarBand>
         <PanelSearch
           value={search}
           onChange={setSearch}
@@ -196,11 +198,11 @@ export function UnitsView({
             </SelectContent>
           </Select>
         )}
-      </div>
+      </ToolbarBand>
       {failed ? (
         <p className="px-3 py-2 text-xs text-destructive">{failed}</p>
       ) : !units ? (
-        <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
+        <LoadingState label={t("tab.loading")} />
       ) : visible.length === 0 ? (
         <p className="px-3 py-6 text-center text-xs text-muted-foreground/60">
           {t("units.empty")}

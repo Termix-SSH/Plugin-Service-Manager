@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
   useConfirm,
+  ToolbarBand,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { BootView, JournalEntry } from "../shared/types";
 import {
@@ -262,7 +263,7 @@ export function JournalView({
         </Button>
         <button type="submit" hidden />
       </form>
-      <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2">
+      <ToolbarBand>
         <Button
           size="sm"
           variant={follow ? "default" : "outline"}
@@ -326,7 +327,7 @@ export function JournalView({
             {t("journal.vacuum")}
           </Button>
         )}
-      </div>
+      </ToolbarBand>
       {(failed || (follow && live.error)) && (
         <p className="shrink-0 border-b border-border px-3 py-2 text-xs text-destructive">
           {follow ? live.error : failed}

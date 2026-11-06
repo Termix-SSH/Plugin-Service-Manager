@@ -15,6 +15,7 @@ import {
   ListRowAction,
   PanelList,
   PanelSearch,
+  LoadingState,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { ServicesStatus, UnitAction, UnitSummary } from "../shared/types";
 import { errorMessage, getStatus, listUnits, unitAction } from "./api";
@@ -128,7 +129,7 @@ export function ServicesCompanion({
       {failed ? (
         <p className="p-2 text-xs text-destructive">{failed}</p>
       ) : !units ? (
-        <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
+        <LoadingState compact label={t("tab.loading")} />
       ) : (
         <PanelList className={picked ? "max-h-[45%]" : ""}>
           {visible.map((unit, index) => {

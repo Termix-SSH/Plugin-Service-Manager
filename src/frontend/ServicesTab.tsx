@@ -10,6 +10,7 @@ import {
   EmptyState,
   PanelFrame,
   TabStrip,
+  LoadingState,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { ServicesStatus } from "../shared/types";
 import { errorCode, errorMessage, getStatus } from "./api";
@@ -78,9 +79,7 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
           {error ? (
             <p className="px-3 py-2 text-xs text-destructive">{error}</p>
           ) : (
-            <p className="p-2 text-xs text-muted-foreground">
-              {t("tab.loading")}
-            </p>
+            <LoadingState label={t("tab.loading")} />
           )}
         </PanelShell>
       </PanelFrame>

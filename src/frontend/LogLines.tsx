@@ -11,7 +11,7 @@ export function LogLines({
   entries,
   lines,
   empty,
-  className = "max-h-[60vh]",
+  className = "min-h-0 flex-1",
   showUnit = true,
 }: {
   entries?: JournalEntry[];

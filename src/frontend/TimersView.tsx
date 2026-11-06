@@ -7,6 +7,8 @@ import {
   ListRowAction,
   PanelList,
   PanelSearch,
+  LoadingState,
+  TOOLBAR_FIT,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { TimerView } from "../shared/types";
 import { errorMessage, listTimers, unitAction } from "./api";
@@ -59,9 +61,7 @@ export function TimersView({
   if (failed)
     return <p className="px-3 py-2 text-xs text-destructive">{failed}</p>;
   if (!timers) {
-    return (
-      <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
-    );
+    return <LoadingState label={t("tab.loading")} />;
   }
 
   const now = Date.now();
@@ -75,7 +75,7 @@ export function TimersView({
 
   return (
     <div className="flex flex-col">
-      <div className="border-b border-border px-3 py-2">
+      <div className={`border-b border-border px-3 py-2 ${TOOLBAR_FIT}`}>
         <PanelSearch
           value={search}
           onChange={setSearch}

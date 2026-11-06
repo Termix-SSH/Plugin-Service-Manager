@@ -19,6 +19,8 @@ import {
   PanelList,
   PanelSearch,
   Segmented,
+  LoadingState,
+  ToolbarBand,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { LogFileView } from "../shared/types";
 import {
@@ -98,7 +100,7 @@ function FileViewer({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2">
+      <ToolbarBand>
         <Button
           variant="ghost"
           size="icon"
@@ -112,7 +114,7 @@ function FileViewer({
         <span className="text-xs text-muted-foreground">
           {bytes(file.size)} | {dateTime(file.modified)}
         </span>
-      </div>
+      </ToolbarBand>
       <form
         className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2"
         onSubmit={(e) => {
@@ -223,9 +225,7 @@ export function LogFilesView({
   if (failed)
     return <p className="px-3 py-2 text-xs text-destructive">{failed}</p>;
   if (!files) {
-    return (
-      <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
-    );
+    return <LoadingState label={t("tab.loading")} />;
   }
 
   // Rotated copies like syslog.1 or syslog.2.gz are hidden unless asked for.
@@ -239,7 +239,7 @@ export function LogFilesView({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="flex flex-wrap items-center gap-2 border-b border-border px-3 py-2">
+      <ToolbarBand>
         <PanelSearch
           value={search}
           onChange={setSearch}
@@ -252,7 +252,7 @@ export function LogFilesView({
         >
           {t("files.showRotated")}
         </Button>
-      </div>
+      </ToolbarBand>
       <p className="border-b border-border px-3 py-2 text-xs text-muted-foreground">
         {t("files.roots", { roots: roots.join(", ") })}
       </p>
