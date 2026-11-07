@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ArrowLeft, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useToast, useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import {
-  Button,
+  BackButton,
   FieldPair,
   FormFooter,
   NumberField,
@@ -80,17 +80,7 @@ export function NewServiceForm({
     <PanelShell
       icon={<Plus className="size-4" />}
       title={t("create.title")}
-      leading={
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          title={t("common.back")}
-          aria-label={t("common.back")}
-        >
-          <ArrowLeft className="size-4" />
-        </Button>
-      }
+      leading={<BackButton onClick={onClose} />}
       footer={
         <FormFooter
           onCancel={onClose}

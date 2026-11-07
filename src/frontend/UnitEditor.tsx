@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, FileCode } from "lucide-react";
+import { FileCode } from "lucide-react";
 import { useToast, useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import {
   Alert,
   AlertDescription,
+  BackButton,
   Button,
   FormFooter,
   PanelShell,
@@ -136,17 +137,7 @@ export function UnitEditor({
       icon={<FileCode className="size-4" />}
       title={<span className="font-mono">{unit}</span>}
       status={path}
-      leading={
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          title={t("common.back")}
-          aria-label={t("common.back")}
-        >
-          <ArrowLeft className="size-4" />
-        </Button>
-      }
+      leading={<BackButton onClick={onClose} />}
       toolbar={
         view ? (
           <Segmented<EditTarget>

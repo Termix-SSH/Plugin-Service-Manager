@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { ArrowLeft, FileCode, RefreshCw, ServerCog } from "lucide-react";
+import { FileCode, RefreshCw, ServerCog } from "lucide-react";
 import {
   useToast,
   useTranslation,
   type PluginHostRecord,
 } from "@termix-ssh/plugin-sdk/frontend";
 import {
+  BackButton,
   Button,
   ListBadge,
   PanelShell,
@@ -237,17 +238,7 @@ export function UnitDetail({
           </span>
         ) : undefined
       }
-      leading={
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onBack}
-          title={t("common.back")}
-          aria-label={t("common.back")}
-        >
-          <ArrowLeft className="size-4" />
-        </Button>
-      }
+      leading={<BackButton onClick={onBack} />}
       actions={
         <>
           {systemd && (
