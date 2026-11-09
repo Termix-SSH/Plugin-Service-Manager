@@ -317,6 +317,13 @@
   "logs": {
     "empty": "Încă nu există nimic aici."
   },
+  "manager": {
+    "services": "Servicii",
+    "timers": "Temporizatoare",
+    "logs": "Jurnale",
+    "disabled": "Activați Serviciile în setările acestui gazdă pentru a utiliza acest card.",
+    "needsSystemd": "Temporizatoarele necesită systemd pe această gazdă."
+  },
   "companion": {
     "openTab": "Deschideți fila Servicii",
     "toggle": "Panoul de servicii"
@@ -325,5 +332,33 @@
     "title": "Servicii monitorizate",
     "empty": "Niciun serviciu monitorizat. Folosește clopoțelul de lângă un serviciu pentru a-l monitoriza.",
     "unknown": "necunoscut"
+  },
+  "operations": {
+    "list": {
+      "title": "Listă servicii"
+    },
+    "failed": {
+      "title": "Servicii cu erori"
+    },
+    "service": {
+      "title": "Servicii",
+      "description": "Descriere",
+      "state": "Stare",
+      "boot": "Pornește la pornirea sistemului"
+    },
+    "action": {
+      "start": "Pornește serviciul",
+      "stop": "Oprește serviciul",
+      "restart": "Repornire serviciu",
+      "reload": "Reîncarcă serviciul",
+      "enable": "Pornește la pornirea sistemului",
+      "disable": "Nu porni la pornirea sistemului",
+      "enableNow": "Pornește acum și la pornirea sistemului",
+      "disableNow": "Oprește acum și la pornirea sistemului",
+      "mask": "Maschează serviciul",
+      "unmask": "Demaschează serviciul",
+      "resetFailed": "Șterge starea de eroare",
+      "revert": "Revino la unitatea din pachet"
+    }
   }
 }

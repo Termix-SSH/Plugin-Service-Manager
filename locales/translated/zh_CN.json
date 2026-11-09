@@ -311,6 +311,13 @@
   "logs": {
     "empty": "这里还没有内容。"
   },
+  "manager": {
+    "services": "服务",
+    "timers": "定时器",
+    "logs": "日志",
+    "disabled": "请在此主机的设置中启用服务，以使用此卡片。",
+    "needsSystemd": "定时器需要此主机上运行 systemd。"
+  },
   "companion": {
     "openTab": "打开服务选项卡",
     "toggle": "服务面板"
@@ -319,5 +326,33 @@
     "title": "已监控的服务",
     "empty": "暂无已监控的服务。点击服务旁边的铃铛图标即可监控。",
     "unknown": "未知"
+  },
+  "operations": {
+    "list": {
+      "title": "列出服务"
+    },
+    "failed": {
+      "title": "失败的服务"
+    },
+    "service": {
+      "title": "服务",
+      "description": "描述",
+      "state": "状态",
+      "boot": "开机自启"
+    },
+    "action": {
+      "start": "启动服务",
+      "stop": "停止服务",
+      "restart": "重启服务",
+      "reload": "重载服务",
+      "enable": "开机自启",
+      "disable": "取消开机自启",
+      "enableNow": "立即启动并开机自启",
+      "disableNow": "立即停止并取消开机自启",
+      "mask": "屏蔽服务",
+      "unmask": "取消屏蔽服务",
+      "resetFailed": "清除失败状态",
+      "revert": "还原为打包的单元文件"
+    }
   }
 }

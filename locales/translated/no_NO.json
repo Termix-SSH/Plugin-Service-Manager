@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Ingenting her ennå."
   },
+  "manager": {
+    "services": "Tjenester",
+    "timers": "Tidsstyringer",
+    "logs": "Logger",
+    "disabled": "Aktiver Tjenester i innstillingene for denne verten for å bruke dette kortet.",
+    "needsSystemd": "Tidsstyringer krever systemd på denne verten."
+  },
   "companion": {
     "openTab": "Åpne fanen Tjenester",
     "toggle": "Tjenester-panel"
@@ -322,5 +329,33 @@
     "title": "Overvåkede tjenester",
     "empty": "Ingen overvåkede tjenester. Bruk klokken ved siden av en tjeneste for å overvåke den.",
     "unknown": "ukjent"
+  },
+  "operations": {
+    "list": {
+      "title": "List opp tjenester"
+    },
+    "failed": {
+      "title": "Mislykkede tjenester"
+    },
+    "service": {
+      "title": "Tjenester",
+      "description": "Beskrivelse",
+      "state": "Tilstand",
+      "boot": "Start ved oppstart"
+    },
+    "action": {
+      "start": "Start tjeneste",
+      "stop": "Stopp tjeneste",
+      "restart": "Start tjeneste på nytt",
+      "reload": "Last inn tjeneste på nytt",
+      "enable": "Start ved oppstart",
+      "disable": "Ikke start ved oppstart",
+      "enableNow": "Start nå og ved oppstart",
+      "disableNow": "Stopp nå og ved oppstart",
+      "mask": "Masker tjeneste",
+      "unmask": "Fjern maske fra tjeneste",
+      "resetFailed": "Tøm mislykket tilstand",
+      "revert": "Gå tilbake til den pakkelagte enheten"
+    }
   }
 }

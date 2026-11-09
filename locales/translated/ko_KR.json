@@ -311,6 +311,13 @@
   "logs": {
     "empty": "아직 내용이 없습니다."
   },
+  "manager": {
+    "services": "서비스",
+    "timers": "타이머",
+    "logs": "로그",
+    "disabled": "이 카드를 사용하려면 이 호스트의 설정에서 서비스를 활성화하세요.",
+    "needsSystemd": "타이머는 이 호스트에서 systemd가 필요합니다."
+  },
   "companion": {
     "openTab": "서비스 탭 열기",
     "toggle": "서비스 패널"
@@ -319,5 +326,33 @@
     "title": "모니터링 중인 서비스",
     "empty": "모니터링 중인 서비스가 없습니다. 서비스 옆의 종 아이콘을 사용하여 모니터링을 시작하세요.",
     "unknown": "알 수 없음"
+  },
+  "operations": {
+    "list": {
+      "title": "서비스 목록"
+    },
+    "failed": {
+      "title": "실패한 서비스"
+    },
+    "service": {
+      "title": "서비스",
+      "description": "설명",
+      "state": "상태",
+      "boot": "부팅 시 시작"
+    },
+    "action": {
+      "start": "서비스 시작",
+      "stop": "서비스 중지",
+      "restart": "서비스 재시작",
+      "reload": "서비스 다시 로드",
+      "enable": "부팅 시 시작",
+      "disable": "부팅 시 시작 안 함",
+      "enableNow": "지금 시작 및 부팅 시 시작",
+      "disableNow": "지금 중지 및 부팅 시 시작 안 함",
+      "mask": "서비스 마스킹",
+      "unmask": "서비스 마스킹 해제",
+      "resetFailed": "실패 상태 초기화",
+      "revert": "패키지된 유닛으로 되돌리기"
+    }
   }
 }

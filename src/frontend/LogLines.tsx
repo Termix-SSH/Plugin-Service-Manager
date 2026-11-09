@@ -11,7 +11,7 @@ export function LogLines({
   entries,
   lines,
   empty,
-  className = "max-h-[60vh]",
+  className = "min-h-0 flex-1",
   showUnit = true,
 }: {
   entries?: JournalEntry[];
@@ -40,7 +40,7 @@ export function LogLines({
     <div
       ref={ref}
       onScroll={onScroll}
-      className={`min-h-24 overflow-auto border border-border bg-background p-2 font-mono text-[11px] leading-[1.45] thin-scrollbar ${className}`}
+      className={`min-h-24 overflow-auto bg-background px-3 py-2 font-mono text-[11px] leading-[1.45] thin-scrollbar ${className}`}
     >
       {count === 0 ? (
         <p className="text-muted-foreground">{empty ?? t("logs.empty")}</p>

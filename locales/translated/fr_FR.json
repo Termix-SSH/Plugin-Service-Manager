@@ -317,6 +317,13 @@
   "logs": {
     "empty": "Rien ici pour le moment."
   },
+  "manager": {
+    "services": "Services",
+    "timers": "Minuteries",
+    "logs": "Journaux",
+    "disabled": "Activez les services dans les paramètres de cet hôte pour utiliser cette carte.",
+    "needsSystemd": "Les minuteries nécessitent systemd sur cet hôte."
+  },
   "companion": {
     "openTab": "Ouvrir l'onglet Services",
     "toggle": "Panneau Services"
@@ -325,5 +332,33 @@
     "title": "Services surveillés",
     "empty": "Aucun service surveillé. Utilisez la cloche à côté d’un service pour le surveiller.",
     "unknown": "inconnu"
+  },
+  "operations": {
+    "list": {
+      "title": "Lister les services"
+    },
+    "failed": {
+      "title": "Services en échec"
+    },
+    "service": {
+      "title": "Services",
+      "description": "Description",
+      "state": "État",
+      "boot": "Démarrer au démarrage"
+    },
+    "action": {
+      "start": "Démarrer le service",
+      "stop": "Arrêter le service",
+      "restart": "Redémarrer le service",
+      "reload": "Recharger le service",
+      "enable": "Démarrer au démarrage",
+      "disable": "Ne pas démarrer au démarrage",
+      "enableNow": "Démarrer maintenant et au démarrage",
+      "disableNow": "Arrêter maintenant et au démarrage",
+      "mask": "Masquer le service",
+      "unmask": "Démasquer le service",
+      "resetFailed": "Effacer l'état d'échec",
+      "revert": "Revenir à l'unité du paquet"
+    }
   }
 }

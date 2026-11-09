@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { ArrowLeft, FileCode } from "lucide-react";
+import { FileCode } from "lucide-react";
 import { useToast, useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 import {
   Alert,
+  AlertDescription,
+  BackButton,
   Button,
   FormFooter,
   PanelShell,
@@ -135,17 +137,7 @@ export function UnitEditor({
       icon={<FileCode className="size-4" />}
       title={<span className="font-mono">{unit}</span>}
       status={path}
-      leading={
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onClose}
-          title={t("common.back")}
-          aria-label={t("common.back")}
-        >
-          <ArrowLeft className="size-4" />
-        </Button>
-      }
+      leading={<BackButton onClick={onClose} />}
       toolbar={
         view ? (
           <Segmented<EditTarget>
@@ -182,9 +174,8 @@ export function UnitEditor({
         ) : undefined
       }
       scroll
-      className="gap-2 p-2.5"
     >
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 pb-6">
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-2 p-3 pb-6">
         {failed && <p className="text-sm text-destructive">{failed}</p>}
         {view && (
           <>
@@ -196,8 +187,10 @@ export function UnitEditor({
                   : t("editor.vendorHint", { path: view.fragmentPath })}
             </p>
             {!view.writable && (
-              <Alert className="rounded-none text-xs">
-                {t("editor.notWritable")}
+              <Alert>
+                <AlertDescription className="text-xs">
+                  {t("editor.notWritable")}
+                </AlertDescription>
               </Alert>
             )}
             <TextAreaField

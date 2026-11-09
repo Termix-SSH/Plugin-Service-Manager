@@ -311,6 +311,13 @@
   "logs": {
     "empty": "這裡還沒有任何內容。"
   },
+  "manager": {
+    "services": "服務",
+    "timers": "定時器",
+    "logs": "日誌",
+    "disabled": "請在此主機的設定中啟用服務，才能使用此卡片。",
+    "needsSystemd": "此主機上的定時器需要 systemd。"
+  },
   "companion": {
     "openTab": "開啟服務分頁",
     "toggle": "服務面板"
@@ -319,5 +326,33 @@
     "title": "已監控的服務",
     "empty": "沒有已監控的服務。請點擊服務旁的鈴鐺圖示來監控它。",
     "unknown": "未知"
+  },
+  "operations": {
+    "list": {
+      "title": "列出服務"
+    },
+    "failed": {
+      "title": "失敗的服務"
+    },
+    "service": {
+      "title": "服務",
+      "description": "描述",
+      "state": "狀態",
+      "boot": "開機時啟動"
+    },
+    "action": {
+      "start": "啟動服務",
+      "stop": "停止服務",
+      "restart": "重新啟動服務",
+      "reload": "重新載入服務",
+      "enable": "開機時啟動",
+      "disable": "開機時不啟動",
+      "enableNow": "立即啟動並設定開機時啟動",
+      "disableNow": "立即停止並設定開機時不啟動",
+      "mask": "遮蔽服務",
+      "unmask": "取消遮蔽服務",
+      "resetFailed": "清除失敗狀態",
+      "revert": "還原為套件中的單元"
+    }
   }
 }

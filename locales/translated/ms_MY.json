@@ -311,6 +311,13 @@
   "logs": {
     "empty": "Tiada apa-apa di sini lagi."
   },
+  "manager": {
+    "services": "Perkhidmatan",
+    "timers": "Pemasa",
+    "logs": "Log",
+    "disabled": "Hidupkan Perkhidmatan dalam tetapan hos ini untuk menggunakan kad ini.",
+    "needsSystemd": "Pemasa memerlukan systemd pada hos ini."
+  },
   "companion": {
     "openTab": "Buka tab Perkhidmatan",
     "toggle": "Panel Perkhidmatan"
@@ -319,5 +326,33 @@
     "title": "Perkhidmatan dipantau",
     "empty": "Tiada perkhidmatan dipantau. Gunakan loceng di sebelah perkhidmatan untuk memandangnya.",
     "unknown": "tidak diketahui"
+  },
+  "operations": {
+    "list": {
+      "title": "Senaraikan perkhidmatan"
+    },
+    "failed": {
+      "title": "Perkhidmatan gagal"
+    },
+    "service": {
+      "title": "Perkhidmatan",
+      "description": "Penerangan",
+      "state": "Status",
+      "boot": "Mula semasa boot"
+    },
+    "action": {
+      "start": "Mula perkhidmatan",
+      "stop": "Hentikan perkhidmatan",
+      "restart": "Mula semula perkhidmatan",
+      "reload": "Muat semula perkhidmatan",
+      "enable": "Mula semasa boot",
+      "disable": "Jangan mula semasa boot",
+      "enableNow": "Mula sekarang dan semasa boot",
+      "disableNow": "Hentikan sekarang dan semasa boot",
+      "mask": "Topeng perkhidmatan",
+      "unmask": "Nyah topeng perkhidmatan",
+      "resetFailed": "Kosongkan status gagal",
+      "revert": "Kembali ke unit pakej"
+    }
   }
 }

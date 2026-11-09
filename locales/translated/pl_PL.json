@@ -320,6 +320,13 @@
   "logs": {
     "empty": "Tutaj jeszcze nic nie ma."
   },
+  "manager": {
+    "services": "Usługi",
+    "timers": "Timery",
+    "logs": "Dzienniki",
+    "disabled": "Włącz usługi w ustawieniach tego hosta, aby korzystać z tej karty.",
+    "needsSystemd": "Timery wymagają systemd na tym hoście."
+  },
   "companion": {
     "openTab": "Otwórz kartę Usługi",
     "toggle": "Panel usług"
@@ -328,5 +335,33 @@
     "title": "Obserwowane usługi",
     "empty": "Brak obserwowanych usług. Użyj ikony dzwonka obok usługi, aby ją obserwować.",
     "unknown": "nieznana"
+  },
+  "operations": {
+    "list": {
+      "title": "Lista usług"
+    },
+    "failed": {
+      "title": "Nieudane usługi"
+    },
+    "service": {
+      "title": "Usługi",
+      "description": "Opis",
+      "state": "Stan",
+      "boot": "Uruchamiaj przy starcie"
+    },
+    "action": {
+      "start": "Uruchom usługę",
+      "stop": "Zatrzymaj usługę",
+      "restart": "Uruchom ponownie usługę",
+      "reload": "Przeładuj usługę",
+      "enable": "Uruchamiaj przy starcie",
+      "disable": "Nie uruchamiaj przy starcie",
+      "enableNow": "Uruchom teraz i przy starcie",
+      "disableNow": "Zatrzymaj teraz i przy starcie",
+      "mask": "Zamaskuj usługę",
+      "unmask": "Odmaskuj usługę",
+      "resetFailed": "Wyczyść stan niepowodzenia",
+      "revert": "Przywróć pakietową jednostkę"
+    }
   }
 }

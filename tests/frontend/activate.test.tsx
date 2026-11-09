@@ -219,3 +219,13 @@ describe("watched services card", () => {
     expect(screen.getByText("failed")).toBeTruthy();
   });
 });
+
+describe("homepage widget", () => {
+  it("adds a homepage widget and declares the extension point", async () => {
+    rendered = await renderWithApp(plugin, { manifest, locales });
+    expect(rendered.registered.extensions("homepage.widgets")).toEqual([
+      "service_manager_widget",
+    ]);
+    expect(manifest.contributes.uses).toContain("homepage.widgets");
+  });
+});

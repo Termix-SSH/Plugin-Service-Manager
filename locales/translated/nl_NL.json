@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Nog niets hier."
   },
+  "manager": {
+    "services": "Diensten",
+    "timers": "Timers",
+    "logs": "Logs",
+    "disabled": "Schakel Diensten in de instellingen van deze host in om deze kaart te gebruiken.",
+    "needsSystemd": "Timers vereisen systemd op deze host."
+  },
   "companion": {
     "openTab": "Open het tabblad Diensten",
     "toggle": "Dienstenpaneel"
@@ -322,5 +329,33 @@
     "title": "Gemonitorde diensten",
     "empty": "Geen gemonitorde diensten. Gebruik het belletje naast een dienst om deze te volgen.",
     "unknown": "onbekend"
+  },
+  "operations": {
+    "list": {
+      "title": "Diensten weergeven"
+    },
+    "failed": {
+      "title": "Mislukte diensten"
+    },
+    "service": {
+      "title": "Diensten",
+      "description": "Beschrijving",
+      "state": "Status",
+      "boot": "Starten bij opstarten"
+    },
+    "action": {
+      "start": "Dienst starten",
+      "stop": "Dienst stoppen",
+      "restart": "Dienst herstarten",
+      "reload": "Dienst herladen",
+      "enable": "Starten bij opstarten",
+      "disable": "Niet starten bij opstarten",
+      "enableNow": "Nu starten en bij opstarten",
+      "disableNow": "Nu stoppen en bij opstarten",
+      "mask": "Dienst maskeren",
+      "unmask": "Masker van dienst verwijderen",
+      "resetFailed": "Mislukte status wissen",
+      "revert": "Terugkeren naar de verpakte eenheid"
+    }
   }
 }

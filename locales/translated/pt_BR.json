@@ -317,6 +317,13 @@
   "logs": {
     "empty": "Ainda não há nada aqui."
   },
+  "manager": {
+    "services": "Serviços",
+    "timers": "Temporizadores",
+    "logs": "Logs",
+    "disabled": "Ative os Serviços nas configurações deste host para usar este cartão.",
+    "needsSystemd": "Os temporizadores exigem systemd neste host."
+  },
   "companion": {
     "openTab": "Abrir a aba Serviços",
     "toggle": "Painel de serviços"
@@ -325,5 +332,33 @@
     "title": "Serviços monitorados",
     "empty": "Nenhum serviço monitorado. Use o sino ao lado de um serviço para monitorá-lo.",
     "unknown": "desconhecido"
+  },
+  "operations": {
+    "list": {
+      "title": "Listar serviços"
+    },
+    "failed": {
+      "title": "Serviços com falha"
+    },
+    "service": {
+      "title": "Serviços",
+      "description": "Descrição",
+      "state": "Estado",
+      "boot": "Iniciar na inicialização"
+    },
+    "action": {
+      "start": "Iniciar serviço",
+      "stop": "Parar serviço",
+      "restart": "Reiniciar serviço",
+      "reload": "Recarregar serviço",
+      "enable": "Iniciar na inicialização",
+      "disable": "Não iniciar na inicialização",
+      "enableNow": "Iniciar agora e na inicialização",
+      "disableNow": "Parar agora e na inicialização",
+      "mask": "Mascarar serviço",
+      "unmask": "Desmascarar serviço",
+      "resetFailed": "Limpar estado de falha",
+      "revert": "Reverter para a unidade empacotada"
+    }
   }
 }

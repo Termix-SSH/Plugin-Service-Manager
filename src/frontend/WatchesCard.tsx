@@ -7,7 +7,12 @@ import {
   useTranslation,
   type DashboardCardProps,
 } from "@termix-ssh/plugin-sdk/frontend";
-import { ListBadge, ListRow, PanelList } from "@termix-ssh/plugin-sdk/ui";
+import {
+  ListBadge,
+  ListRow,
+  PanelList,
+  LoadingState,
+} from "@termix-ssh/plugin-sdk/ui";
 import type { WatchView } from "../shared/types";
 import { errorMessage, listAllWatches } from "./api";
 import { stateTone } from "./format";
@@ -43,9 +48,7 @@ export function WatchesCard({ isVisible }: DashboardCardProps) {
 
   if (failed) return <p className="p-3 text-xs text-destructive">{failed}</p>;
   if (!watches) {
-    return (
-      <p className="p-3 text-xs text-muted-foreground">{t("tab.loading")}</p>
-    );
+    return <LoadingState compact label={t("tab.loading")} />;
   }
 
   const down = (state: string) => state === "failed" || state === "inactive";

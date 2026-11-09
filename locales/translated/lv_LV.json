@@ -317,6 +317,13 @@
   "logs": {
     "empty": "Šeit vēl nav nekas."
   },
+  "manager": {
+    "services": "Pakalpojumi",
+    "timers": "Taimeris",
+    "logs": "Žurnāli",
+    "disabled": "Lai izmantotu šo karti, ieslēdziet pakalpojumus šī hosta iestatījumos.",
+    "needsSystemd": "Taimerim šajā hostā ir nepieciešams systemd."
+  },
   "companion": {
     "openTab": "Atvērt cilni Pakalpojumi",
     "toggle": "Pakalpojumu panelis"
@@ -325,5 +332,33 @@
     "title": "Pārraugāmās pakalpojumi",
     "empty": "Nav pārraugāmu pakalpojumu. Lai sāktu pārraugīt pakalpojumu, noklikšķiniet uz zvaniņa tā blakus.",
     "unknown": "nezināms"
+  },
+  "operations": {
+    "list": {
+      "title": "Pakalpojumu saraksts"
+    },
+    "failed": {
+      "title": "Neizdevušies pakalpojumi"
+    },
+    "service": {
+      "title": "Pakalpojumi",
+      "description": "Apraksts",
+      "state": "Stāvoklis",
+      "boot": "Palaiņt pie starta"
+    },
+    "action": {
+      "start": "Palaiņt pakalpojumu",
+      "stop": "Apturēt pakalpojumu",
+      "restart": "Atsākt pakalpojumu",
+      "reload": "Pārlādēt pakalpojumu",
+      "enable": "Palaiņt pie starta",
+      "disable": "Nepalaiņt pie starta",
+      "enableNow": "Palaiņt tagad un pie starta",
+      "disableNow": "Apturēt tagad un pie starta",
+      "mask": "Apmaskēt pakalpojumu",
+      "unmask": "Noņemt masku no pakalpojuma",
+      "resetFailed": "Notīrīt neizdevušos stāvokli",
+      "revert": "Atgriezties pie iepakotās vienības"
+    }
   }
 }

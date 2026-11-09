@@ -35,6 +35,9 @@ Read the [docs](https://docs.termix.site/plugins/service-manager) to set it up a
 - Browse, search, follow and download files in /var/log
 - Alerts when a watched service fails, and when it is back
 - Basic OpenRC support
+- Start, stop and restart services from Automations, Fleets, the CLI and the command palette
+- Failed services as a status tile
+- Services, Timers and Logs cards in Host Metrics
 
 <br />
 

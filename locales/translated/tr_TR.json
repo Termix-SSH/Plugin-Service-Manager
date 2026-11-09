@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Burada henüz bir şey yok."
   },
+  "manager": {
+    "services": "Hizmetler",
+    "timers": "Zamanlayıcılar",
+    "logs": "Günlükler",
+    "disabled": "Bu kartı kullanmak için bu sunucunun ayarlarında Hizmetleri açın.",
+    "needsSystemd": "Zamanlayıcıların çalışması için bu sunucuda systemd gereklidir."
+  },
   "companion": {
     "openTab": "Hizmetler sekmesini aç",
     "toggle": "Hizmetler paneli"
@@ -322,5 +329,33 @@
     "title": "İzlenen hizmetler",
     "empty": "İzlenen hizmet yok. Bir hizmeti izlemek için yanındaki zil simgesini kullanın.",
     "unknown": "bilinmiyor"
+  },
+  "operations": {
+    "list": {
+      "title": "Hizmetleri listele"
+    },
+    "failed": {
+      "title": "Başarısız hizmetler"
+    },
+    "service": {
+      "title": "Hizmetler",
+      "description": "Açıklama",
+      "state": "Durum",
+      "boot": "Başlangıçta başlat"
+    },
+    "action": {
+      "start": "Hizmeti başlat",
+      "stop": "Hizmeti durdur",
+      "restart": "Hizmeti yeniden başlat",
+      "reload": "Hizmeti yeniden yükle",
+      "enable": "Başlangıçta başlat",
+      "disable": "Başlangıçta başlatma",
+      "enableNow": "Şimdi ve başlangıçta başlat",
+      "disableNow": "Şimdi ve başlangıçta durdur",
+      "mask": "Hizmeti maskeleyin",
+      "unmask": "Hizmetin maskesini kaldırın",
+      "resetFailed": "Başarısız durumunu temizle",
+      "revert": "Paketlenmiş birime geri dön"
+    }
   }
 }

@@ -317,6 +317,13 @@
   "logs": {
     "empty": "Non c'è ancora nulla."
   },
+  "manager": {
+    "services": "Servizi",
+    "timers": "Timer",
+    "logs": "Log",
+    "disabled": "Attiva i Servizi nelle impostazioni di questo host per utilizzare questa scheda.",
+    "needsSystemd": "I Timer richiedono systemd su questo host."
+  },
   "companion": {
     "openTab": "Apri la scheda Servizi",
     "toggle": "Pannello Servizi"
@@ -325,5 +332,33 @@
     "title": "Servizi monitorati",
     "empty": "Nessun servizio monitorato. Usa la campanella accanto a un servizio per monitorarlo.",
     "unknown": "sconosciuto"
+  },
+  "operations": {
+    "list": {
+      "title": "Elenca servizi"
+    },
+    "failed": {
+      "title": "Servizi non riusciti"
+    },
+    "service": {
+      "title": "Servizi",
+      "description": "Descrizione",
+      "state": "Stato",
+      "boot": "Avvia all'avvio"
+    },
+    "action": {
+      "start": "Avvia servizio",
+      "stop": "Arresta servizio",
+      "restart": "Riavvia servizio",
+      "reload": "Ricarica servizio",
+      "enable": "Avvia all'avvio",
+      "disable": "Non avviare all'avvio",
+      "enableNow": "Avvia ora e all'avvio",
+      "disableNow": "Arresta ora e all'avvio",
+      "mask": "Maschera servizio",
+      "unmask": "Rimuovi maschera servizio",
+      "resetFailed": "Cancella stato di errore",
+      "revert": "Ripristina l'unità del pacchetto"
+    }
   }
 }

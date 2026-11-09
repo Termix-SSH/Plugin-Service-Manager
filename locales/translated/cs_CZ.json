@@ -320,6 +320,13 @@
   "logs": {
     "empty": "Zatím zde nic není."
   },
+  "manager": {
+    "services": "Služby",
+    "timers": "Časovače",
+    "logs": "Protokoly",
+    "disabled": "Pro použití této karty zapněte Služby v nastavení tohoto hostitele.",
+    "needsSystemd": "Časovače vyžadují systemd na tomto hostiteli."
+  },
   "companion": {
     "openTab": "Otevřít kartu Služby",
     "toggle": "Panel Služby"
@@ -328,5 +335,33 @@
     "title": "Sledované služby",
     "empty": "Žádné sledované služby. Použijte zvoněk vedle služby pro sledování.",
     "unknown": "neznámý"
+  },
+  "operations": {
+    "list": {
+      "title": "Seznam služeb"
+    },
+    "failed": {
+      "title": "Selhání služeb"
+    },
+    "service": {
+      "title": "Služby",
+      "description": "Popis",
+      "state": "Stav",
+      "boot": "Spustit při startu"
+    },
+    "action": {
+      "start": "Spustit službu",
+      "stop": "Zastavit službu",
+      "restart": "Restartovat službu",
+      "reload": "Obnovit službu",
+      "enable": "Spustit při startu",
+      "disable": "Nespouštět při startu",
+      "enableNow": "Spustit nyní i při startu",
+      "disableNow": "Zastavit nyní i při startu",
+      "mask": "Zamaskovat službu",
+      "unmask": "Odemaskovat službu",
+      "resetFailed": "Vymazat stav selhání",
+      "revert": "Vrátit k balíčkované jednotce"
+    }
   }
 }

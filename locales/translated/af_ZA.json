@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Nog niks hier nie."
   },
+  "manager": {
+    "services": "Dienste",
+    "timers": "Tydsakkers",
+    "logs": "Logboeke",
+    "disabled": "Skakel Dienste aan in die instellings van hierdie gasheer om hierdie kaart te gebruik.",
+    "needsSystemd": "Tydsakkers benodig systemd op hierdie gasheer."
+  },
   "companion": {
     "openTab": "Open die Diens-oortjie",
     "toggle": "Dienspaneel"
@@ -322,5 +329,33 @@
     "title": "Opgedienste dienste",
     "empty": "Geen opgedienste dienste nie. Gebruik die klokjie langs ’n diens om dit op te dien.",
     "unknown": "onbekend"
+  },
+  "operations": {
+    "list": {
+      "title": "Lys dienste"
+    },
+    "failed": {
+      "title": "Mislukte dienste"
+    },
+    "service": {
+      "title": "Dienste",
+      "description": "Beskrywing",
+      "state": "Toestand",
+      "boot": "Begin by opstart"
+    },
+    "action": {
+      "start": "Begin diens",
+      "stop": "Stop diens",
+      "restart": "Herbegin diens",
+      "reload": "Herlaai diens",
+      "enable": "Begin by opstart",
+      "disable": "Begin nie by opstart nie",
+      "enableNow": "Begin nou en by opstart",
+      "disableNow": "Stop nou en by opstart",
+      "mask": "Masker diens",
+      "unmask": "Ontmasker diens",
+      "resetFailed": "Vee mislukte toestand uit",
+      "revert": "Keer terug na die gepakte eenheid"
+    }
   }
 }

@@ -320,6 +320,13 @@
   "logs": {
     "empty": "Čia dar nieko nėra."
   },
+  "manager": {
+    "services": "Paslaugos",
+    "timers": "Laikmačiai",
+    "logs": "Žurnalai",
+    "disabled": "Įjunkite paslaugas šio serverio nustatymuose, kad galėtumėte naudoti šią kortelę.",
+    "needsSystemd": "Laikmačiams šiam serveryje reikia systemd."
+  },
   "companion": {
     "openTab": "Atidaryti skirtuką „Paslaugos“",
     "toggle": "Paslaugų skydelis"
@@ -328,5 +335,33 @@
     "title": "Stebimi paslaugos",
     "empty": "Nėra stebimų paslaugų. Norėdami stebėti paslaugą, spustelėkite varpelį šalia jos.",
     "unknown": "nežinoma"
+  },
+  "operations": {
+    "list": {
+      "title": "Paslaugų sąrašas"
+    },
+    "failed": {
+      "title": "Nesėkmingos paslaugos"
+    },
+    "service": {
+      "title": "Paslaugos",
+      "description": "Aprašymas",
+      "state": "Būsena",
+      "boot": "Paleisti paleidžiant"
+    },
+    "action": {
+      "start": "Paleisti paslaugą",
+      "stop": "Sustabdyti paslaugą",
+      "restart": "Perkrauti paslaugą",
+      "reload": "Perkrauti paslaugos konfigūraciją",
+      "enable": "Paleisti paleidžiant",
+      "disable": "Nepaleisti paleidžiant",
+      "enableNow": "Paleisti dabar ir paleidžiant",
+      "disableNow": "Sustabdyti dabar ir paleidžiant",
+      "mask": "Uždengti paslaugą",
+      "unmask": "Atidengti paslaugą",
+      "resetFailed": "Išvalyti nesėkmės būseną",
+      "revert": "Grįžti prie paketo vieneto"
+    }
   }
 }

@@ -1,7 +1,7 @@
 {
   "id": "service-manager",
   "name": "Services",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Manage services, timers and logs on your hosts over SSH.",
   "author": {
     "name": "Termix"
@@ -24,12 +24,13 @@
     "Get an alert when a watched service fails, and when it is back",
     "A services panel beside any SSH terminal",
     "A dashboard card with every watched service and whether it is up",
+    "Services, Timers and Logs cards in Host Metrics",
     "Basic OpenRC support for list, start, stop and boot"
   ],
   "env": [],
   "engine": {
-    "termix": ">=26.10.6",
-    "api": "^1.9"
+    "termix": ">=26.11.1-0",
+    "api": "^1.15"
   },
   "capabilities": [
     "hosts:read",
@@ -39,7 +40,8 @@
     "db:own",
     "notify:send",
     "users:impersonate",
-    "ui:surface"
+    "ui:surface",
+    "operations:provide"
   ],
   "contributes": {
     "tabs": [
@@ -154,7 +156,316 @@
         "titleKey": "card.title",
         "icon": "ServerCog"
       }
-    ]
+    ],
+    "operations": {
+      "actions": [
+        {
+          "id": "service-manager.list-services",
+          "titleKey": "operations.list.title",
+          "scope": "host",
+          "risk": "read",
+          "permission": "use",
+          "hostAccess": "connect",
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "surfaces": {
+            "assistant": true,
+            "mcp": true,
+            "palette": false
+          }
+        },
+        {
+          "id": "service-manager.failed-units",
+          "titleKey": "operations.failed.title",
+          "scope": "host",
+          "risk": "read",
+          "permission": "use",
+          "hostAccess": "connect",
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "surfaces": {
+            "assistant": true,
+            "mcp": true,
+            "palette": false
+          }
+        },
+        {
+          "id": "service-manager.start",
+          "titleKey": "operations.action.start",
+          "icon": "Play",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "idempotent": true,
+          "surfaces": {
+            "assistant": true,
+            "mcp": true
+          }
+        },
+        {
+          "id": "service-manager.stop",
+          "titleKey": "operations.action.stop",
+          "icon": "Square",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "idempotent": true,
+          "surfaces": {
+            "assistant": true,
+            "mcp": true
+          }
+        },
+        {
+          "id": "service-manager.restart",
+          "titleKey": "operations.action.restart",
+          "icon": "RotateCw",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "surfaces": {
+            "assistant": true,
+            "mcp": true
+          }
+        },
+        {
+          "id": "service-manager.reload",
+          "titleKey": "operations.action.reload",
+          "icon": "RefreshCw",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "surfaces": {
+            "assistant": true,
+            "mcp": true
+          }
+        },
+        {
+          "id": "service-manager.enable",
+          "titleKey": "operations.action.enable",
+          "icon": "ToggleRight",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "idempotent": true
+        },
+        {
+          "id": "service-manager.disable",
+          "titleKey": "operations.action.disable",
+          "icon": "ToggleLeft",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "idempotent": true
+        },
+        {
+          "id": "service-manager.enable-now",
+          "titleKey": "operations.action.enableNow",
+          "icon": "PlayCircle",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "idempotent": true
+        },
+        {
+          "id": "service-manager.disable-now",
+          "titleKey": "operations.action.disableNow",
+          "icon": "StopCircle",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "idempotent": true
+        },
+        {
+          "id": "service-manager.mask",
+          "titleKey": "operations.action.mask",
+          "icon": "EyeOff",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "destructive",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          }
+        },
+        {
+          "id": "service-manager.unmask",
+          "titleKey": "operations.action.unmask",
+          "icon": "Eye",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          }
+        },
+        {
+          "id": "service-manager.reset-failed",
+          "titleKey": "operations.action.resetFailed",
+          "icon": "Eraser",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "change",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          },
+          "surfaces": {
+            "assistant": true,
+            "mcp": true
+          }
+        },
+        {
+          "id": "service-manager.revert",
+          "titleKey": "operations.action.revert",
+          "icon": "Undo2",
+          "scope": "resource",
+          "resource": "service-manager.service",
+          "risk": "destructive",
+          "permission": "use",
+          "hostAccess": "edit",
+          "dryRun": "describe",
+          "exclusive": true,
+          "when": {
+            "settings": {
+              "enableServices": true
+            }
+          }
+        }
+      ],
+      "resources": [
+        {
+          "id": "service-manager.service",
+          "titleKey": "operations.service.title",
+          "icon": "Cog",
+          "list": "service-manager.list-services",
+          "key": "name",
+          "name": "name",
+          "status": "active",
+          "tab": "service-manager",
+          "columns": [
+            {
+              "key": "description",
+              "titleKey": "operations.service.description"
+            },
+            {
+              "key": "sub",
+              "titleKey": "operations.service.state",
+              "type": "status"
+            },
+            {
+              "key": "fileState",
+              "titleKey": "operations.service.boot"
+            }
+          ],
+          "filters": ["active", "fileState"]
+        }
+      ],
+      "signals": [
+        {
+          "id": "service-manager.failed",
+          "titleKey": "operations.failed.title",
+          "read": "service-manager.failed-units",
+          "scope": "host",
+          "kind": "count",
+          "refreshSec": 60
+        }
+      ]
+    },
+    "uses": ["homepage.widgets"]
   },
   "locales": "locales",
   "platforms": ["linux", "win32", "darwin"]

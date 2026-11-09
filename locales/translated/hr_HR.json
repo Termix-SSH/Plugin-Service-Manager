@@ -317,6 +317,13 @@
   "logs": {
     "empty": "Ovdje još nema ništa."
   },
+  "manager": {
+    "services": "Usluge",
+    "timers": "Vremenski okidači",
+    "logs": "Zapisnici",
+    "disabled": "Uključite usluge u postavkama ovog hosta kako biste koristili ovu karticu.",
+    "needsSystemd": "Vremenski okidači zahtijevaju systemd na ovom hostu."
+  },
   "companion": {
     "openTab": "Otvori karticu Usluge",
     "toggle": "Panel usluga"
@@ -325,5 +332,33 @@
     "title": "Praćene usluge",
     "empty": "Nema praćenih usluga. Koristite zvono uz uslugu da biste je počeli pratiti.",
     "unknown": "nepoznato"
+  },
+  "operations": {
+    "list": {
+      "title": "Popis usluga"
+    },
+    "failed": {
+      "title": "Neuspjele usluge"
+    },
+    "service": {
+      "title": "Usluge",
+      "description": "Opis",
+      "state": "Stanje",
+      "boot": "Pokreni pri pokretanju sustava"
+    },
+    "action": {
+      "start": "Pokreni uslugu",
+      "stop": "Zaustavi uslugu",
+      "restart": "Ponovno pokreni uslugu",
+      "reload": "Osveži uslugu",
+      "enable": "Pokreni pri pokretanju sustava",
+      "disable": "Ne pokreći pri pokretanju sustava",
+      "enableNow": "Pokreni sada i pri pokretanju sustava",
+      "disableNow": "Zaustavi sada i pri pokretanju sustava",
+      "mask": "Maskiraj uslugu",
+      "unmask": "Ukloni masku s usluge",
+      "resetFailed": "Obriši stanje neuspjeha",
+      "revert": "Vrati na pakiranu jedinicu"
+    }
   }
 }

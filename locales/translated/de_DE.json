@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Hier ist noch nichts."
   },
+  "manager": {
+    "services": "Dienste",
+    "timers": "Zeitgeber",
+    "logs": "Protokolle",
+    "disabled": "Aktivieren Sie Dienste in den Einstellungen dieses Hosts, um diese Karte zu verwenden.",
+    "needsSystemd": "Zeitgeber benötigen systemd auf diesem Host."
+  },
   "companion": {
     "openTab": "Den Tab „Dienste“ öffnen",
     "toggle": "Dienste-Panel"
@@ -322,5 +329,33 @@
     "title": "Beobachtete Dienste",
     "empty": "Keine beobachteten Dienste. Verwenden Sie das Glockensymbol neben einem Dienst, um ihn zu beobachten.",
     "unknown": "unbekannt"
+  },
+  "operations": {
+    "list": {
+      "title": "Dienste auflisten"
+    },
+    "failed": {
+      "title": "Fehlgeschlagene Dienste"
+    },
+    "service": {
+      "title": "Dienste",
+      "description": "Beschreibung",
+      "state": "Status",
+      "boot": "Beim Start ausführen"
+    },
+    "action": {
+      "start": "Dienst starten",
+      "stop": "Dienst stoppen",
+      "restart": "Dienst neu starten",
+      "reload": "Dienst neu laden",
+      "enable": "Beim Start ausführen",
+      "disable": "Nicht beim Start ausführen",
+      "enableNow": "Jetzt und beim Start ausführen",
+      "disableNow": "Jetzt stoppen und nicht beim Start ausführen",
+      "mask": "Dienst maskieren",
+      "unmask": "Dienst entmaskieren",
+      "resetFailed": "Fehlerstatus zurücksetzen",
+      "revert": "Zurück zur paketierten Unit"
+    }
   }
 }

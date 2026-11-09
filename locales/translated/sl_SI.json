@@ -320,6 +320,13 @@
   "logs": {
     "empty": "Tukaj še ni ničesar."
   },
+  "manager": {
+    "services": "Storitve",
+    "timers": "Časovniki",
+    "logs": "Dnevniki",
+    "disabled": "V nastavitvah tega gostitelja vklopite storitve, da boste lahko uporabili to kartico.",
+    "needsSystemd": "Časovniki zahtevajo systemd na tem gostitelju."
+  },
   "companion": {
     "openTab": "Odpri zavihek Storitve",
     "toggle": "Plošča Storitev"
@@ -328,5 +335,33 @@
     "title": "Spremljane storitve",
     "empty": "Ni spremljanih storitev. Za spremljanje storitve uporabite ikono zvonca ob njej.",
     "unknown": "neznano"
+  },
+  "operations": {
+    "list": {
+      "title": "Seznam storitev"
+    },
+    "failed": {
+      "title": "Neuspešne storitve"
+    },
+    "service": {
+      "title": "Storitve",
+      "description": "Opis",
+      "state": "Stanje",
+      "boot": "Zaženi ob zagonu"
+    },
+    "action": {
+      "start": "Zaženi storitev",
+      "stop": "Ustavi storitev",
+      "restart": "Ponovno zaženi storitev",
+      "reload": "Osveži storitev",
+      "enable": "Zaženi ob zagonu",
+      "disable": "Ne zaženi ob zagonu",
+      "enableNow": "Zaženi zdaj in ob zagonu",
+      "disableNow": "Ustavi zdaj in ob zagonu",
+      "mask": "Skrij storitev",
+      "unmask": "Odkrij storitev",
+      "resetFailed": "Počisti stanje napake",
+      "revert": "Vrni na paketno enoto"
+    }
   }
 }

@@ -3,6 +3,7 @@ import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import { registerFollow } from "./follow.js";
 import { createManager } from "./manager.js";
 import { createRemote } from "./remote.js";
+import { registerOperations } from "./operations.js";
 import { registerRoutes } from "./routes.js";
 import { watches } from "./tables.js";
 import {
@@ -18,8 +19,10 @@ export async function activate(ctx: PluginContext) {
   checker.start();
   ctx.disposables.add(() => checker.dispose());
 
+  const manager = createManager(remote);
+  registerOperations(ctx, manager);
   registerRoutes(ctx.http.router<Router>(), ctx, {
-    manager: createManager(remote),
+    manager,
     watches: store,
     checker,
   });

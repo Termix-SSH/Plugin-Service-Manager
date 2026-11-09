@@ -311,6 +311,13 @@
   "logs": {
     "empty": "Belum ada apa-apa di sini."
   },
+  "manager": {
+    "services": "Layanan",
+    "timers": "Pengatur Waktu",
+    "logs": "Log",
+    "disabled": "Aktifkan Layanan di pengaturan host ini untuk menggunakan kartu ini.",
+    "needsSystemd": "Pengatur Waktu memerlukan systemd pada host ini."
+  },
   "companion": {
     "openTab": "Buka tab Layanan",
     "toggle": "Panel Layanan"
@@ -319,5 +326,33 @@
     "title": "Layanan yang dipantau",
     "empty": "Tidak ada layanan yang dipantau. Gunakan ikon lonceng di sebelah layanan untuk memantaunya.",
     "unknown": "tidak diketahui"
+  },
+  "operations": {
+    "list": {
+      "title": "Daftar layanan"
+    },
+    "failed": {
+      "title": "Layanan gagal"
+    },
+    "service": {
+      "title": "Layanan",
+      "description": "Deskripsi",
+      "state": "Status",
+      "boot": "Mulai saat boot"
+    },
+    "action": {
+      "start": "Mulai layanan",
+      "stop": "Hentikan layanan",
+      "restart": "Mulai ulang layanan",
+      "reload": "Muat ulang layanan",
+      "enable": "Mulai saat boot",
+      "disable": "Jangan mulai saat boot",
+      "enableNow": "Mulai sekarang dan saat boot",
+      "disableNow": "Hentikan sekarang dan saat boot",
+      "mask": "Mask layanan",
+      "unmask": "Hapus mask layanan",
+      "resetFailed": "Bersihkan status gagal",
+      "revert": "Kembalikan ke unit paket"
+    }
   }
 }

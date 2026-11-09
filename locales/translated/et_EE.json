@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Siin pole veel midagi."
   },
+  "manager": {
+    "services": "Teenused",
+    "timers": "Ajasturid",
+    "logs": "Logid",
+    "disabled": "Selle kaardi kasutamiseks lülita teenused sisse selle hosti seadetes.",
+    "needsSystemd": "Ajasturid vajavad sellel hostil systemd'i."
+  },
   "companion": {
     "openTab": "Ava Teenused-vaheleht",
     "toggle": "Teenuste paneel"
@@ -322,5 +329,33 @@
     "title": "Jälgitavad teenused",
     "empty": "Ühtegi jälgitavat teenust pole. Lisa teenus jälgimisele, vajutades selle kõrval olevale kellikale.",
     "unknown": "tundmatu"
+  },
+  "operations": {
+    "list": {
+      "title": "Teenuste loend"
+    },
+    "failed": {
+      "title": "Ebaõnnestunud teenused"
+    },
+    "service": {
+      "title": "Teenused",
+      "description": "Kirjeldus",
+      "state": "Olek",
+      "boot": "Käivita käivitamisel"
+    },
+    "action": {
+      "start": "Käivita teenus",
+      "stop": "Peata teenus",
+      "restart": "Taaskäivita teenus",
+      "reload": "Laadi teenus uuesti",
+      "enable": "Käivita käivitamisel",
+      "disable": "Ära käivita käivitamisel",
+      "enableNow": "Käivita kohe ja käivitamisel",
+      "disableNow": "Peata kohe ja käivitamisel",
+      "mask": "Maskeeri teenus",
+      "unmask": "Eemalda teenuse mask",
+      "resetFailed": "Kustuta ebaõnnestunud olek",
+      "revert": "Taasta pakendatud ühik"
+    }
   }
 }

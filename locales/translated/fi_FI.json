@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Täällä ei vielä ole mitään."
   },
+  "manager": {
+    "services": "Palvelut",
+    "timers": "Ajastimet",
+    "logs": "Lokit",
+    "disabled": "Ota palvelut käyttöön tämän isäntäkonfiguraation asetuksista käyttääksesi tätä korttia.",
+    "needsSystemd": "Ajastimet vaativat systemd:n tällä isäntäkonfiguraatiolla."
+  },
   "companion": {
     "openTab": "Avaa Palvelut-välilehti",
     "toggle": "Palvelupaneeli"
@@ -322,5 +329,33 @@
     "title": "Seurattavat palvelut",
     "empty": "Ei seurattavia palveluita. Voit seurata palvelua painamalla sen vieressä olevaa kelloa.",
     "unknown": "tuntematon"
+  },
+  "operations": {
+    "list": {
+      "title": "Palvelujen lista"
+    },
+    "failed": {
+      "title": "Epäonnistuneet palvelut"
+    },
+    "service": {
+      "title": "Palvelut",
+      "description": "Kuvaus",
+      "state": "Tila",
+      "boot": "Käynnistä käynnistyksen yhteydessä"
+    },
+    "action": {
+      "start": "Käynnistä palvelu",
+      "stop": "Pysäytä palvelu",
+      "restart": "Käynnistä palvelu uudelleen",
+      "reload": "Lataa palvelu uudelleen",
+      "enable": "Käynnistä käynnistyksen yhteydessä",
+      "disable": "Älä käynnistä käynnistyksen yhteydessä",
+      "enableNow": "Käynnistä nyt ja käynnistyksen yhteydessä",
+      "disableNow": "Pysäytä nyt ja käynnistyksen yhteydessä",
+      "mask": "Peitä palvelu",
+      "unmask": "Poista palvelun peittäminen",
+      "resetFailed": "Tyhjennä epäonnistunut tila",
+      "revert": "Palauta paketointiyksikköön"
+    }
   }
 }

@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Nothing here yet."
   },
+  "manager": {
+    "services": "Services",
+    "timers": "Timers",
+    "logs": "Logs",
+    "disabled": "Turn on Services in this host's settings to use this card.",
+    "needsSystemd": "Timers need systemd on this host."
+  },
   "companion": {
     "openTab": "Open the Services tab",
     "toggle": "Services panel"
@@ -322,5 +329,33 @@
     "title": "Watched services",
     "empty": "No watched services. Use the bell next to a service to watch it.",
     "unknown": "unknown"
+  },
+  "operations": {
+    "list": {
+      "title": "List services"
+    },
+    "failed": {
+      "title": "Failed services"
+    },
+    "service": {
+      "title": "Services",
+      "description": "Description",
+      "state": "State",
+      "boot": "Start at boot"
+    },
+    "action": {
+      "start": "Start service",
+      "stop": "Stop service",
+      "restart": "Restart service",
+      "reload": "Reload service",
+      "enable": "Start at boot",
+      "disable": "Do not start at boot",
+      "enableNow": "Start now and at boot",
+      "disableNow": "Stop now and at boot",
+      "mask": "Mask service",
+      "unmask": "Unmask service",
+      "resetFailed": "Clear failed state",
+      "revert": "Revert to the packaged unit"
+    }
   }
 }

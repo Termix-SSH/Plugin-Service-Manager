@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Még nincs itt semmi."
   },
+  "manager": {
+    "services": "Szolgáltatások",
+    "timers": "Időzítők",
+    "logs": "Naplók",
+    "disabled": "Kapcsold be a Szolgáltatásokat a gazdagép beállításaiban, hogy használd ezt a kártyát.",
+    "needsSystemd": "Az időzítők működéséhez systemd szükséges ezen a gazdagépen."
+  },
   "companion": {
     "openTab": "Nyisd meg a Szolgáltatások fület",
     "toggle": "Szolgáltatások panel"
@@ -322,5 +329,33 @@
     "title": "Figyelt szolgáltatások",
     "empty": "Nincsenek figyelt szolgáltatások. Használd a szolgáltatás melletti harang ikont a figyeléshez.",
     "unknown": "ismeretlen"
+  },
+  "operations": {
+    "list": {
+      "title": "Szolgáltatások listázása"
+    },
+    "failed": {
+      "title": "Sikertelen szolgáltatások"
+    },
+    "service": {
+      "title": "Szolgáltatások",
+      "description": "Leírás",
+      "state": "Állapot",
+      "boot": "Indítás bootoláskor"
+    },
+    "action": {
+      "start": "Szolgáltatás indítása",
+      "stop": "Szolgáltatás leállítása",
+      "restart": "Szolgáltatás újraindítása",
+      "reload": "Szolgáltatás újratöltése",
+      "enable": "Indítás bootoláskor",
+      "disable": "Ne induljon bootoláskor",
+      "enableNow": "Indítás most és bootoláskor",
+      "disableNow": "Leállítás most és bootoláskor",
+      "mask": "Szolgáltatás elrejtése",
+      "unmask": "Szolgáltatás megjelenítése",
+      "resetFailed": "Sikertelen állapot törlése",
+      "revert": "Visszaállítás a csomagolt egységre"
+    }
   }
 }

@@ -14,6 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
   useConfirm,
+  LoadingState,
+  ToolbarBand,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { ServicesStatus, UnitAction, UnitSummary } from "../shared/types";
 import {
@@ -159,13 +161,24 @@ export function UnitsView({
   );
 
   return (
-    <div className="flex min-h-0 flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-col">
+      <ToolbarBand>
         <PanelSearch
           value={search}
           onChange={setSearch}
           placeholder={t("units.search")}
           className="min-w-48 flex-1"
+        />
+        <Segmented<Filter>
+          value={filter}
+          onChange={setFilter}
+          options={(
+            ["all", "running", "failed", "stopped", "enabled"] as Filter[]
+          ).map((value) => ({
+            value,
+            label: t(`units.filters.${value}`),
+            count: units ? counts[value] : undefined,
+          }))}
         />
         {systemd && (
           <Select value={type} onValueChange={(v) => setType(v as UnitType)}>
@@ -185,24 +198,13 @@ export function UnitsView({
             </SelectContent>
           </Select>
         )}
-      </div>
-      <Segmented<Filter>
-        value={filter}
-        onChange={setFilter}
-        options={(
-          ["all", "running", "failed", "stopped", "enabled"] as Filter[]
-        ).map((value) => ({
-          value,
-          label: t(`units.filters.${value}`),
-          count: units ? counts[value] : undefined,
-        }))}
-      />
+      </ToolbarBand>
       {failed ? (
-        <p className="p-2 text-sm text-destructive">{failed}</p>
+        <p className="px-3 py-2 text-xs text-destructive">{failed}</p>
       ) : !units ? (
-        <p className="p-2 text-xs text-muted-foreground">{t("tab.loading")}</p>
+        <LoadingState label={t("tab.loading")} />
       ) : visible.length === 0 ? (
-        <p className="px-1 py-6 text-center text-xs text-muted-foreground/60">
+        <p className="px-3 py-6 text-center text-xs text-muted-foreground/60">
           {t("units.empty")}
         </p>
       ) : (

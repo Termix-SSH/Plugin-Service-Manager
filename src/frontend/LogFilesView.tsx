@@ -19,6 +19,8 @@ import {
   PanelList,
   PanelSearch,
   Segmented,
+  LoadingState,
+  ToolbarBand,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { LogFileView } from "../shared/types";
 import {
@@ -97,8 +99,8 @@ function FileViewer({
     : (text ?? []);
 
   return (
-    <div className="flex min-h-0 flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <ToolbarBand>
         <Button
           variant="ghost"
           size="icon"
@@ -112,9 +114,9 @@ function FileViewer({
         <span className="text-xs text-muted-foreground">
           {bytes(file.size)} | {dateTime(file.modified)}
         </span>
-      </div>
+      </ToolbarBand>
       <form
-        className="flex flex-wrap items-center gap-2"
+        className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2"
         onSubmit={(e) => {
           e.preventDefault();
           setGrep(grepText);
@@ -141,7 +143,6 @@ function FileViewer({
         {!file.compressed && (
           <Button
             type="button"
-            size="sm"
             variant={follow ? "default" : "outline"}
             onClick={() => setFollow((v) => !v)}
           >
@@ -152,7 +153,6 @@ function FileViewer({
         {!follow && (
           <Button
             type="button"
-            size="sm"
             variant="outline"
             disabled={loading}
             onClick={() => void load()}
@@ -161,25 +161,20 @@ function FileViewer({
             {t("tab.refresh")}
           </Button>
         )}
-        <Button
-          type="button"
-          size="sm"
-          variant="ghost"
-          onClick={() => void download()}
-        >
+        <Button type="button" variant="ghost" onClick={() => void download()}>
           <Download className="size-4" />
           {t("files.download")}
         </Button>
       </form>
       {(failed || (follow && live.error)) && (
-        <p className="text-sm text-destructive">
+        <p className="shrink-0 border-b border-border px-3 py-2 text-xs text-destructive">
           {follow ? live.error : failed}
         </p>
       )}
       <LogLines
         lines={shown}
         empty={text === null && !follow ? t("tab.loading") : t("files.noLines")}
-        className="h-[calc(100vh-240px)] min-h-64"
+        className="min-h-0 flex-1"
       />
     </div>
   );
@@ -227,11 +222,10 @@ export function LogFilesView({
       />
     );
   }
-  if (failed) return <p className="p-2 text-sm text-destructive">{failed}</p>;
+  if (failed)
+    return <p className="px-3 py-2 text-xs text-destructive">{failed}</p>;
   if (!files) {
-    return (
-      <p className="p-2 text-xs text-muted-foreground">{t("tab.loading")}</p>
-    );
+    return <LoadingState label={t("tab.loading")} />;
   }
 
   // Rotated copies like syslog.1 or syslog.2.gz are hidden unless asked for.
@@ -244,8 +238,8 @@ export function LogFilesView({
   );
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <ToolbarBand>
         <PanelSearch
           value={search}
           onChange={setSearch}
@@ -253,18 +247,17 @@ export function LogFilesView({
           className="min-w-48 flex-1"
         />
         <Button
-          size="sm"
           variant={showOld ? "default" : "outline"}
           onClick={() => setShowOld((v) => !v)}
         >
           {t("files.showRotated")}
         </Button>
-      </div>
-      <p className="text-xs text-muted-foreground">
+      </ToolbarBand>
+      <p className="border-b border-border px-3 py-2 text-xs text-muted-foreground">
         {t("files.roots", { roots: roots.join(", ") })}
       </p>
       {visible.length === 0 ? (
-        <p className="px-1 py-6 text-center text-xs text-muted-foreground/60">
+        <p className="px-3 py-6 text-center text-xs text-muted-foreground/60">
           {t("files.empty")}
         </p>
       ) : (

@@ -314,6 +314,13 @@
   "logs": {
     "empty": "Ingenting här ännu."
   },
+  "manager": {
+    "services": "Tjänster",
+    "timers": "Tidtagare",
+    "logs": "Loggar",
+    "disabled": "Aktivera Tjänster i inställningarna för denna värd för att använda detta kort.",
+    "needsSystemd": "Tidtagare kräver systemd på denna värd."
+  },
   "companion": {
     "openTab": "Öppna fliken Tjänster",
     "toggle": "Tjänsterpanel"
@@ -322,5 +329,33 @@
     "title": "Övervakade tjänster",
     "empty": "Inga övervakade tjänster. Använd klockan bredvid en tjänst för att övervaka den.",
     "unknown": "okänd"
+  },
+  "operations": {
+    "list": {
+      "title": "Lista tjänster"
+    },
+    "failed": {
+      "title": "Misslyckade tjänster"
+    },
+    "service": {
+      "title": "Tjänster",
+      "description": "Beskrivning",
+      "state": "Status",
+      "boot": "Starta vid uppstart"
+    },
+    "action": {
+      "start": "Starta tjänst",
+      "stop": "Stoppa tjänst",
+      "restart": "Starta om tjänst",
+      "reload": "Ladda om tjänst",
+      "enable": "Starta vid uppstart",
+      "disable": "Starta inte vid uppstart",
+      "enableNow": "Starta nu och vid uppstart",
+      "disableNow": "Stoppa nu och vid uppstart",
+      "mask": "Maskera tjänst",
+      "unmask": "Avmaskera tjänst",
+      "resetFailed": "Rensa misslyckat tillstånd",
+      "revert": "Återgå till den förpackade enheten"
+    }
   }
 }

@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.1.2
+
+### Added
+
+- Services, Timers and Logs cards in Host Metrics, which replace the cards it used to ship
+- Start, stop, restart and the other service actions work from Automations, Fleets, the CLI, the phone app and the command palette through Termix actions
+- Failed services show as a status tile on the dashboard and host page
+
+### Changed
+
+- Pages use the Termix tile look, with lines between sections instead of separate boxes
+- Toolbars, loading screens, back buttons and Save bars match the rest of Termix
+
+### Fixed
+
+- Notes at the top of the tab no longer squeeze their text to one word per line
+- The services list scrolls with the whole tab, so a note above it no longer shrinks the list on short windows
+- The back buttons in the new service form, unit details and unit editor are full size like everywhere else
+
 ## 1.1.1
 
 ### Changed

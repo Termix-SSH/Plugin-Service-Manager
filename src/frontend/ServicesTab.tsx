@@ -1,12 +1,16 @@
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { RefreshCw, ServerCog } from "lucide-react";
 import { useTranslation, type TabProps } from "@termix-ssh/plugin-sdk/frontend";
 import {
   AddButton,
   Alert,
+  AlertDescription,
   Button,
   PanelShell,
-  Segmented,
+  EmptyState,
+  PanelFrame,
+  TabStrip,
+  LoadingState,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { ServicesStatus } from "../shared/types";
 import { errorCode, errorMessage, getStatus } from "./api";
@@ -26,16 +30,6 @@ type Screen =
   | { kind: "new" };
 
 // A fixed height box, so the panel body inside it can scroll.
-function Frame({ children }: { children: ReactNode }) {
-  return (
-    <div className="h-full w-full overflow-hidden">
-      <div className="flex h-full w-full min-h-0 flex-1 flex-col overflow-hidden">
-        {children}
-      </div>
-    </div>
-  );
-}
-
 /** Services, timers, the journal and log files for one host. */
 export function ServicesTab({ isVisible, host, label }: TabProps) {
   const { t } = useTranslation();
@@ -72,9 +66,7 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
   }, [isVisible, load]);
 
   if (!host) {
-    return (
-      <p className="p-4 text-sm text-muted-foreground">{t("tab.noHost")}</p>
-    );
+    return <EmptyState title={t("tab.noHost")} />;
   }
 
   const title = label || host.name || t("tab.title");
@@ -82,17 +74,15 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
 
   if (!status) {
     return (
-      <Frame>
-        <PanelShell icon={icon} title={title} className="gap-2 p-2.5">
+      <PanelFrame>
+        <PanelShell icon={icon} title={title}>
           {error ? (
-            <p className="p-2 text-sm text-destructive">{error}</p>
+            <p className="px-3 py-2 text-xs text-destructive">{error}</p>
           ) : (
-            <p className="p-2 text-xs text-muted-foreground">
-              {t("tab.loading")}
-            </p>
+            <LoadingState label={t("tab.loading")} />
           )}
         </PanelShell>
-      </Frame>
+      </PanelFrame>
     );
   }
 
@@ -104,7 +94,7 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
 
   if (screen.kind === "unit") {
     return (
-      <Frame>
+      <PanelFrame>
         <UnitDetail
           key={screen.unit}
           hostId={hostId}
@@ -115,12 +105,12 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
           onBack={back}
           onEdit={() => setScreen({ kind: "edit", unit: screen.unit })}
         />
-      </Frame>
+      </PanelFrame>
     );
   }
   if (screen.kind === "edit") {
     return (
-      <Frame>
+      <PanelFrame>
         <UnitEditor
           key={screen.unit}
           hostId={hostId}
@@ -129,18 +119,18 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
           onClose={() => setScreen({ kind: "unit", unit: screen.unit })}
           onDeleted={back}
         />
-      </Frame>
+      </PanelFrame>
     );
   }
   if (screen.kind === "new") {
     return (
-      <Frame>
+      <PanelFrame>
         <NewServiceForm
           hostId={hostId}
           onClose={back}
           onCreated={(unit) => setScreen({ kind: "unit", unit })}
         />
-      </Frame>
+      </PanelFrame>
     );
   }
 
@@ -171,7 +161,7 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
     .join(" | ");
 
   return (
-    <Frame>
+    <PanelFrame>
       <PanelShell
         icon={icon}
         title={title}
@@ -201,18 +191,27 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
             )}
           </>
         }
-        toolbar={
-          <Segmented<View> value={current} onChange={setView} options={views} />
+        tabs={
+          <TabStrip
+            tabs={views.map((o) => ({ id: o.value, label: o.label }))}
+            activeTab={current}
+            onTabChange={(id) => setView(id as View)}
+          />
         }
-        scroll
-        className="gap-2 p-2.5"
+        scroll={current !== "journal" && current !== "files"}
       >
-        <div className="flex min-h-0 flex-col gap-2">
+        <div
+          className={`flex flex-col ${current === "journal" || current === "files" ? "min-h-0 flex-1" : "shrink-0"}`}
+        >
           {status.canEdit && !status.root && (
-            <Alert className="rounded-none text-xs">{t("tab.sudo")}</Alert>
+            <Alert className="border-x-0 border-t-0">
+              <AlertDescription className="text-xs">
+                {t("tab.sudo")}
+              </AlertDescription>
+            </Alert>
           )}
           {status.init === "none" && current === "units" ? (
-            <p className="p-2 text-sm text-muted-foreground">
+            <p className="p-3 text-xs text-muted-foreground">
               {t("tab.noInitHint")}
             </p>
           ) : current === "units" ? (
@@ -250,6 +249,6 @@ export function ServicesTab({ isVisible, host, label }: TabProps) {
           )}
         </div>
       </PanelShell>
-    </Frame>
+    </PanelFrame>
   );
 }

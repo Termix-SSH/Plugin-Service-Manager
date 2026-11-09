@@ -25,6 +25,10 @@ It talks to your hosts over SSH, the same way the terminal does. Nothing is inst
 
 Add the Watched services card in the dashboard's edit mode. It lists every service you watch with the bell, on every host, down ones first. Click one to open that host's Services tab.
 
+## In Host Metrics
+
+With [Host Metrics](/plugins/host-metrics) on, this plugin fills its Services, Timers and Log Viewer cards. Turn on Services for the host first.
+
 ## Host settings
 
 - Use sudo: Runs changes and protected reads with passwordless sudo when the login is not root. On by default.
