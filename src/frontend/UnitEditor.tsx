@@ -163,7 +163,6 @@ export function UnitEditor({
             extra={
               <Button
                 variant="outline"
-                size="sm"
                 disabled={checking}
                 onClick={() => void verify()}
               >

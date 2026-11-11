@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3
+
+### Fixed
+
+- Unit editor Verify button now matches the Save button size
+
 ## 1.1.2
 
 ### Added
