@@ -1,0 +1,213 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Termix-SSH/Termix/main/scripts/authz/authz.schema.json",
+  "seed": [],
+  "routes": {
+    "GET /plugin-api/service-manager/:hostId/journal": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/journal/boots": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/journal/usage": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "POST /plugin-api/service-manager/:hostId/journal/vacuum": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/logs": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/logs/download": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/logs/file": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/status": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/timers": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/units": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "POST /plugin-api/service-manager/:hostId/units": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "GET /plugin-api/service-manager/:hostId/units/:unit": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      },
+      "allowed": "any",
+      "note": "Names a unit on the host, which the test host does not have; host access is still checked"
+    },
+    "POST /plugin-api/service-manager/:hostId/units/:unit/actions/:action": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      },
+      "allowed": "any",
+      "note": "Names a unit and action on the host, which the test host does not have; host access is still checked"
+    },
+    "DELETE /plugin-api/service-manager/:hostId/units/:unit/file": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      },
+      "destructive": true,
+      "allowed": "any",
+      "note": "Names a unit on the host, which the test host does not have; host access is still checked"
+    },
+    "GET /plugin-api/service-manager/:hostId/units/:unit/file": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      },
+      "allowed": "any",
+      "note": "Names a unit on the host, which the test host does not have; host access is still checked"
+    },
+    "PUT /plugin-api/service-manager/:hostId/units/:unit/file": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      },
+      "allowed": "any",
+      "note": "Names a unit on the host, which the test host does not have; host access is still checked"
+    },
+    "POST /plugin-api/service-manager/:hostId/units/:unit/file/verify": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      },
+      "allowed": "any",
+      "note": "Names a unit on the host, which the test host does not have; host access is still checked"
+    },
+    "GET /plugin-api/service-manager/:hostId/watches": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "POST /plugin-api/service-manager/:hostId/watches": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      }
+    },
+    "DELETE /plugin-api/service-manager/:hostId/watches/:unit": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect"
+      },
+      "destructive": true,
+      "allowed": "any",
+      "note": "Names a unit on the host, which the test host does not have; host access is still checked"
+    },
+    "GET /plugin-api/service-manager/watches": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "host",
+        "min": "connect",
+        "key": "hostId"
+      },
+      "filtered": true,
+      "note": "Lists only what the caller may see"
+    },
+    "WS /plugin-ws/service-manager/follow": {
+      "access": "user",
+      "permission": "service-manager.use",
+      "resource": {
+        "kind": "own",
+        "fixture": "host"
+      },
+      "send": [
+        {
+          "type": "connect",
+          "data": {
+            "hostConfig": {
+              "id": "{{host}}"
+            }
+          }
+        }
+      ],
+      "refuseReply": "Host not found|Authentication required",
+      "note": "The host comes in the connect message and is resolved as the caller"
+    }
+  }
+}
