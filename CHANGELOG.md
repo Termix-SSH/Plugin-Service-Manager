@@ -2,6 +2,10 @@
 
 ## 1.1.3
 
+### Changed
+
+- Runs in its own process on Termix 26.11.2 and later, with no access to the server beyond what Termix allows it
+
 ### Fixed
 
 - Unit editor Verify button now matches the Save button size

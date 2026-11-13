@@ -29,8 +29,8 @@
   ],
   "env": [],
   "engine": {
-    "termix": ">=26.11.1-0",
-    "api": "^1.15"
+    "termix": ">=26.11.2-0",
+    "api": "^2.0.0"
   },
   "capabilities": [
     "hosts:read",
@@ -43,6 +43,14 @@
     "ui:surface",
     "operations:provide"
   ],
+  "sandbox": {
+    "schedules": [
+      {
+        "id": "watches",
+        "every": 30000
+      }
+    ]
+  },
   "contributes": {
     "tabs": [
       {
