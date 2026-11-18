@@ -29,7 +29,7 @@
     "better-sqlite3": "^13.1.1",
     "husky": "^9.1.7",
     "i18next": "^26.7.2",
-    "jsdom": "^31.0.0",
+    "jsdom": "^31.0.1",
     "lint-staged": "^17.2.0",
     "prettier": "3.10.1",
     "react-i18next": "^17.1.13",
@@ -54,7 +54,7 @@
     "node": ">=22.12.0"
   },
   "dependencies": {
-    "lucide-react": "^1.72.0"
+    "lucide-react": "^1.73.0"
   },
   "overrides": {
     "glob@12": "^14.0.4",
